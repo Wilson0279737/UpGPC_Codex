@@ -31,6 +31,8 @@ type ServicesSnapshotProps = {
 };
 
 const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
+  const CardHeading = showHeader ? 'h3' : 'h2';
+
   return (
     <section id="services" className="relative py-14 sm:py-16">
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 to-transparent"></div>
@@ -55,7 +57,7 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
                   <div className={iconBadgeClass}>
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">{service.title}</h3>
+                  <CardHeading className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">{service.title}</CardHeading>
                   <p className="mt-3 text-sm leading-relaxed text-purple-100 sm:text-base">{service.description}</p>
                   <ul className="mt-4 flex-1 space-y-3 sm:mt-5">
                     {service.points.map((point) => (
@@ -89,7 +91,7 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Start the conversation
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href="tel:+18104413020" variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>

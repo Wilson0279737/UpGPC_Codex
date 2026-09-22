@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { ArrowUpCircle, RefreshCcw, Wrench } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -22,11 +23,12 @@ const ServicesPageHero = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="reveal relative overflow-hidden rounded-[1.5rem] border border-purple-300/30 bg-white/10 p-4 shadow-xl sm:rounded-[1.75rem] sm:p-6 lg:p-8">
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[82%] overflow-hidden sm:w-[66%] lg:w-[48%]">
-            <img
+            <ResponsiveImage
               src="/optimized/storefront-interior.jpg"
+              sizes="(min-width: 1152px) 540px, (min-width: 640px) 60vw, 90vw"
               alt=""
               aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-28 sm:opacity-38 lg:opacity-48"
+              className="h-full w-full object-cover object-center opacity-[.28] sm:opacity-[.38] lg:opacity-[.48]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -70,7 +72,7 @@ const ServicesPageHero = () => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Ask About Repairs
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href="tel:+18104413020" variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>

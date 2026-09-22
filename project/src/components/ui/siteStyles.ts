@@ -23,7 +23,7 @@ export const insetPanelClass =
   'interactive-card reveal reveal-delay-1 rounded-[1.35rem] border border-purple-300/30 bg-white/10 p-5 shadow-lg sm:rounded-2xl sm:p-6';
 
 export const buttonBaseClass =
-  'action-link inline-flex min-h-12 items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/60';
+  'action-link inline-flex min-h-12 items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-purple-950';
 
 export const buttonSizeClasses = {
   md: 'px-5 py-3 text-[15px] sm:px-6 sm:py-3.5 sm:text-base',

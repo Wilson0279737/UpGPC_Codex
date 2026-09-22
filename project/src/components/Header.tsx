@@ -1,5 +1,6 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { Menu, Phone, X } from 'lucide-react';
-import { type MouseEvent, useEffect, useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const navItems = [
@@ -14,8 +15,11 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleNavIntent = (to: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
     setIsMobileMenuOpen(false);
 
     if (location.pathname !== to) {
@@ -23,7 +27,7 @@ const Header = () => {
     }
 
     event.preventDefault();
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   };
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Header = () => {
     };
 
     handleScroll();
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -54,21 +58,30 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-
-    if (isMobileMenuOpen && window.innerWidth < 1024) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = previousOverflow;
-    }
-
+    if (!isMobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setIsMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('pointerdown', onPointerDown);
     };
   }, [isMobileMenuOpen]);
 
   return (
     <header
+      ref={headerRef}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsMobileMenuOpen(false);
+      }}
       className={`site-header fixed left-1/2 z-50 w-[calc(100%-0.75rem)] -translate-x-1/2 transition-all duration-300 sm:w-[calc(100%-1rem)] ${
         isScrolled ? 'max-w-5xl' : 'max-w-6xl'
       }`}
@@ -81,8 +94,9 @@ const Header = () => {
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link to="/" onClick={handleNavIntent('/')} className="group flex items-center" aria-label="Go to the top of the home page">
-              <img
+              <ResponsiveImage
                 src="/ChatGPT Image Jun 9, 2025, 12_57_49 PM.png"
+                sizes="(min-width: 640px) 180px, 150px"
                 alt="Upgrade Gaming PCs LLC"
                 className={`w-auto transition-all duration-300 group-hover:-translate-y-0.5 group-hover:scale-[1.02] ${
                   isScrolled ? 'h-7 sm:h-8' : 'h-8 sm:h-10'
@@ -90,7 +104,7 @@ const Header = () => {
               />
             </Link>
 
-            <nav className="hidden space-x-6 lg:flex xl:space-x-8">
+            <nav aria-label="Main navigation" className="hidden space-x-6 lg:flex xl:space-x-8">
               {navItems.map((item) => (
                 <NavLink
                   key={item.to}
@@ -98,7 +112,7 @@ const Header = () => {
                   end={item.to === '/'}
                   onClick={handleNavIntent(item.to)}
                   className={({ isActive }) =>
-                    `relative font-medium transition-colors group ${
+                    `relative inline-flex min-h-11 items-center font-medium transition-colors group ${
                       isActive ? 'text-purple-700' : 'text-gray-700 hover:text-purple-600'
                     }`
                   }
@@ -113,7 +127,7 @@ const Header = () => {
               ))}
             </nav>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 to="/contact"
                 className="action-link hidden items-center space-x-2 rounded-xl bg-purple-600 px-5 py-2.5 font-semibold text-white transition-colors hover:bg-purple-700 md:flex"
@@ -122,9 +136,15 @@ const Header = () => {
                 <span className="hidden sm:inline">Get a Free Quote</span>
               </Link>
 
+              <a href="tel:+18104413020" aria-label="Call the shop at (810) 441-3020" className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-purple-700 px-3 font-semibold text-white md:hidden">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                <span>Call</span>
+              </a>
               <button
+                ref={menuButtonRef}
+                aria-controls="mobile-navigation"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="rounded-xl bg-gray-100 p-2.5 transition-colors hover:bg-gray-200 active:bg-gray-200 lg:hidden"
+                className="min-h-11 min-w-11 rounded-xl bg-gray-100 p-2.5 transition-colors hover:bg-gray-200 active:bg-gray-200 lg:hidden"
                 aria-expanded={isMobileMenuOpen}
                 aria-label="Toggle navigation menu"
                 type="button"
@@ -134,9 +154,9 @@ const Header = () => {
             </div>
           </div>
 
-          <div className={`nav-drawer ${isMobileMenuOpen ? 'open mt-4 border-t border-gray-200 pt-4' : 'mt-0 border-t-0 pt-0'} lg:hidden`}>
+          <div id="mobile-navigation" hidden={!isMobileMenuOpen} className={`nav-drawer ${isMobileMenuOpen ? 'open mt-4 border-t border-gray-200 pt-4' : 'mt-0 border-t-0 pt-0'} lg:hidden`}>
             <div className="pb-1">
-              <nav className="flex flex-col space-y-2.5">
+              <nav aria-label="Mobile navigation" className="flex flex-col space-y-2.5">
                 {navItems.map((item) => (
                   <NavLink
                     key={item.to}

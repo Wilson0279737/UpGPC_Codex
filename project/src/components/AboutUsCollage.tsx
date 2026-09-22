@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 const collageImages = [
   {
     src: '/optimized/about-collage-01.jpg',
@@ -20,7 +21,7 @@ const collageImages = [
   {
     src: '/optimized/about-collage-04.jpg',
     alt: 'Portrait photo of the people behind the business in front of a waterfall',
-    className: 'md:row-span-2',
+    className: 'md:col-start-4 md:row-start-1 md:row-span-2',
     imageClassName: 'h-64 sm:h-80 md:h-full md:object-center',
   },
 ];
@@ -48,8 +49,9 @@ const AboutUsCollage = () => {
                 key={image.src}
                 className={`overflow-hidden rounded-[1.2rem] border border-purple-300/25 bg-purple-950/25 shadow-[0_18px_34px_rgba(12,8,39,0.2)] ${image.className}`.trim()}
               >
-                <img
+                <ResponsiveImage
                   src={image.src}
+                  sizes="(min-width: 1152px) 520px, (min-width: 768px) 50vw, 100vw"
                   alt={image.alt}
                   className={`${image.imageClassName} w-full object-cover object-center`}
                   loading="lazy"

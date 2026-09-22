@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { Cpu, Monitor, Shield } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -24,11 +25,12 @@ const ProductsPageHero = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="reveal relative overflow-hidden rounded-[1.5rem] border border-purple-300/30 bg-white/10 p-4 shadow-xl sm:rounded-[1.75rem] sm:p-6 lg:p-8">
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[82%] overflow-hidden sm:w-[66%] lg:w-[48%]">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-collage.jpg"
+              sizes="(min-width: 1152px) 540px, (min-width: 640px) 60vw, 90vw"
               alt=""
               aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-22 sm:opacity-30 lg:opacity-42"
+              className="h-full w-full object-cover object-center opacity-[.22] sm:opacity-[.30] lg:opacity-[.42]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -41,8 +43,9 @@ const ProductsPageHero = () => {
           </div>
 
           <div className="pointer-events-none absolute right-3 top-20 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-20 md:h-48 md:w-32 lg:h-56 lg:w-36">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-glamor.jpg"
+              sizes="144px"
               alt=""
               aria-hidden="true"
               className="h-full w-full object-cover object-center"
@@ -53,8 +56,9 @@ const ProductsPageHero = () => {
           </div>
 
           <div className="pointer-events-none absolute bottom-4 right-[24%] hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.22)] lg:block lg:h-36 lg:w-28">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-rgb.jpg"
+              sizes="144px"
               alt=""
               aria-hidden="true"
               className="h-full w-full object-cover object-center"
@@ -101,6 +105,9 @@ const ProductsPageHero = () => {
                 See All Available PCs and Peripherals
               </ActionLink>
             </div>
+            <p className="mt-4 text-sm leading-relaxed text-purple-100">
+              Prefer to talk it through? <a href="tel:+18104413020" className="inline-flex min-h-11 items-center font-semibold text-white underline underline-offset-4">Call (810) 441-3020</a> to ask about current stock and pricing.
+            </p>
           </div>
         </div>
       </div>

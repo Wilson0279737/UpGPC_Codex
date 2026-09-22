@@ -8,6 +8,9 @@ type ContactProps = {
 };
 
 const Contact = ({ showHeader = true }: ContactProps) => {
+  const ContactHeading = showHeader ? 'h3' : 'h2';
+  const DetailHeading = showHeader ? 'h4' : 'h3';
+
   return (
     <section id="contact" className="relative py-14 sm:py-20">
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-purple-900/20"></div>
@@ -23,14 +26,14 @@ const Contact = ({ showHeader = true }: ContactProps) => {
 
         <div className="relative z-10 mx-auto max-w-3xl">
           <div className="reveal reveal-delay-1 rounded-[1.75rem] border border-purple-200/20 bg-purple-950/25 p-6 shadow-[0_28px_80px_rgba(20,10,40,0.3)] backdrop-blur-sm sm:p-8">
-            <h3 className="text-xl font-bold text-white sm:text-2xl">Contact Information</h3>
+            <ContactHeading className="text-xl font-bold text-white sm:text-2xl">Contact Information</ContactHeading>
 
             <div className="mb-6 mt-6 space-y-5 sm:mb-8 sm:mt-8 sm:space-y-6">
               <div className="flex items-start gap-4">
-                <Phone className="mt-1 h-6 w-6 text-purple-300" />
-                <div>
-                  <h4 className="font-semibold text-white">Phone</h4>
-                  <a href="tel:8104413020" className="text-purple-200 transition-colors hover:text-white hover:underline">
+                <Phone className="mt-1 h-6 w-6 shrink-0 text-purple-300" />
+                <div className="min-w-0">
+                  <DetailHeading className="font-semibold text-white">Phone</DetailHeading>
+                  <a href="tel:+18104413020" className="inline-flex min-h-11 items-center text-purple-200 transition-colors hover:text-white hover:underline">
                     (810) 441-3020
                   </a>
                   <p className="text-sm text-purple-100">Free estimates over the phone</p>
@@ -38,16 +41,16 @@ const Contact = ({ showHeader = true }: ContactProps) => {
               </div>
 
               <div className="flex items-start gap-4">
-                <Mail className="mt-1 h-6 w-6 text-purple-300" />
-                <div>
-                  <h4 className="font-semibold text-white">Email</h4>
+                <Mail className="mt-1 h-6 w-6 shrink-0 text-purple-300" />
+                <div className="min-w-0">
+                  <DetailHeading className="font-semibold text-white">Email</DetailHeading>
                   <a
                     href="mailto:brandonwilson0279737@gmail.com"
-                    className="break-all text-purple-200 transition-colors hover:text-white hover:underline"
+                    className="inline-flex min-h-11 items-center break-all text-purple-200 transition-colors hover:text-white hover:underline"
                   >
                     brandonwilson0279737@gmail.com
                   </a>
-                  <p className="text-sm text-purple-100">Fast response!</p>
+                  <p className="text-sm text-purple-100">Tell us your PC model, symptoms, or what you want to upgrade.</p>
                 </div>
               </div>
 
@@ -57,21 +60,21 @@ const Contact = ({ showHeader = true }: ContactProps) => {
                 rel="noopener noreferrer"
                 className="group flex items-start gap-4 rounded-xl p-3 transition-colors hover:bg-purple-800/30"
               >
-                <MapPin className="mt-1 h-6 w-6 text-purple-300 group-hover:text-purple-200" />
-                <div>
-                  <h4 className="font-semibold text-white group-hover:text-purple-100">Location and Hours</h4>
+                <MapPin className="mt-1 h-6 w-6 shrink-0 text-purple-300 group-hover:text-purple-200" />
+                <div className="min-w-0">
+                  <DetailHeading className="font-semibold text-white group-hover:text-purple-100">Location and directions</DetailHeading>
                   <p className="text-purple-200 group-hover:text-white group-hover:underline">
                     8048 Miller Rd Ste B
                     <br />
                     Swartz Creek, MI 48473
                   </p>
-                  <p className="mt-1 text-sm text-purple-100">Visit our showroom to test gaming PCs</p>
+                  <p className="mt-1 text-sm text-purple-100">Visit our showroom to test gaming PCs. Call ahead to confirm current hours.</p>
                 </div>
               </a>
             </div>
 
             <div className="rounded-[1.35rem] border border-purple-300/30 bg-purple-800/30 p-5 sm:p-6">
-              <h4 className="font-semibold text-purple-100">Try Before You Buy</h4>
+              <DetailHeading className="font-semibold text-purple-100">Try Before You Buy</DetailHeading>
               <p className="mt-2 text-sm text-purple-100">
                 Visit our Swartz Creek showroom to test gaming PCs hands-on. Experience the performance difference before
                 making your decision.

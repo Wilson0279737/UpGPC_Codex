@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { Mail, Phone } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -10,11 +11,12 @@ const ContactPageHero = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="reveal relative overflow-hidden rounded-[1.5rem] border border-purple-300/30 bg-white/10 p-4 shadow-xl sm:rounded-[1.75rem] sm:p-6 lg:p-8">
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[82%] overflow-hidden sm:w-[66%] lg:w-[48%]">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-storefront-dusk.jpg"
+              sizes="(min-width: 1152px) 540px, (min-width: 640px) 60vw, 90vw"
               alt=""
               aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-24 sm:opacity-34 lg:opacity-46"
+              className="h-full w-full object-cover object-center opacity-[.24] sm:opacity-[.34] lg:opacity-[.46]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -25,8 +27,9 @@ const ContactPageHero = () => {
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(14,9,28,0.95)_0%,rgba(14,9,28,0.83)_44%,rgba(14,9,28,0.48)_100%)]"></div>
 
           <div className="pointer-events-none absolute right-3 top-4 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-5 md:h-48 md:w-32 lg:h-56 lg:w-36">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-storefront-entry.jpg"
+              sizes="144px"
               alt=""
               aria-hidden="true"
               className="h-full w-full object-cover object-center"
@@ -45,16 +48,16 @@ const ContactPageHero = () => {
             </div>
 
             <h1 className="mt-4 text-[2rem] font-bold leading-tight text-white sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-              Reach the shop without hunting for details
+              Contact Upgrade Gaming PCs
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
               Call, email, or stop by the showroom to ask about repairs, trade-ins, available systems, or anything else
               you want to talk through before you make a decision.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <ActionLink href="tel:8104413020" className="w-full sm:w-auto">
-                Call The Shop
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ActionLink href="tel:+18104413020" className="w-full sm:w-auto">
+                Call (810) 441-3020
               </ActionLink>
               <ActionLink
                 href="mailto:brandonwilson0279737@gmail.com"

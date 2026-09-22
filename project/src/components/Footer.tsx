@@ -1,5 +1,7 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { Clock, CreditCard, ExternalLink, Facebook, Mail, MapPin, Phone, Shield } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
+import { Link } from 'react-router-dom';
 
 const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
 const facebookUrl = 'https://www.facebook.com/profile.php?id=61565010745151';
@@ -32,8 +34,11 @@ const Footer = () => {
         <div className="reveal relative z-10 grid gap-8 lg:grid-cols-[1.35fr_0.95fr] lg:items-start">
           <div>
             <div className="inline-flex rounded-[1.35rem] border border-white/15 bg-white/95 p-3 shadow-[0_18px_34px_rgba(6,5,23,0.22)] sm:p-4">
-              <img
+              <ResponsiveImage
                 src="/ChatGPT Image Jun 9, 2025, 12_57_49 PM.png"
+                sizes="(min-width: 640px) 180px, 150px"
+                loading="lazy"
+                decoding="async"
                 alt="Upgrade Gaming PCs"
                 className="h-12 w-auto object-contain sm:h-14"
               />
@@ -54,15 +59,15 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold">Contact and Social</h3>
+            <h2 className="text-lg font-semibold">Contact and Social</h2>
             <div className="mt-4 space-y-3 text-gray-300">
-              <a href="tel:8104413020" className="flex items-center gap-3 transition-colors hover:text-white">
+              <a href="tel:+18104413020" className="flex min-h-11 items-center gap-3 transition-colors hover:text-white">
                 <Phone className="h-4 w-4 text-purple-300" />
                 <span>(810) 441-3020</span>
               </a>
               <a
                 href="mailto:brandonwilson0279737@gmail.com"
-                className="flex items-start gap-3 break-all transition-colors hover:text-white"
+                className="flex min-h-11 items-start gap-3 break-all transition-colors hover:text-white"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-purple-300" />
                 <span>brandonwilson0279737@gmail.com</span>
@@ -71,7 +76,7 @@ const Footer = () => {
                 href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-3 transition-colors hover:text-white"
+                className="flex min-h-11 items-start gap-3 transition-colors hover:text-white"
               >
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-purple-300" />
                 <span>8048 Miller Rd Ste B, Swartz Creek, MI 48473</span>
@@ -80,12 +85,18 @@ const Footer = () => {
                 href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 transition-colors hover:text-white"
+                className="flex min-h-11 items-center gap-3 transition-colors hover:text-white"
               >
                 <Facebook className="h-4 w-4 text-purple-300" />
                 <span>Follow on Facebook</span>
               </a>
             </div>
+            <nav aria-label="Footer navigation" className="mt-5 flex flex-wrap gap-x-5 gap-y-1">
+              <Link className="inline-flex min-h-11 items-center text-purple-100 hover:underline" to="/services">Services</Link>
+              <Link className="inline-flex min-h-11 items-center text-purple-100 hover:underline" to="/products">Gaming PCs</Link>
+              <Link className="inline-flex min-h-11 items-center text-purple-100 hover:underline" to="/about">About us</Link>
+              <Link className="inline-flex min-h-11 items-center text-purple-100 hover:underline" to="/contact">Contact</Link>
+            </nav>
           </div>
         </div>
 
@@ -95,10 +106,10 @@ const Footer = () => {
 
             return (
               <div key={assurance.title}>
-                <h4 className="flex items-center gap-2 font-semibold text-white">
+                <h3 className="flex items-center gap-2 font-semibold text-white">
                   <Icon className="h-5 w-5 text-purple-300" />
                   <span>{assurance.title}</span>
-                </h4>
+                </h3>
                 <p className="mt-2 text-sm text-gray-300">{assurance.description}</p>
               </div>
             );

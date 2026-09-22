@@ -1,1 +1,10 @@
-/* /index.html 200
+# Retain incoming links used in the archived one-page site.
+/pages/repair.html /services 301
+/pages/products.html /products 301
+# Preserve the existing page URLs and serve their prerendered content.
+/services /services/index.html 200
+/products /products/index.html 200
+/about /about/index.html 200
+/contact /contact/index.html 200
+# Real missing pages/assets must not return a successful home-page response.
+/* /404.html 404

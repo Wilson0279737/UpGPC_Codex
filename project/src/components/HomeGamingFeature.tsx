@@ -48,7 +48,7 @@ const HomeGamingFeature = () => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Start the conversation
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href="tel:+18104413020" variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>

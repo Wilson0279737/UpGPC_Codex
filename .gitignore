@@ -1,3 +1,11 @@
 project/node_modules/
 project/dist/
 project/.netlify/
+project/.prerender/
+project/*.tsbuildinfo
+project/test-results/
+project/playwright-report/
+audit/
+.env
+.env.*
+!.env.example

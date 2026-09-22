@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useId, useState } from 'react';
 import ActionLink from './ui/ActionLink';
@@ -13,7 +14,7 @@ const googleMapsUrl =
 const embeddedMapUrl =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2919.986974969934!2d-83.83504982347331!3d42.95747889714901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88246f304b3af7fb%3A0xae6166c538ca04ed!2sUpgrade%20Gaming%20PCs%20%2B%20Computer%20Repair!5e0!3m2!1sen!2sus!4v1751560682135!5m2!1sen!2sus';
 
-const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProps) => {
+const MapSection = ({ collapsible = true, priorityTop = false }: MapSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(!collapsible);
   const mapRegionId = useId();
 
@@ -25,11 +26,12 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           {priorityTop && (
             <>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[78%] overflow-hidden sm:w-[62%] lg:w-[46%]">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-dusk.jpg"
+                  sizes="(min-width: 1152px) 540px, (min-width: 640px) 60vw, 90vw"
                   alt=""
                   aria-hidden="true"
-                  className="h-full w-full object-cover object-center opacity-35 sm:opacity-45"
+                  className="h-full w-full object-cover object-center opacity-35 sm:opacity-[.45]"
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
@@ -38,8 +40,9 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
               </div>
 
               <div className="pointer-events-none absolute right-3 top-4 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-5 md:h-48 md:w-32 lg:h-56 lg:w-36">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-entry.jpg"
+                  sizes="144px"
                   alt=""
                   aria-hidden="true"
                   className="h-full w-full object-cover object-center"
@@ -99,21 +102,21 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           <div
             id={mapRegionId}
             className={`relative z-10 map-expander ${isExpanded ? 'open mt-6' : 'mt-4'}`}
-            aria-hidden={!isExpanded}
+            hidden={!isExpanded}
           >
             <div className="map-expander-inner overflow-hidden rounded-[1.35rem] border border-purple-300/30 bg-purple-950/30 shadow-[0_24px_50px_rgba(12,8,39,0.28)]">
               <div className="relative h-0 w-full pb-[62%] sm:pb-[58%] lg:pb-[46%]">
-                <iframe
+                {isExpanded && <iframe
                   src={embeddedMapUrl}
-                  className="pointer-events-none absolute inset-0 h-full w-full select-none border-0"
+                  className="absolute inset-0 h-full w-full border-0"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Upgrade Gaming PCs Location"
-                />
+                />}
                 <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-black/45 px-4 py-3">
                   <p className="text-xs leading-relaxed text-purple-100">
-                    Page scrolling stays smooth here. Use &quot;Open in Google Maps&quot; for full navigation and map controls.
+                    Use &quot;Open in Google Maps&quot; for directions to the shop.
                   </p>
                 </div>
               </div>

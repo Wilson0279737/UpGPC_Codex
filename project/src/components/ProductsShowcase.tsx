@@ -26,6 +26,8 @@ type ProductsShowcaseProps = {
 };
 
 const ProductsShowcase = ({ showHeader = true }: ProductsShowcaseProps) => {
+  const CardHeading = showHeader ? 'h3' : 'h2';
+
   return (
     <section id="products" className="relative scroll-mt-28 py-14 sm:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -47,7 +49,7 @@ const ProductsShowcase = ({ showHeader = true }: ProductsShowcaseProps) => {
                 <div className={iconBadgeClass}>
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">{product.title}</h3>
+                <CardHeading className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">{product.title}</CardHeading>
                 <p className="mt-3 text-sm leading-relaxed text-purple-100 sm:text-base">{product.description}</p>
               </article>
             );
@@ -60,7 +62,7 @@ const ProductsShowcase = ({ showHeader = true }: ProductsShowcaseProps) => {
               <Zap className="h-4 w-4" />
               <span>Best for first-time buyers and upgrade shoppers</span>
             </div>
-            <h3 className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">Want help choosing the right system?</h3>
+            <CardHeading className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">Want help choosing the right system?</CardHeading>
             <p className="mt-3 text-purple-100">
               Tell the shop what games you play, your budget, and whether you want a ready-built or a custom path.
             </p>
@@ -69,7 +71,7 @@ const ProductsShowcase = ({ showHeader = true }: ProductsShowcaseProps) => {
             <ActionLink to="/contact" className="w-full sm:w-auto">
               Ask for a recommendation
             </ActionLink>
-            <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+            <ActionLink href="tel:+18104413020" variant="secondary" className="w-full sm:w-auto">
               Call the showroom
             </ActionLink>
           </div>

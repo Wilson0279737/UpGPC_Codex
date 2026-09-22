@@ -5,9 +5,9 @@ import MapSection from '../components/MapSection';
 const HomePage = () => {
   return (
     <>
-      <MapSection collapsible priorityTop />
+      <Hero />
       <HomeGamingFeature />
-      <Hero compactTop showAddressCard={false} />
+      <MapSection collapsible />
     </>
   );
 };
