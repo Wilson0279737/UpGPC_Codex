@@ -1,0 +1,35 @@
+{
+  "business": {
+    "phone": "(810) 441-3020",
+    "email": "brandonwilson0279737@gmail.com",
+    "streetAddress": "8048 Miller Rd Ste B",
+    "city": "Swartz Creek",
+    "state": "MI",
+    "postalCode": "48473",
+    "hoursNote": "Visit our showroom to test gaming PCs. Call ahead to confirm current hours.",
+    "googleMapsUrl": "https://www.google.com/maps/place/Upgrade+Gaming+PCs+%2B+Computer+Repair/@42.957475,-83.8324749,17z/data=!3m1!4b1!4m6!3m5!1s0x88246f304b3af7fb:0xae6166c538ca04ed!8m2!3d42.957475!4d-83.8324749!16s%2Fg%2F11lw8tygg_?entry=ttu",
+    "facebookUrl": "https://www.facebook.com/profile.php?id=61565010745151",
+    "marketplaceUrl": "https://www.facebook.com/marketplace/profile/100086538835294/",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2919.986974969934!2d-83.83504982347331!3d42.95747889714901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88246f304b3af7fb%3A0xae6166c538ca04ed!2sUpgrade%20Gaming%20PCs%20%2B%20Computer%20Repair!5e0!3m2!1sen!2sus!4v1751560682135!5m2!1sen!2sus"
+  },
+  "home": {
+    "title": "Play before you pay.",
+    "description": "Test out gaming PCs in-store, ask anything, and get real value from real people right here in Swartz Creek.",
+    "image": "/optimized/home-hero.jpg",
+    "imageAlt": "Gaming PC showroom interior at Upgrade Gaming PCs with gaming computers on display"
+  },
+  "about": {
+    "title": "Built around trust, plain answers, and a real storefront",
+    "description": "Upgrade Gaming PCs is designed for people who want to see what they are buying, ask real questions, and work with someone local instead of guessing through listings online.",
+    "body": "Whether you are shopping for your first gaming setup, replacing a broken system, or planning a smarter upgrade path, the goal stays the same: clear answers, hands-on testing, and local support after the sale."
+  },
+  "contact": {
+    "title": "Reach the shop without hunting for details",
+    "description": "Call, email, or stop by the showroom to ask about repairs, trade-ins, available systems, or anything else you want to talk through before you make a decision."
+  },
+  "inventory": {
+    "title": "Available gaming PCs",
+    "description": "Explore systems listed by the shop. Call to confirm availability or arrange an in-store test.",
+    "emptyMessage": "Our inventory changes regularly. Contact the shop or browse our Marketplace profile for current systems."
+  }
+}

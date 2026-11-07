@@ -2,7 +2,7 @@
 
 Website: [upgradegamingpcs.com](https://upgradegamingpcs.com)
 
-The current app is in `project/`. It uses React 18, TypeScript, Vite 5, Tailwind, and React Router. Routes are `/`, `/services`, `/products`, `/about`, and `/contact`. The nested `project/Site1.0/project/` folder contains an older copy.
+The current app is in `project/`. It uses React 18, TypeScript, Vite 5, Tailwind, and React Router. Routes are `/`, `/services`, `/products`, `/about`, and `/contact`. The nested `project/Site1.0/project/` folder contains an older copy. The owner editor is at `/admin/`, with a browser-only practice editor at `/admin/demo.html`.
 
 ## Run locally
 
@@ -21,7 +21,7 @@ npm run build
 npm run preview
 ```
 
-Vite writes the build to `project/dist/`. `npm run preview` serves that built output. The current `build` script does not run a separate TypeScript check or test suite.
+Vite writes the build to `project/dist/`. `npm run preview` serves that built output. The build validates CMS content, generates the public catalog and practice data, checks TypeScript, and then builds Vite. `npm run test:content` checks catalog visibility and content validation rules.
 
 ## Review changes before release
 
@@ -35,13 +35,15 @@ Netlify project `website3-2` uses `main` for production. The root `netlify.toml`
 
 The GitHub workflow installs locked dependencies and builds the app on pull requests and pushes to `main`. It does not publish the site. Netlify handles previews and production deployment through the existing repository connection. An automatic production deploy can follow a merge to `main`, so treat that merge as a release action.
 
-## Adding a CMS or login later
+## Website content management
 
-The current app has no CMS, authentication, database, or server-side API. Choose those services when the feature requirements are known.
+The CMS uses Sveltia with the existing GitHub repository. It is for the owner and trusted repository writers, without a new customer login system or database. Website copy and contact details are in `project/src/content/site.json`; services are in `services.json`; each PC is a separate JSON file in `products/`. Uploaded photos are in `project/public/uploads/`.
 
-Use separate staging content, test users, and preview credentials for development. Set distinct Netlify variable values for production and previews; variables otherwise default to all contexts. Configure authentication callback URLs and allowed API origins for the preview URL. Keep private credentials server-side; values prefixed with `VITE_` are bundled into browser JavaScript.
+The editor commits only to `codex/cms-preview`. Keep its pull request open so saved edits rebuild the Netlify Deploy Preview. Production still requires an explicit release instruction. The CMS may label saving as publishing; here that only updates the configured preview branch. Do not retarget the CMS to `main` without a separate release decision.
 
-For Netlify Functions, redirects, and context-specific variables, use Netlify Dev locally and then validate the hosted preview. Test complete login and editing flows against real staging services. A persistent staging branch can be added if a stable review URL or CMS draft preview becomes useful.
+First sign-in uses a GitHub fine-grained access token restricted to this repository with Contents read/write. OAuth is not advertised because no OAuth app has been configured. No credentials belong in the repository, CMS fields, or `VITE_*` variables. Read the [owner editing guide](project/public/admin/help.html) and [CMS implementation and verification notes](CMS.md). Sveltia stores the token in browser local storage; sign out on shared computers and revoke expired or exposed tokens in GitHub.
+
+The practice editor uses Sveltia's virtual test repository, with copies of public page content and a clearly labeled draft sample. It cannot write to GitHub. Draft and sold real PCs are omitted from the generated public catalog and practice data. GitHub remains a public repository, so drafts must still contain only publishable information. The file-backed content is loaded at build time; after a local edit, rebuild or restart the dev server.
 
 ## Original live baseline and backup
 

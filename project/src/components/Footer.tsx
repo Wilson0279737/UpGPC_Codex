@@ -1,10 +1,10 @@
+import { siteConfig } from '../config/site';
 import { Clock, CreditCard, ExternalLink, Facebook, Mail, MapPin, Phone, Shield } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
-const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
-const facebookUrl = 'https://www.facebook.com/profile.php?id=61565010745151';
-const googleMapsUrl =
-  'https://www.google.com/maps/place/Upgrade+Gaming+PCs+%2B+Computer+Repair/@42.957475,-83.8324749,17z/data=!3m1!4b1!4m6!3m5!1s0x88246f304b3af7fb:0xae6166c538ca04ed!8m2!3d42.957475!4d-83.8324749!16s%2Fg%2F11lw8tygg_?entry=ttu';
+const marketplaceUrl = siteConfig.marketplaceUrl;
+const facebookUrl = siteConfig.facebookUrl;
+const googleMapsUrl = siteConfig.googleMapsUrl;
 
 const assurances = [
   {
@@ -56,16 +56,16 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold">Contact and Social</h3>
             <div className="mt-4 space-y-3 text-gray-300">
-              <a href="tel:8104413020" className="flex items-center gap-3 transition-colors hover:text-white">
+              <a href={siteConfig.phoneHref} className="flex items-center gap-3 transition-colors hover:text-white">
                 <Phone className="h-4 w-4 text-purple-300" />
-                <span>(810) 441-3020</span>
+                <span>{siteConfig.phone}</span>
               </a>
               <a
-                href="mailto:brandonwilson0279737@gmail.com"
+                href={siteConfig.emailHref}
                 className="flex items-start gap-3 break-all transition-colors hover:text-white"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-purple-300" />
-                <span>brandonwilson0279737@gmail.com</span>
+                <span>{siteConfig.email}</span>
               </a>
               <a
                 href={googleMapsUrl}
@@ -74,7 +74,7 @@ const Footer = () => {
                 className="flex items-start gap-3 transition-colors hover:text-white"
               >
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-purple-300" />
-                <span>8048 Miller Rd Ste B, Swartz Creek, MI 48473</span>
+                <span>{siteConfig.address}</span>
               </a>
               <a
                 href={facebookUrl}

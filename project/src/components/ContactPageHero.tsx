@@ -1,8 +1,8 @@
+import { siteConfig, siteContent } from '../config/site';
 import { Mail, Phone } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
-const googleMapsUrl =
-  'https://www.google.com/maps/place/Upgrade+Gaming+PCs+%2B+Computer+Repair/@42.957475,-83.8324749,17z/data=!3m1!4b1!4m6!3m5!1s0x88246f304b3af7fb:0xae6166c538ca04ed!8m2!3d42.957475!4d-83.8324749!16s%2Fg%2F11lw8tygg_?entry=ttu';
+const googleMapsUrl = siteConfig.googleMapsUrl;
 
 const ContactPageHero = () => {
   return (
@@ -45,19 +45,18 @@ const ContactPageHero = () => {
             </div>
 
             <h1 className="mt-4 text-[2rem] font-bold leading-tight text-white sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-              Reach the shop without hunting for details
+              {siteContent.contact.title}
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
-              Call, email, or stop by the showroom to ask about repairs, trade-ins, available systems, or anything else
-              you want to talk through before you make a decision.
+              {siteContent.contact.description}
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <ActionLink href="tel:8104413020" className="w-full sm:w-auto">
+              <ActionLink href={siteConfig.phoneHref} className="w-full sm:w-auto">
                 Call The Shop
               </ActionLink>
               <ActionLink
-                href="mailto:brandonwilson0279737@gmail.com"
+                href={siteConfig.emailHref}
                 variant="secondary"
                 className="w-full sm:w-auto"
               >

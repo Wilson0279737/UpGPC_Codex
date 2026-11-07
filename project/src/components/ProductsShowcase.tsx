@@ -1,3 +1,4 @@
+import { siteConfig } from '../config/site';
 import { Cpu, Monitor, Shield, Zap } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import SectionHeader from './ui/SectionHeader';
@@ -69,7 +70,7 @@ const ProductsShowcase = ({ showHeader = true }: ProductsShowcaseProps) => {
             <ActionLink to="/contact" className="w-full sm:w-auto">
               Ask for a recommendation
             </ActionLink>
-            <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+            <ActionLink href={siteConfig.phoneHref} variant="secondary" className="w-full sm:w-auto">
               Call the showroom
             </ActionLink>
           </div>

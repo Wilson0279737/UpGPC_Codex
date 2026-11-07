@@ -1,3 +1,7 @@
 project/node_modules/
 project/dist/
 project/.netlify/
+
+project/public/admin/seed/
+project/*.tsbuildinfo
+project/src/content/catalog.generated.json

@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/prepare-content.mjs && vite",
+    "build": "node scripts/prepare-content.mjs && tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "test:content": "node --test tests/content.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",

@@ -1,3 +1,4 @@
+import { siteConfig } from '../config/site';
 import { Cpu, Monitor, Shield } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -16,7 +17,7 @@ const highlights = [
   },
 ];
 
-const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
+const marketplaceUrl = siteConfig.marketplaceUrl;
 
 const ProductsPageHero = () => {
   return (
