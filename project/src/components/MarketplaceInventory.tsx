@@ -1,10 +1,11 @@
+import { siteConfig } from '../config/site';
 import { ExternalLink, Gamepad2, Monitor, MousePointer2 } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import PanelFrame from './ui/PanelFrame';
 import SectionHeader from './ui/SectionHeader';
 import { cardClass, iconBadgeClass } from './ui/siteStyles';
 
-const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
+const marketplaceUrl = siteConfig.marketplaceUrl;
 
 const categories = [
   {

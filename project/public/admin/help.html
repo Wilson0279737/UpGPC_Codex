@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon-logo-full-32.png"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Editing guide | Upgrade Gaming PCs</title><link rel="stylesheet" href="/admin/start.css"></head>
+<body><main><p class="eyebrow">Owner guide</p><h1>Update your website.</h1>
+<p>Use <strong>Website content</strong> for the home page, about section, contact information, catalog introduction, and services. Use <strong>Gaming PC inventory</strong> to add and manage systems.</p>
+<h2>First sign-in</h2>
+<ol><li>Sign into the GitHub account that owns or can write to <strong>Wilson0279737/UpGPC_Codex</strong>.</li><li>In GitHub, create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">fine-grained personal access token</a>. Choose only this repository, a short expiry, and <strong>Contents: Read and write</strong>. No other write permission is needed for this preview editor.</li><li>Open the editor, choose <strong>Sign In Using Access Token</strong>, and paste it there. Keep the token private; do not put it in a page, PC description, screenshot, or chat.</li></ol>
+<p class="note">The CMS keeps the token in this browser’s local storage to remember the session. Use a trusted computer. Sign out from the CMS account menu when finished; revoke the token in GitHub if you lose access to the computer. To recover access after expiry, create a replacement token and sign in again. GitHub handles your account password and account recovery.</p>
+<h2>Add a gaming PC</h2>
+<ol><li>Choose <strong>Gaming PC inventory → Create</strong>. Enter the real PC name and description, its specifications, and an optional price and photo.</li><li>New PCs start as <strong>Draft</strong>, hidden from the catalog. Choose <strong>Available</strong> when ready. <strong>Reserved</strong> stays visible with a reserved label; <strong>Sold</strong> is hidden. A blank price displays “Call for pricing”.</li><li>Save. The saved content goes to the website’s review branch. Open the review preview and check the result. A rebuild can take a minute or two.</li></ol>
+<h2>Review before release</h2>
+<p>Saved edits update <code>codex/cms-preview</code>, not the live website. Use the Netlify preview linked from the <a href="https://github.com/Wilson0279737/UpGPC_Codex/pull/2">CMS pull request</a>. Check the pages on your phone too. Publishing to <a href="https://upgradegamingpcs.com">upgradegamingpcs.com</a> is a separate, owner-approved release.</p>
+<p>The CMS may call its save action “Publish”. In this setup that action only commits to the review branch. It does not release to the live website.</p>
+<h2>Photos and content</h2>
+<p>Use JPG, PNG, or WebP photos, ideally less than 2 MB. Add a short description of what the photo shows. Avoid customer names, private details, credentials, and internal notes: this website’s content repository is public. A failed preview build leaves the last successful preview available; correct the reported content and save again.</p>
+<h2>Try it first</h2>
+<p>The <a href="/admin/demo.html">practice editor</a> needs no account. Its edits stay in this browser and never update the website. Reload to confirm a saved practice edit persists. Practice data and real website data are separate.</p>
+<div class="actions"><a class="secondary" href="/admin/">Open owner tools</a><a href="/">Back to website</a></div>
+</main></body></html>

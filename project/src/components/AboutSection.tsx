@@ -1,3 +1,4 @@
+import { siteContent } from '../config/site';
 import { MapPin, Monitor, Shield, Wrench } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import SectionHeader from './ui/SectionHeader';
@@ -34,8 +35,8 @@ const AboutSection = () => {
           <div>
             <SectionHeader
               eyebrow="About"
-              title="Built around trust, plain answers, and a real storefront"
-              description="Upgrade Gaming PCs is designed for people who want to see what they are buying, ask real questions, and work with someone local instead of guessing through listings online."
+              title={siteContent.about.title}
+              description={siteContent.about.description}
             >
               <ActionLink to="/products" className="w-full sm:w-auto">
                 See what's available
@@ -46,8 +47,7 @@ const AboutSection = () => {
             </SectionHeader>
 
             <p className="mt-5 max-w-2xl text-sm leading-relaxed text-purple-100 sm:mt-6 sm:text-base">
-              Whether you are shopping for your first gaming setup, replacing a broken system, or planning a smarter
-              upgrade path, the goal stays the same: clear answers, hands-on testing, and local support after the sale.
+              {siteContent.about.body}
             </p>
           </div>
 

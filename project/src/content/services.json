@@ -1,0 +1,30 @@
+{
+  "title": "Repair, upgrade, and trade-in help from a real local shop",
+  "description": "Bring in a problem machine, ask about replacement parts, plan a smarter upgrade, or talk through a trade-in with someone face to face in the showroom.",
+  "cards": [
+    {
+      "title": "Computer Repair and Trade-In",
+      "description": "Get help with diagnostics, broken hardware, performance issues, and upgrade planning without the usual runaround.",
+      "points": [
+        "Troubleshooting and repair guidance",
+        "Trade-in conversations for your next setup",
+        "Straight answers on whether to fix or replace"
+      ],
+      "icon": "repair",
+      "ctaLabel": "Ask About Repairs",
+      "ctaPath": "/contact"
+    },
+    {
+      "title": "Refurbished and Custom Gaming PCs",
+      "description": "Shop tested systems, compare options in-store, and get guidance based on the games you actually play.",
+      "points": [
+        "Ready-to-play desktops",
+        "Custom build recommendations",
+        "Performance and budget matching"
+      ],
+      "icon": "computer",
+      "ctaLabel": "Browse Gaming PCs",
+      "ctaPath": "/products"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
+import { siteConfig } from '../config/site';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
-const googleMapsUrl =
-  'https://www.google.com/maps/place/Upgrade+Gaming+PCs+%2B+Computer+Repair/@42.957475,-83.8324749,17z/data=!3m1!4b1!4m6!3m5!1s0x88246f304b3af7fb:0xae6166c538ca04ed!8m2!3d42.957475!4d-83.8324749!16s%2Fg%2F11lw8tygg_?entry=ttu';
+const googleMapsUrl = siteConfig.googleMapsUrl;
 
 type ContactProps = {
   showHeader?: boolean;
@@ -30,8 +30,8 @@ const Contact = ({ showHeader = true }: ContactProps) => {
                 <Phone className="mt-1 h-6 w-6 text-purple-300" />
                 <div>
                   <h4 className="font-semibold text-white">Phone</h4>
-                  <a href="tel:8104413020" className="text-purple-200 transition-colors hover:text-white hover:underline">
-                    (810) 441-3020
+                  <a href={siteConfig.phoneHref} className="text-purple-200 transition-colors hover:text-white hover:underline">
+                    {siteConfig.phone}
                   </a>
                   <p className="text-sm text-purple-100">Free estimates over the phone</p>
                 </div>
@@ -42,10 +42,10 @@ const Contact = ({ showHeader = true }: ContactProps) => {
                 <div>
                   <h4 className="font-semibold text-white">Email</h4>
                   <a
-                    href="mailto:brandonwilson0279737@gmail.com"
+                    href={siteConfig.emailHref}
                     className="break-all text-purple-200 transition-colors hover:text-white hover:underline"
                   >
-                    brandonwilson0279737@gmail.com
+                    {siteConfig.email}
                   </a>
                   <p className="text-sm text-purple-100">Fast response!</p>
                 </div>
@@ -61,11 +61,11 @@ const Contact = ({ showHeader = true }: ContactProps) => {
                 <div>
                   <h4 className="font-semibold text-white group-hover:text-purple-100">Location and Hours</h4>
                   <p className="text-purple-200 group-hover:text-white group-hover:underline">
-                    8048 Miller Rd Ste B
+                    {siteConfig.streetAddress}
                     <br />
-                    Swartz Creek, MI 48473
+                    {siteConfig.city}, {siteConfig.state} {siteConfig.postalCode}
                   </p>
-                  <p className="mt-1 text-sm text-purple-100">Visit our showroom to test gaming PCs</p>
+                  <p className="mt-1 text-sm text-purple-100">{siteConfig.hoursNote}</p>
                 </div>
               </a>
             </div>

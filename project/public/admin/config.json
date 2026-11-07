@@ -1,0 +1,376 @@
+{
+  "load_config_file": false,
+  "backend": {
+    "name": "github",
+    "repo": "Wilson0279737/UpGPC_Codex",
+    "branch": "codex/cms-preview",
+    "auth_methods": [
+      "token"
+    ],
+    "commit_messages": {
+      "create": "Create {{collection}}: {{slug}}",
+      "update": "Update {{collection}}: {{slug}}",
+      "delete": "Delete {{collection}}: {{slug}}",
+      "uploadMedia": "Upload {{path}}",
+      "deleteMedia": "Delete {{path}}"
+    }
+  },
+  "site_url": "https://upgradegamingpcs.com",
+  "display_url": "/",
+  "media_folder": "project/public/uploads",
+  "public_folder": "/uploads",
+  "collections": [
+    {
+      "name": "website",
+      "label": "Website content",
+      "files": [
+        {
+          "name": "site",
+          "label": "Pages and contact details",
+          "file": "project/src/content/site.json",
+          "fields": [
+            {
+              "name": "business",
+              "label": "Contact details",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "phone",
+                  "label": "Phone number",
+                  "widget": "string"
+                },
+                {
+                  "name": "email",
+                  "label": "Email address",
+                  "widget": "string"
+                },
+                {
+                  "name": "streetAddress",
+                  "label": "Street and suite",
+                  "widget": "string"
+                },
+                {
+                  "name": "city",
+                  "label": "City",
+                  "widget": "string"
+                },
+                {
+                  "name": "state",
+                  "label": "State",
+                  "widget": "string"
+                },
+                {
+                  "name": "postalCode",
+                  "label": "ZIP code",
+                  "widget": "string"
+                },
+                {
+                  "name": "hoursNote",
+                  "label": "Hours / visiting note",
+                  "widget": "text"
+                },
+                {
+                  "name": "googleMapsUrl",
+                  "label": "Google Maps directions URL",
+                  "widget": "string"
+                },
+                {
+                  "name": "facebookUrl",
+                  "label": "Facebook page URL",
+                  "widget": "string"
+                },
+                {
+                  "name": "marketplaceUrl",
+                  "label": "Marketplace profile URL",
+                  "widget": "string"
+                },
+                {
+                  "name": "mapEmbedUrl",
+                  "label": "Google Maps embedded map URL",
+                  "widget": "string",
+                  "hint": "In Google Maps, choose Share → Embed a map. Copy only the https:// URL from src=\"...\"."
+                }
+              ]
+            },
+            {
+              "name": "home",
+              "label": "Home page",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Headline",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text"
+                },
+                {
+                  "name": "image",
+                  "label": "Banner photo",
+                  "widget": "image",
+                  "required": true,
+                  "choose_url": false,
+                  "media_folder": "/project/public/uploads",
+                  "public_folder": "/uploads",
+                  "hint": "Upload a JPG, PNG, or WebP. Use a descriptive filename.",
+                  "multiple": false
+                },
+                {
+                  "name": "imageAlt",
+                  "label": "Photo description",
+                  "widget": "string"
+                }
+              ]
+            },
+            {
+              "name": "about",
+              "label": "About section",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text"
+                },
+                {
+                  "name": "body",
+                  "label": "Story",
+                  "widget": "text"
+                }
+              ]
+            },
+            {
+              "name": "contact",
+              "label": "Contact page",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text"
+                }
+              ]
+            },
+            {
+              "name": "inventory",
+              "label": "PC catalog introduction",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text"
+                },
+                {
+                  "name": "emptyMessage",
+                  "label": "Message when no PCs are listed",
+                  "widget": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "services",
+          "label": "Repair and PC services",
+          "file": "project/src/content/services.json",
+          "fields": [
+            {
+              "name": "title",
+              "label": "Heading",
+              "widget": "string"
+            },
+            {
+              "name": "description",
+              "label": "Introduction",
+              "widget": "text"
+            },
+            {
+              "name": "cards",
+              "label": "Service cards",
+              "widget": "list",
+              "min": 1,
+              "max": 8,
+              "summary": "{{fields.title}}",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Service name",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Description",
+                  "widget": "text"
+                },
+                {
+                  "name": "points",
+                  "label": "Highlights",
+                  "widget": "list",
+                  "min": 1,
+                  "max": 8,
+                  "field": {
+                    "name": "point",
+                    "label": "Highlight",
+                    "widget": "string"
+                  }
+                },
+                {
+                  "name": "icon",
+                  "label": "Icon",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "Repair tools",
+                      "value": "repair"
+                    },
+                    {
+                      "label": "Computer",
+                      "value": "computer"
+                    }
+                  ]
+                },
+                {
+                  "name": "ctaLabel",
+                  "label": "Button label",
+                  "widget": "string"
+                },
+                {
+                  "name": "ctaPath",
+                  "label": "Button destination",
+                  "widget": "select",
+                  "options": [
+                    "/contact",
+                    "/products",
+                    "/services",
+                    "/about"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "label": "Gaming PC inventory",
+      "label_singular": "Gaming PC",
+      "folder": "project/src/content/products",
+      "format": "json",
+      "extension": "json",
+      "create": true,
+      "slug": "{{slug}}",
+      "summary": "{{title}} — {{status}}",
+      "description": "Save to the preview first. Draft and sold systems are hidden from the website. Do not add private customer information.",
+      "fields": [
+        {
+          "name": "title",
+          "label": "PC name",
+          "widget": "string"
+        },
+        {
+          "name": "status",
+          "label": "Availability",
+          "widget": "select",
+          "default": "draft",
+          "options": [
+            {
+              "label": "Draft — hidden",
+              "value": "draft"
+            },
+            {
+              "label": "Available",
+              "value": "available"
+            },
+            {
+              "label": "Reserved",
+              "value": "reserved"
+            },
+            {
+              "label": "Sold — hidden",
+              "value": "sold"
+            }
+          ]
+        },
+        {
+          "name": "price",
+          "label": "Price in USD",
+          "widget": "number",
+          "value_type": "float",
+          "min": 0.01,
+          "max": 100000,
+          "required": false,
+          "hint": "Leave blank to display “Call for pricing”."
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "widget": "text"
+        },
+        {
+          "name": "image",
+          "label": "PC photo",
+          "widget": "image",
+          "required": false,
+          "choose_url": false,
+          "media_folder": "/project/public/uploads",
+          "public_folder": "/uploads",
+          "hint": "Upload a JPG, PNG, or WebP. Use a descriptive filename.",
+          "multiple": false
+        },
+        {
+          "name": "imageAlt",
+          "label": "Photo description",
+          "widget": "string",
+          "required": false
+        },
+        {
+          "name": "cpu",
+          "label": "Processor",
+          "widget": "string",
+          "required": false
+        },
+        {
+          "name": "gpu",
+          "label": "Graphics card",
+          "widget": "string",
+          "required": false
+        },
+        {
+          "name": "ram",
+          "label": "Memory",
+          "widget": "string",
+          "required": false
+        },
+        {
+          "name": "storage",
+          "label": "Storage",
+          "widget": "string",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "logo": {
+    "src": "/apple-touch-logo-full.png"
+  }
+}

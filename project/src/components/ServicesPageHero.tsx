@@ -1,3 +1,5 @@
+import serviceContent from '../content/services.json';
+import { siteConfig } from '../config/site';
 import { ArrowUpCircle, RefreshCcw, Wrench } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -43,11 +45,10 @@ const ServicesPageHero = () => {
             </div>
 
             <h1 className="mt-4 text-[2rem] font-bold leading-tight text-white sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-              Repair, upgrade, and trade-in help from a real local shop
+              {serviceContent.title}
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
-              Bring in a problem machine, ask about replacement parts, plan a smarter upgrade, or talk through a trade-in
-              with someone face to face in the showroom.
+              {serviceContent.description}
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -70,7 +71,7 @@ const ServicesPageHero = () => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Ask About Repairs
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href={siteConfig.phoneHref} variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>

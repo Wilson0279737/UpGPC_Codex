@@ -1,30 +1,11 @@
+import serviceContent from '../content/services.json';
+import { siteConfig } from '../config/site';
 import { Monitor, Wrench } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import SectionHeader from './ui/SectionHeader';
 import { cardClass, iconBadgeClass, insetPanelClass } from './ui/siteStyles';
 
-const services = [
-  {
-    title: 'Computer Repair and Trade-In',
-    description:
-      'Get help with diagnostics, broken hardware, performance issues, and upgrade planning without the usual runaround.',
-    points: [
-      'Troubleshooting and repair guidance',
-      'Trade-in conversations for your next setup',
-      'Straight answers on whether to fix or replace',
-    ],
-    icon: Wrench,
-    cta: { label: 'Ask About Repairs', to: '/contact' },
-  },
-  {
-    title: 'Refurbished and Custom Gaming PCs',
-    description:
-      'Shop tested systems, compare options in-store, and get guidance based on the games you actually play.',
-    points: ['Ready-to-play desktops', 'Custom build recommendations', 'Performance and budget matching'],
-    icon: Monitor,
-    cta: { label: 'Browse Gaming PCs', to: '/products' },
-  },
-];
+const services = serviceContent.cards;
 
 type ServicesSnapshotProps = {
   showHeader?: boolean;
@@ -39,8 +20,8 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
           {showHeader ? (
             <SectionHeader
               eyebrow="Services"
-              title="Repairs, upgrades, and honest help for every stage of your setup"
-              description="Bring in a problem machine, plan your next upgrade, or talk through a trade-in with someone local."
+              title={serviceContent.title}
+              description={serviceContent.description}
               align="center"
               className="mx-auto max-w-3xl"
             />
@@ -48,7 +29,7 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
 
           <div className={`${showHeader ? 'mt-8 md:mt-10' : ''} grid gap-5 md:grid-cols-2 md:gap-8`}>
             {services.map((service) => {
-              const Icon = service.icon;
+              const Icon = service.icon === 'repair' ? Wrench : Monitor;
 
               return (
                 <article key={service.title} className={`${cardClass} flex h-full flex-col`}>
@@ -66,8 +47,8 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
                     ))}
                   </ul>
                   <div className="mt-5 sm:mt-6">
-                    <ActionLink to={service.cta.to} variant="secondary" className="w-full sm:w-auto">
-                      <span>{service.cta.label}</span>
+                    <ActionLink to={service.ctaPath} variant="secondary" className="w-full sm:w-auto">
+                      <span>{service.ctaLabel}</span>
                     </ActionLink>
                   </div>
                 </article>
@@ -89,7 +70,7 @@ const ServicesSnapshot = ({ showHeader = true }: ServicesSnapshotProps) => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Start the conversation
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href={siteConfig.phoneHref} variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>
