@@ -10,7 +10,7 @@ export const siteConfig = {
   emailHref: `mailto:${business.email}`,
   address: `${business.streetAddress}, ${business.city}, ${business.state} ${business.postalCode}`,
   defaultSocialImagePath: '/optimized/hero-storefront-dusk.jpg',
-  logoPath: '/site-pics/logo.png',
+  logoPath: '/apple-touch-logo-full.png',
   name: 'Upgrade Gaming PCs',
   siteUrl: 'https://upgradegamingpcs.com',
 } as const;

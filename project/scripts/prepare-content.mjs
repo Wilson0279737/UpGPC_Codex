@@ -5,7 +5,10 @@ import { validateContent } from './content-validation.mjs';
 import { visibleProducts } from '../src/lib/inventory.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const read = async name => JSON.parse(await readFile(path.join(root, name), 'utf8'));
+const read = async name => {
+  try { return JSON.parse(await readFile(path.join(root, name), 'utf8')); }
+  catch (error) { throw new Error(`Could not read ${name}: ${error.message}`); }
+};
 const productFiles = (await readdir(path.join(root, 'src/content/products'))).filter(file => file.endsWith('.json'));
 const products = await Promise.all(productFiles.map(async file => ({file, data: await read(`src/content/products/${file}`)})));
 const site = await read('src/content/site.json');

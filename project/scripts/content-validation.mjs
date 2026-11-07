@@ -24,7 +24,7 @@ export function validateContent(site, services, products, publicRoot) {
   image(site.home.image, 'Home: photo', true);
   text(site.home.imageAlt, 'Home: photo description', 300);
   for (const key of ['phone','email','streetAddress','city','state','postalCode','hoursNote']) text(site.business[key], `Contact: ${key}`, key === 'hoursNote' ? 1000 : 200);
-  if (!/^[+()\d .-]+$/.test(site.business.phone) || !/^\d{10,15}$/.test(site.business.phone.replace(/\D/g,''))) errors.push('Contact: phone must contain 10–15 digits');
+  if (typeof site.business.phone !== 'string' || !/^[+()\d .-]+$/.test(site.business.phone) || !/^\d{10,15}$/.test(site.business.phone.replace(/\D/g,''))) errors.push('Contact: phone must contain 10–15 digits');
   if (!/^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(site.business.email)) errors.push('Contact: email is invalid');
   for (const key of ['googleMapsUrl','mapEmbedUrl','facebookUrl','marketplaceUrl']) url(site.business[key], `Contact: ${key}`);
   text(services?.title, 'Services: heading', 160);

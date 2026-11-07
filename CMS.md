@@ -34,6 +34,8 @@ GitHub enforces repository write authorization. The CMS is a client application,
 
 Authentication against the owner's GitHub account requires their own token. Without it, real remote sign-in, sign-out, token recovery, and browser-to-GitHub saving cannot be certified. Practice editing and persistence exercise the UI but are not a substitute for that final authenticated check. No owner token was generated, extracted, or reused from another application.
 
+Verified locally: all five public pages at 320, 390, and 1440 pixels, direct route visits, no broken visible images or horizontal overflow; real CMS initialization; practice PC text, numeric price, availability, and uploaded photograph saved and retained after reload. Temporary local catalog fixtures verified available/reserved display, formatted prices, specifications, photos, inquiry subjects, and removal of draft/sold data from browser bundles. Fixtures were removed and the real empty catalog rebuilt. Content tests, TypeScript, and production builds pass. The router lockfile was updated compatibly to 7.18.5; the production dependency audit reports zero known advisories.
+
 The CMS script is loaded on demand from the official package CDN, following Sveltia's documented installation; the public website does not load it. Its availability and future updates are external dependencies. The initial editor is for trusted repository writers, not an account system with custom per-field roles.
 
 References: [Sveltia installation](https://sveltiacms.app/en/docs/start), [GitHub backend and token permissions](https://sveltiacms.app/en/docs/backends/github), [isolated test backend](https://sveltiacms.app/en/docs/backends/test).
