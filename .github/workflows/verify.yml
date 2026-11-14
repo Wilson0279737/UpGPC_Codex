@@ -33,3 +33,5 @@ jobs:
         run: npm run build
       - name: Check CMS content rules
         run: npm run test:content
+      - name: Check account session behavior
+        run: npm run test:auth

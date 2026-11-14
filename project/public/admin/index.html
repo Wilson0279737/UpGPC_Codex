@@ -1,3 +1,21 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon-logo-full-32.png"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin"><title>Website editor | Upgrade Gaming PCs</title><link rel="stylesheet" href="/admin/start.css"></head>
-<body><main id="welcome"><p class="eyebrow">Upgrade Gaming PCs · Owner tools</p><h1>Your website, easy to update.</h1><p>Change your pages, add gaming PCs, and upload photos. Saved edits update the review preview. The live website changes after you approve a release.</p><div class="actions"><button id="open-editor" type="button">Open website editor</button><a class="secondary" href="/admin/demo.html">Try the practice editor</a></div><p class="note">Owner sign-in uses your GitHub account’s repository access token. <a href="/admin/help.html">First-time setup and editing guide</a></p><p id="status" role="status"></p><a href="/">Back to website</a></main><div id="nc-root"></div><script src="/admin/boot.js"></script></body></html>
+<body>
+<main id="welcome">
+  <div class="brand-row"><img src="/apple-touch-logo-full.png" width="64" height="64" alt="Upgrade Gaming PCs"><span class="badge">Preview workspace</span></div>
+  <p class="eyebrow">Your shop. Your content.</p>
+  <h1>Keep your website up to date.</h1>
+  <p>Add a PC, mark a sale, change a photo, or update your contact information. Choose a task to go straight to the right place.</p>
+  <div class="task-grid" aria-label="Editing tasks">
+    <button class="task-card" type="button" data-open-editor data-destination="inventory"><span class="task-icon" aria-hidden="true">01</span><strong>Manage gaming PCs</strong><span>Add systems, photos, prices, and availability.</span><span class="task-action">Open inventory →</span></button>
+    <button class="task-card" type="button" data-open-editor data-destination="pages"><span class="task-icon" aria-hidden="true">02</span><strong>Update pages &amp; contact</strong><span>Change your headline, story, phone, or visiting note.</span><span class="task-action">Edit website content →</span></button>
+    <button class="task-card" type="button" data-open-editor data-destination="services"><span class="task-icon" aria-hidden="true">03</span><strong>Manage repair services</strong><span>Update service descriptions, highlights, and buttons.</span><span class="task-action">Edit services →</span></button>
+  </div>
+  <div class="workflow"><strong>Edit → Save → Review</strong><p>Saving updates this preview. Check your changes here before approving a release to the live website.</p><a href="/" target="_blank" rel="noopener noreferrer">View website preview ↗</a></div>
+  <p id="status" role="status" aria-live="polite"></p>
+  <div class="actions"><button id="open-editor" type="button">Open website editor</button><a class="secondary" href="/admin/demo.html">Try the practice editor</a></div>
+  <p class="note">First time here? <a href="/admin/help.html">Read the short editing guide</a>. Owner editing access uses GitHub; customer Google accounts do not grant editing access.</p>
+  <noscript><p>Turn on JavaScript to use the editor. You can still <a href="/">browse the website</a>.</p></noscript>
+</main>
+<div id="nc-root"></div><script src="/admin/boot.js"></script>
+</body></html>

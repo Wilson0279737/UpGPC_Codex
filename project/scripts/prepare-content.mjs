@@ -29,7 +29,11 @@ for (const file of files) {
   await copyFile(path.join(root,file),target);
 }
 const sampleFile = 'project/src/content/products/practice-pc.json';
+const sampleImageFile = 'project/public/uploads/practice-pc.webp';
 await mkdir(path.dirname(path.join(seedRoot,sampleFile)),{recursive:true});
-await writeFile(path.join(seedRoot,sampleFile),JSON.stringify({title:'Practice PC — example only',status:'draft',description:'A sample for trying the editor. Replace these details with a real system when editing your actual inventory.',cpu:'Example processor',gpu:'Example graphics',ram:'Example memory',storage:'Example storage'},null,2));
-await writeFile(path.join(seedRoot,'manifest.json'),JSON.stringify({files: [...files.map(file=>`project/${file}`),sampleFile]},null,2));
+await mkdir(path.dirname(path.join(seedRoot,sampleImageFile)),{recursive:true});
+// The practice photo exists only in the isolated seed, never in the real uploads or catalog.
+await copyFile(path.join(root,'public/optimized/responsive/hero-products-rgb-640.webp'),path.join(seedRoot,sampleImageFile));
+await writeFile(path.join(seedRoot,sampleFile),JSON.stringify({title:'Practice PC — example only',status:'draft',description:'A sample for trying the editor. Replace these details with a real system when editing your actual inventory.',image:'/uploads/practice-pc.webp',imageAlt:'Example shop photo used only in the practice editor',cpu:'Example processor',gpu:'Example graphics',ram:'Example memory',storage:'Example storage'},null,2));
+await writeFile(path.join(seedRoot,'manifest.json'),JSON.stringify({files: [...files.map(file=>`project/${file}`),sampleFile,sampleImageFile]},null,2));
 console.log(`CMS content checked: ${products.length} PC listings. Practice editor seed refreshed.`);

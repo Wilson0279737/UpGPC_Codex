@@ -26,7 +26,7 @@ npm run build
 npm run preview
 ```
 
-Install locked dependencies after checkout or dependency changes. Run `npm run build` for changes that affect the app or deployment. The GitHub workflow checks installation and the production build. The current build script runs Vite; it does not run a separate TypeScript check or test suite.
+Install locked dependencies after checkout or dependency changes. Run `npm run build` for changes that affect the app or deployment. The GitHub workflow checks installation and the production build. The build validates CMS content, creates the public catalog and isolated practice seed, checks TypeScript, then runs Vite. `npm test` runs the content and account-session tests; GitHub runs those groups after the build.
 
 For future functions or Netlify-specific routing, use Netlify Dev with the preview/development context and verify the hosted preview too.
 

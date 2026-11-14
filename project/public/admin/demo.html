@@ -1,2 +1,20 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon-logo-full-32.png"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Practice editor | Upgrade Gaming PCs</title><link rel="cms-seed-url" href="/admin/seed/manifest.json"><link rel="stylesheet" href="/admin/start.css"></head><body data-demo="true"><main id="welcome"><p class="eyebrow">Practice space</p><h1>Try editing with confidence.</h1><p>This practice copy saves in this browser only. It cannot change the website or the review branch. You can try editing text, creating a PC listing, and uploading photos.</p><div class="actions"><button id="open-editor" type="button">Start practice editor</button><a href="/admin/">Back to owner tools</a></div><p id="status" role="status"></p></main><div id="nc-root"></div><script src="/admin/boot.js"></script></body></html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="icon" href="/favicon-logo-full-32.png"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin"><title>Practice editor | Upgrade Gaming PCs</title><link rel="cms-seed-url" href="/admin/seed/manifest.json"><link rel="stylesheet" href="/admin/start.css"></head>
+<body data-demo="true">
+<main id="welcome">
+  <div class="brand-row"><img src="/apple-touch-logo-full.png" width="64" height="64" alt="Upgrade Gaming PCs"><span class="badge">Practice workspace</span></div>
+  <p class="eyebrow">Practice space</p><h1>Try editing with confidence.</h1>
+  <p>Try updating a PC listing, uploading a photo, or changing your page text. This practice copy saves in this browser only. It cannot change the website or the review branch.</p>
+  <div class="task-grid" aria-label="Practice tasks">
+    <button class="task-card" type="button" data-open-editor data-destination="inventory"><span class="task-icon" aria-hidden="true">01</span><strong>Try a PC listing</strong><span>Open the sample PC or create your own practice entry.</span><span class="task-action">Practice inventory →</span></button>
+    <button class="task-card" type="button" data-open-editor data-destination="pages"><span class="task-icon" aria-hidden="true">02</span><strong>Try changing page text</strong><span>Edit a headline, shop details, or visiting note.</span><span class="task-action">Practice page editing →</span></button>
+    <button class="task-card" type="button" data-open-editor data-destination="services"><span class="task-icon" aria-hidden="true">03</span><strong>Try a repair service</strong><span>Change a description, highlight, or button.</span><span class="task-action">Practice service editing →</span></button>
+  </div>
+  <p id="status" role="status" aria-live="polite"></p>
+  <div class="actions"><button id="open-editor" type="button">Start practice editor</button><a class="secondary" href="/admin/">Back to owner tools</a></div>
+  <p class="note">Saved practice changes stay here after reload. <a href="/admin/help.html">Read the guide</a> for photo tips, listing availability, and how to reset your practice copy.</p>
+  <noscript><p>Turn on JavaScript to try the editor. You can still <a href="/">browse the website</a>.</p></noscript>
+</main>
+<div id="nc-root"></div><script src="/admin/boot.js"></script>
+</body></html>

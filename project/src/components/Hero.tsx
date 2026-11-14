@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { siteConfig, siteContent } from '../config/site';
 import { MapPin, ShoppingBag, Wrench } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
@@ -15,8 +16,9 @@ const Hero = ({ compactTop = false, showAddressCard = true }: HeroProps) => {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="hero-banner relative mx-auto min-h-[22rem] w-full max-w-5xl overflow-hidden rounded-[1.4rem] shadow-2xl sm:min-h-80 sm:rounded-[1.75rem] lg:min-h-96">
-          <img
+          <ResponsiveImage
             src={siteContent.home.image}
+            sizes="(min-width: 1152px) 1024px, calc(100vw - 32px)"
             alt={siteContent.home.imageAlt}
             className="absolute inset-0 h-full w-full object-cover object-center"
             loading="eager"
@@ -51,7 +53,7 @@ const Hero = ({ compactTop = false, showAddressCard = true }: HeroProps) => {
             <div className="flex items-start gap-3">
               <MapPin className="mt-1 h-6 w-6 flex-shrink-0 text-purple-300" />
               <div>
-                <p className="text-base font-semibold text-white sm:text-lg">{siteConfig.address}</p>
+                <a href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-base font-semibold text-white underline decoration-purple-300/60 underline-offset-4 hover:decoration-white sm:text-lg">{siteConfig.address}</a>
                 <p className="mt-1 text-sm text-purple-100">Visit our showroom and test before you buy.</p>
               </div>
             </div>

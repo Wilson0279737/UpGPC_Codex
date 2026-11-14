@@ -5,3 +5,6 @@ project/.netlify/
 project/public/admin/seed/
 project/*.tsbuildinfo
 project/src/content/catalog.generated.json
+project/.env
+project/.env.*
+!project/.env.example

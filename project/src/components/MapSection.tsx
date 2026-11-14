@@ -1,3 +1,4 @@
+import ResponsiveImage from './ui/ResponsiveImage';
 import { siteConfig } from '../config/site';
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useId, useState } from 'react';
@@ -24,7 +25,7 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           {priorityTop && (
             <>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[78%] overflow-hidden sm:w-[62%] lg:w-[46%]">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-dusk.jpg"
                   alt=""
                   aria-hidden="true"
@@ -37,7 +38,7 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
               </div>
 
               <div className="pointer-events-none absolute right-3 top-4 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-5 md:h-48 md:w-32 lg:h-56 lg:w-36">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-entry.jpg"
                   alt=""
                   aria-hidden="true"
@@ -102,14 +103,14 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           >
             <div className="map-expander-inner overflow-hidden rounded-[1.35rem] border border-purple-300/30 bg-purple-950/30 shadow-[0_24px_50px_rgba(12,8,39,0.28)]">
               <div className="relative h-0 w-full pb-[62%] sm:pb-[58%] lg:pb-[46%]">
-                <iframe
+                {isExpanded && <iframe
                   src={embeddedMapUrl}
                   className="pointer-events-none absolute inset-0 h-full w-full select-none border-0"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Upgrade Gaming PCs Location"
-                />
+                />}
                 <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-black/45 px-4 py-3">
                   <p className="text-xs leading-relaxed text-purple-100">
                     Page scrolling stays smooth here. Use &quot;Open in Google Maps&quot; for full navigation and map controls.

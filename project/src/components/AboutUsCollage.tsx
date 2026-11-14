@@ -1,3 +1,5 @@
+import ResponsiveImage from './ui/ResponsiveImage';
+
 const collageImages = [
   {
     src: '/optimized/about-collage-01.jpg',
@@ -20,7 +22,7 @@ const collageImages = [
   {
     src: '/optimized/about-collage-04.jpg',
     alt: 'Portrait photo of the people behind the business in front of a waterfall',
-    className: 'md:row-span-2',
+    className: 'md:col-start-4 md:row-start-1 md:row-span-2',
     imageClassName: 'h-64 sm:h-80 md:h-full md:object-center',
   },
 ];
@@ -38,7 +40,7 @@ const AboutUsCollage = () => {
               More than inventory and repairs
             </h2>
             <p className="mt-3 text-base leading-relaxed text-purple-100 sm:text-lg">
-              These photos help show that the shop is run by real people with real roots, not just a logo on a storefront.
+              Get to know the people behind the PCs, from building the shop to life outside the showroom.
             </p>
           </div>
 
@@ -48,8 +50,9 @@ const AboutUsCollage = () => {
                 key={image.src}
                 className={`overflow-hidden rounded-[1.2rem] border border-purple-300/25 bg-purple-950/25 shadow-[0_18px_34px_rgba(12,8,39,0.2)] ${image.className}`.trim()}
               >
-                <img
+                <ResponsiveImage
                   src={image.src}
+                  sizes={image.className.includes('md:col-span-2') ? '(min-width: 1152px) 522px, (min-width: 768px) 48vw, calc(100vw - 64px)' : '(min-width: 1152px) 255px, (min-width: 768px) 24vw, calc(100vw - 64px)'}
                   alt={image.alt}
                   className={`${image.imageClassName} w-full object-cover object-center`}
                   loading="lazy"

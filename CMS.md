@@ -2,7 +2,7 @@
 
 ## Scope
 
-Owner/trusted repository writers can edit the home banner, about section, contact page introduction, shared contact details and visiting note, service cards, catalog introduction, and individual PC listings. Existing branding, photography, pages, warranties, and payment claims remain as they were. There are no invented systems, prices, performance claims, customer accounts, payments, or customer records.
+Owner/trusted repository writers can edit the home banner, about section, contact page introduction, shared contact details and visiting note, service cards, catalog introduction, and individual PC listings. Existing branding, photography, warranties, and payment claims are preserved. There are no invented systems, prices, performance claims, checkout transactions, or customer records in the content repository. Optional Google customer accounts and saved PCs are implemented separately in the Identity service; they remain disabled until staging setup and authenticated verification.
 
 Sveltia CMS provides the editing interface and GitHub integration. This keeps content in the existing repository and works with the existing Netlify previews. The chosen initial sign-in is a repository-scoped GitHub access token, requiring no new paid service, OAuth app, identity database, or production setting changes. An OAuth convenience flow can be added separately if desired.
 
@@ -16,7 +16,11 @@ Sveltia CMS provides the editing interface and GitHub integration. This keeps co
 - `project/src/content/products/*.json`: one PC per file; new entries default to draft.
 - `project/public/uploads/`: uploaded photographs.
 
+Owner tools now open directly to inventory, page/contact content, or services. The loader has bounded connection errors and allows retry. New PC entries are checked before save with the same core rules used by the build. JPG/PNG/WebP uploads are renamed, resized, and converted to WebP; a missing PC photo description uses the PC name rather than failing a build.
+
 Available and reserved PCs appear in `/products`, with available systems first. Draft and sold systems are excluded during the build, not just hidden with CSS. Empty inventory has useful contact and Marketplace actions. An omitted price shows “Call for pricing”; no checkout or reservation transaction is implied. Inquiry links include the PC name in the email subject.
+
+When listings exist, shoppers can search by name/specification, filter by availability, and sort by price. Unknown prices sort after known prices. The product hero prioritizes the on-site catalog, with Marketplace as an additional option. The home page leads with the editable headline; responsive images reduce transfer size, maps load on request, and mobile navigation supports keyboard use and Escape. New account and missing-page views are excluded from indexing.
 
 The generated catalog and practice seed are ignored by Git and refreshed at build time. Rebuild after editing local source content. The CMS commits relative to the repository root, so paths include `project/`; public photo URLs start at `/uploads/`.
 
@@ -28,14 +32,20 @@ The `Publish` action within the editor commits to the configured preview branch.
 
 ## Validation and limits
 
-`npm run build` checks content, generates practice fixtures and the public catalog, type-checks, and builds. `npm run test:content` checks visibility, preview targeting, price/status constraints, contact links, and required photos/alternate text. Invalid content fails the preview build with field-specific messages, retaining the previous successful deployment.
+`npm run build` checks content, generates practice fixtures and the public catalog, type-checks, and builds. `npm run test:content` checks visibility, filtering/sorting, preview targeting, price/status constraints, contact links, and photo references. `npm run test:auth` checks account/session behavior. Invalid content fails the preview build with field-specific messages, retaining the previous successful deployment.
 
 GitHub enforces repository write authorization. The CMS is a client application, and its configuration contains no secret. Its documented sign-in stores the owner's token in browser local storage. Use a trusted browser, short token expiry, Contents read/write for this repository only, and sign out/revoke in GitHub as appropriate. GitHub provides password and account recovery. The editor intentionally hides unconfigured OAuth sign-in.
 
 Authentication against the owner's GitHub account requires their own token. Without it, real remote sign-in, sign-out, token recovery, and browser-to-GitHub saving cannot be certified. Practice editing and persistence exercise the UI but are not a substitute for that final authenticated check. No owner token was generated, extracted, or reused from another application.
 
-Verified locally: all five public pages at 320, 390, and 1440 pixels, direct route visits, no broken visible images or horizontal overflow; real CMS initialization; practice PC text, numeric price, availability, and uploaded photograph saved and retained after reload. Temporary local catalog fixtures verified available/reserved display, formatted prices, specifications, photos, inquiry subjects, and removal of draft/sold data from browser bundles. Fixtures were removed and the real empty catalog rebuilt. Content tests, TypeScript, and production builds pass. The router lockfile was updated compatibly to 7.18.5; the production dependency audit reports zero known advisories.
+Verified November 14, 2026: all five public pages plus account and missing-page views were checked locally at 320, 390, 768, and 1440 pixels, with direct visits, working image sources, and no horizontal overflow. Mobile navigation closes after route selection and Escape, restoring keyboard focus. Search/filter/price sorting and reappearing card visibility were exercised with five temporary local PC fixtures; draft/sold markers were absent from every browser asset. All fixtures were removed and the real empty catalog rebuilt before publication.
 
-The CMS script is loaded on demand from the official package CDN, following Sveltia's documented installation; the public website does not load it. Its availability and future updates are external dependencies. The initial editor is for trusted repository writers, not an account system with custom per-field roles.
+In a real Chrome practice session, contact phone and Google embed errors blocked saves with the expected shared validation messages. Service required-field errors blocked saves, and valid service edits saved. A PC name, cent-based price, reserved status, and selected seeded photo persisted after reload; the styled card preview loaded its 640px image. The in-app browser does not display the CMS's blob preview iframe reliably, so Chrome was used to verify it. A new local-file upload through the Chrome connector requires its file-access setting, which was left unchanged; new-upload conversion and real GitHub media commits still need the owner's authenticated browser check. Earlier practice uploads were exercised in the initial CMS session, but do not certify the changed optimization configuration.
+
+All 12 content tests and 15 account tests pass, alongside TypeScript and the production build. Source lint has zero errors and one existing React Fast Refresh advisory for the provider/hook module. The full dependency audit reports zero known advisories after compatible patches, Vite 6.4.6, and a scoped patched-minimatch override. No calls, emails, real inventory, customer accounts, or production settings were changed.
+
+The CMS script is loaded on demand from the official package CDN, pinned to tested version 0.266.0, following Sveltia's documented installation; the public website does not load it. Its availability is an external dependency; update the pinned version deliberately and recheck practice saves/previews. The initial editor is for trusted repository writers, not an account system with custom per-field roles.
+
+Customer Google sign-in does not replace Sveltia's GitHub editing permission. See [customer account setup and limits](CUSTOMER_ACCOUNTS.md). The existing preview's Identity settings endpoint returned 404 during this work, so real Google consent and authenticated persistence still need an isolated staging connection. No production account settings were changed.
 
 References: [Sveltia installation](https://sveltiacms.app/en/docs/start), [GitHub backend and token permissions](https://sveltiacms.app/en/docs/backends/github), [isolated test backend](https://sveltiacms.app/en/docs/backends/test).

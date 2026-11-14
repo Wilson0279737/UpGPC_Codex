@@ -37,58 +37,79 @@
                 {
                   "name": "phone",
                   "label": "Phone number",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 200,
+                  "hint": "Use the shop’s full phone number, including the area code."
                 },
                 {
                   "name": "email",
                   "label": "Email address",
-                  "widget": "string"
+                  "widget": "string",
+                  "pattern": [
+                    "^[^\\s@?&#]+@[^\\s@?&#]+\\.[^\\s@?&#]+$",
+                    "Enter a valid email address."
+                  ],
+                  "maxlength": 200,
+                  "type": "email"
                 },
                 {
                   "name": "streetAddress",
                   "label": "Street and suite",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 200
                 },
                 {
                   "name": "city",
                   "label": "City",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 200
                 },
                 {
                   "name": "state",
                   "label": "State",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 200
                 },
                 {
                   "name": "postalCode",
                   "label": "ZIP code",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 200
                 },
                 {
                   "name": "hoursNote",
                   "label": "Hours / visiting note",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 1000
                 },
                 {
                   "name": "googleMapsUrl",
                   "label": "Google Maps directions URL",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
                 },
                 {
                   "name": "facebookUrl",
                   "label": "Facebook page URL",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
                 },
                 {
                   "name": "marketplaceUrl",
                   "label": "Marketplace profile URL",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
                 },
                 {
                   "name": "mapEmbedUrl",
                   "label": "Google Maps embedded map URL",
                   "widget": "string",
-                  "hint": "In Google Maps, choose Share → Embed a map. Copy only the https:// URL from src=\"...\"."
+                  "hint": "In Google Maps, choose Share → Embed a map. Copy only the https:// URL from src=\"...\".",
+                  "maxlength": 4000,
+                  "type": "url"
                 }
               ]
             },
@@ -100,12 +121,14 @@
                 {
                   "name": "title",
                   "label": "Headline",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 160
                 },
                 {
                   "name": "description",
                   "label": "Introduction",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 },
                 {
                   "name": "image",
@@ -115,13 +138,15 @@
                   "choose_url": false,
                   "media_folder": "/project/public/uploads",
                   "public_folder": "/uploads",
-                  "hint": "Upload a JPG, PNG, or WebP. Use a descriptive filename.",
-                  "multiple": false
+                  "hint": "Choose a JPG, PNG, or WebP photo. Large photos are resized for faster loading.",
+                  "multiple": false,
+                  "accept": ".jpg,.jpeg,.png,.webp"
                 },
                 {
                   "name": "imageAlt",
                   "label": "Photo description",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 300
                 }
               ]
             },
@@ -133,17 +158,20 @@
                 {
                   "name": "title",
                   "label": "Heading",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 160
                 },
                 {
                   "name": "description",
                   "label": "Introduction",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 },
                 {
                   "name": "body",
                   "label": "Story",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 6000
                 }
               ]
             },
@@ -155,12 +183,14 @@
                 {
                   "name": "title",
                   "label": "Heading",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 160
                 },
                 {
                   "name": "description",
                   "label": "Introduction",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 }
               ]
             },
@@ -172,21 +202,25 @@
                 {
                   "name": "title",
                   "label": "Heading",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 160
                 },
                 {
                   "name": "description",
                   "label": "Introduction",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 },
                 {
                   "name": "emptyMessage",
                   "label": "Message when no PCs are listed",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 }
               ]
             }
-          ]
+          ],
+          "preview_path": "/"
         },
         {
           "name": "services",
@@ -196,12 +230,14 @@
             {
               "name": "title",
               "label": "Heading",
-              "widget": "string"
+              "widget": "string",
+              "maxlength": 160
             },
             {
               "name": "description",
               "label": "Introduction",
-              "widget": "text"
+              "widget": "text",
+              "maxlength": 3000
             },
             {
               "name": "cards",
@@ -214,12 +250,14 @@
                 {
                   "name": "title",
                   "label": "Service name",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 160
                 },
                 {
                   "name": "description",
                   "label": "Description",
-                  "widget": "text"
+                  "widget": "text",
+                  "maxlength": 3000
                 },
                 {
                   "name": "points",
@@ -230,7 +268,8 @@
                   "field": {
                     "name": "point",
                     "label": "Highlight",
-                    "widget": "string"
+                    "widget": "string",
+                    "maxlength": 300
                   }
                 },
                 {
@@ -251,7 +290,8 @@
                 {
                   "name": "ctaLabel",
                   "label": "Button label",
-                  "widget": "string"
+                  "widget": "string",
+                  "maxlength": 100
                 },
                 {
                   "name": "ctaPath",
@@ -266,7 +306,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "preview_path": "/services"
         }
       ]
     },
@@ -285,7 +326,8 @@
         {
           "name": "title",
           "label": "PC name",
-          "widget": "string"
+          "widget": "string",
+          "maxlength": 160
         },
         {
           "name": "status",
@@ -309,7 +351,8 @@
               "label": "Sold — hidden",
               "value": "sold"
             }
-          ]
+          ],
+          "hint": "Available and reserved PCs appear in the catalog. Draft and sold PCs stay hidden."
         },
         {
           "name": "price",
@@ -319,12 +362,14 @@
           "min": 0.01,
           "max": 100000,
           "required": false,
-          "hint": "Leave blank to display “Call for pricing”."
+          "hint": "Leave blank to display “Call for pricing”.",
+          "step": 0.01
         },
         {
           "name": "description",
           "label": "Description",
-          "widget": "text"
+          "widget": "text",
+          "maxlength": 6000
         },
         {
           "name": "image",
@@ -334,43 +379,92 @@
           "choose_url": false,
           "media_folder": "/project/public/uploads",
           "public_folder": "/uploads",
-          "hint": "Upload a JPG, PNG, or WebP. Use a descriptive filename.",
-          "multiple": false
+          "hint": "Choose a JPG, PNG, or WebP photo. Large photos are resized for faster loading.",
+          "multiple": false,
+          "accept": ".jpg,.jpeg,.png,.webp"
         },
         {
           "name": "imageAlt",
           "label": "Photo description",
           "widget": "string",
-          "required": false
+          "required": false,
+          "hint": "Optional. If blank, the PC name describes the photo.",
+          "maxlength": 300
         },
         {
           "name": "cpu",
           "label": "Processor",
           "widget": "string",
-          "required": false
+          "required": false,
+          "maxlength": 300
         },
         {
           "name": "gpu",
           "label": "Graphics card",
           "widget": "string",
-          "required": false
+          "required": false,
+          "maxlength": 300
         },
         {
           "name": "ram",
           "label": "Memory",
           "widget": "string",
-          "required": false
+          "required": false,
+          "maxlength": 300
         },
         {
           "name": "storage",
           "label": "Storage",
           "widget": "string",
-          "required": false
+          "required": false,
+          "maxlength": 300
         }
+      ],
+      "preview_path": "/products#pc-{{slug}}",
+      "view_filters": [
+        {
+          "label": "Available",
+          "field": "status",
+          "pattern": "^available$"
+        },
+        {
+          "label": "Reserved",
+          "field": "status",
+          "pattern": "^reserved$"
+        },
+        {
+          "label": "Drafts",
+          "field": "status",
+          "pattern": "^draft$"
+        },
+        {
+          "label": "Sold",
+          "field": "status",
+          "pattern": "^sold$"
+        }
+      ],
+      "sortable_fields": [
+        "title",
+        "status",
+        "price"
       ]
     }
   ],
   "logo": {
     "src": "/apple-touch-logo-full.png"
+  },
+  "media_libraries": {
+    "all": {
+      "slugify_filename": true,
+      "max_file_size": 10485760,
+      "transformations": {
+        "raster_image": {
+          "format": "webp",
+          "quality": 82,
+          "width": 1600,
+          "height": 1600
+        }
+      }
+    }
   }
 }
