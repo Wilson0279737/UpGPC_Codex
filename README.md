@@ -49,7 +49,9 @@ The practice editor uses Sveltia's virtual test repository, with copies of publi
 
 `/account` provides Google sign-in and a saved-PC shortlist through the current `@netlify/identity` SDK. This is separate from Sveltia's editor authorization. It defaults off: `VITE_CUSTOMER_ACCOUNTS` must equal `true`, and the connected Identity service must report its Google provider enabled. Until then, public account links and save buttons stay hidden, and no Identity requests are made on normal page visits.
 
-An isolated Netlify staging project with Identity/Google enabled is required before authenticated end-to-end testing. The current Deploy Preview's Identity settings endpoint returns 404. No hosting identity settings or live users were changed. See [customer account setup](CUSTOMER_ACCOUNTS.md) and the owner guide. Customer profiles and saved lists belong to Identity, not to the public content repository. `npm run test:auth` checks session and profile-save behavior using isolated service doubles; it does not certify a real Google login.
+The isolated Netlify project `upgrade-gaming-pcs-staging` now builds `codex/cms-preview` with Identity/Google enabled and `VITE_CUSTOMER_ACCOUNTS=true`. Use its [account preview](https://upgrade-gaming-pcs-staging.netlify.app/account) for real sign-in; the original PR Deploy Preview remains account-disabled. Google consent, profile loading, refresh persistence, and logout were verified November 15, 2026. The business website `website3-2` and production users were not changed.
+
+See [customer account setup and remaining checks](CUSTOMER_ACCOUNTS.md) and the owner guide. Customer profiles and saved lists belong to Identity, not to the public content repository. `npm run test:auth` checks session and profile-save behavior using isolated service doubles; real cross-browser saved-list checks remain pending a genuine staging listing.
 
 ## Original live baseline and backup
 
