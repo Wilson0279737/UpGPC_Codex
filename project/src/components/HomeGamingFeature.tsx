@@ -1,3 +1,4 @@
+import { siteConfig } from '../config/site';
 import { Monitor } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import { cardClass, iconBadgeClass, insetPanelClass } from './ui/siteStyles';
@@ -48,7 +49,7 @@ const HomeGamingFeature = () => {
               <ActionLink to="/contact" className="w-full sm:w-auto">
                 Start the conversation
               </ActionLink>
-              <ActionLink href="tel:8104413020" variant="secondary" className="w-full sm:w-auto">
+              <ActionLink href={siteConfig.phoneHref} variant="secondary" className="w-full sm:w-auto">
                 Call the shop
               </ActionLink>
             </div>

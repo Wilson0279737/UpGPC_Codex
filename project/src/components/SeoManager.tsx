@@ -10,6 +10,7 @@ const routeMeta: Record<
   {
     description: string;
     image?: string;
+    imageAlt?: string;
     title: string;
   }
 > = {
@@ -18,30 +19,39 @@ const routeMeta: Record<
     description:
       'Shop gaming PCs in Swartz Creek, test systems before you buy a gaming computer, ask about gaming PC repair and upgrades, and explore local trade-in options for the setup you want to sell.',
     image: '/optimized/hero-storefront-dusk.jpg',
+    imageAlt: 'Upgrade Gaming PCs storefront in Swartz Creek at dusk',
   },
   '/services': {
     title: 'Gaming PC Repair, Upgrades, and Trade-Ins in Swartz Creek',
     description:
       'Need to repair or upgrade your gaming PC? Get local diagnostics, hardware repair, performance upgrades, and trade-in guidance in Swartz Creek if you are ready to move on from your current setup.',
     image: '/optimized/storefront-interior.jpg',
+    imageAlt: 'Inside the Upgrade Gaming PCs shop in Swartz Creek',
   },
   '/products': {
     title: 'Buy a Gaming Computer in Swartz Creek',
     description:
       'Buy a gaming computer locally at Upgrade Gaming PCs. Browse available gaming PCs and peripherals, compare options in person, and shop with a 90 day free warranty.',
     image: '/optimized/hero-products-collage.jpg',
+    imageAlt: 'Gaming PCs and computer equipment at Upgrade Gaming PCs',
   },
   '/about': {
     title: 'Local Gaming PC Shop in Swartz Creek',
     description:
       'Upgrade Gaming PCs is a local gaming PC shop in Swartz Creek where you can buy, test, repair, or upgrade a gaming computer with real in-person help.',
     image: '/optimized/about-hero-main.jpg',
+    imageAlt: 'The people behind Upgrade Gaming PCs in Swartz Creek',
   },
   '/contact': {
     title: 'Contact Our Swartz Creek Gaming PC Shop',
     description:
       'Contact Upgrade Gaming PCs about buying a gaming computer, gaming PC repair, upgrades, trade-ins, and local showroom availability in Swartz Creek.',
     image: '/optimized/hero-storefront-entry.jpg',
+    imageAlt: 'Entrance to the Upgrade Gaming PCs showroom in Swartz Creek',
+  },
+  '/account': {
+    title: 'Your Account and Saved PCs',
+    description: 'Sign in to save gaming PCs and keep your shortlist together.',
   },
 };
 
@@ -65,30 +75,43 @@ const SeoManager = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const meta = routeMeta[location.pathname] ?? routeMeta['/'];
+    const pathname = location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+    const meta = routeMeta[pathname] ?? { title: 'Page Not Found', description: 'Find your way back to Upgrade Gaming PCs.' };
+    const indexable = Boolean(routeMeta[pathname]) && pathname !== '/account';
     const pageTitle = `${meta.title} | ${siteConfig.name}`;
-    const pageUrl = new URL(location.pathname, siteConfig.siteUrl).toString();
+    const pageUrl = new URL(pathname, siteConfig.siteUrl).toString();
     const imageUrl = toAbsoluteUrl(meta.image ?? siteConfig.defaultSocialImagePath);
+    const imageAlt = meta.imageAlt ?? 'Upgrade Gaming PCs in Swartz Creek, Michigan';
     const logoUrl = toAbsoluteUrl(siteConfig.logoPath);
 
     document.title = pageTitle;
 
     setMetaTag('meta[name="description"]', { name: 'description' }, meta.description);
-    setMetaTag('meta[name="robots"]', { name: 'robots' }, 'index,follow');
+    setMetaTag('meta[name="robots"]', { name: 'robots' }, indexable ? 'index,follow' : 'noindex,follow');
     setMetaTag('meta[name="theme-color"]', { name: 'theme-color' }, '#160824');
     setMetaTag('meta[property="og:type"]', { property: 'og:type' }, 'website');
     setMetaTag('meta[property="og:site_name"]', { property: 'og:site_name' }, siteConfig.name);
     setMetaTag('meta[property="og:title"]', { property: 'og:title' }, pageTitle);
     setMetaTag('meta[property="og:description"]', { property: 'og:description' }, meta.description);
-    setMetaTag('meta[property="og:url"]', { property: 'og:url' }, pageUrl);
+    if (indexable) setMetaTag('meta[property="og:url"]', { property: 'og:url' }, pageUrl);
+    else document.head.querySelector('meta[property="og:url"]')?.remove();
     setMetaTag('meta[property="og:image"]', { property: 'og:image' }, imageUrl);
+    setMetaTag('meta[property="og:image:alt"]', { property: 'og:image:alt' }, imageAlt);
     setMetaTag('meta[property="og:locale"]', { property: 'og:locale' }, 'en_US');
     setMetaTag('meta[name="twitter:card"]', { name: 'twitter:card' }, 'summary_large_image');
     setMetaTag('meta[name="twitter:title"]', { name: 'twitter:title' }, pageTitle);
     setMetaTag('meta[name="twitter:description"]', { name: 'twitter:description' }, meta.description);
     setMetaTag('meta[name="twitter:image"]', { name: 'twitter:image' }, imageUrl);
+    setMetaTag('meta[name="twitter:image:alt"]', { name: 'twitter:image:alt' }, imageAlt);
 
     let canonicalTag = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    let structuredDataTag = document.head.querySelector<HTMLScriptElement>('script[data-seo="local-business"]');
+
+    if (!indexable) {
+      canonicalTag?.remove();
+      structuredDataTag?.remove();
+      return;
+    }
 
     if (!canonicalTag) {
       canonicalTag = document.createElement('link');
@@ -102,30 +125,24 @@ const SeoManager = () => {
       '@context': 'https://schema.org',
       '@graph': [
         {
-          '@type': ['ComputerStore', 'LocalBusiness'],
+          '@type': 'ComputerStore',
           '@id': `${siteConfig.siteUrl}/#business`,
           name: siteConfig.name,
           url: siteConfig.siteUrl,
-          image: imageUrl,
+          image: toAbsoluteUrl(siteConfig.defaultSocialImagePath),
           logo: logoUrl,
           description: businessDescription,
-          telephone: '+1-810-441-3020',
-          email: 'brandonwilson0279737@gmail.com',
-          priceRange: '$$',
+          telephone: siteConfig.phoneHref.slice(4),
+          email: siteConfig.email,
           sameAs: [siteConfig.facebookUrl],
           hasMap: siteConfig.googleMapsUrl,
           address: {
             '@type': 'PostalAddress',
-            streetAddress: '8048 Miller Rd Ste B',
-            addressLocality: 'Swartz Creek',
-            addressRegion: 'MI',
-            postalCode: '48473',
+            streetAddress: siteConfig.streetAddress,
+            addressLocality: siteConfig.city,
+            addressRegion: siteConfig.state,
+            postalCode: siteConfig.postalCode,
             addressCountry: 'US',
-          },
-          geo: {
-            '@type': 'GeoCoordinates',
-            latitude: 42.957475,
-            longitude: -83.8324749,
           },
         },
         {
@@ -133,9 +150,10 @@ const SeoManager = () => {
           '@id': `${siteConfig.siteUrl}/#website`,
           url: siteConfig.siteUrl,
           name: siteConfig.name,
+          publisher: { '@id': `${siteConfig.siteUrl}/#business` },
         },
         {
-          '@type': 'WebPage',
+          '@type': pathname === '/contact' ? 'ContactPage' : pathname === '/about' ? 'AboutPage' : 'WebPage',
           '@id': `${pageUrl}#webpage`,
           url: pageUrl,
           name: pageTitle,
@@ -153,8 +171,6 @@ const SeoManager = () => {
         },
       ],
     };
-
-    let structuredDataTag = document.head.querySelector<HTMLScriptElement>('script[data-seo="local-business"]');
 
     if (!structuredDataTag) {
       structuredDataTag = document.createElement('script');

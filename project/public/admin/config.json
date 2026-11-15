@@ -1,0 +1,496 @@
+{
+  "load_config_file": false,
+  "backend": {
+    "name": "github",
+    "repo": "Wilson0279737/UpGPC_Codex",
+    "branch": "codex/cms-preview",
+    "auth_methods": [
+      "token"
+    ],
+    "commit_messages": {
+      "create": "Create {{collection}}: {{slug}}",
+      "update": "Update {{collection}}: {{slug}}",
+      "delete": "Delete {{collection}}: {{slug}}",
+      "uploadMedia": "Upload {{path}}",
+      "deleteMedia": "Delete {{path}}"
+    }
+  },
+  "site_url": "https://upgradegamingpcs.com",
+  "display_url": "/",
+  "media_folder": "project/public/uploads",
+  "public_folder": "/uploads",
+  "collections": [
+    {
+      "name": "website",
+      "label": "Website content",
+      "files": [
+        {
+          "name": "site",
+          "label": "Pages and contact details",
+          "file": "project/src/content/site.json",
+          "fields": [
+            {
+              "name": "business",
+              "label": "Contact details",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "phone",
+                  "label": "Phone number",
+                  "widget": "string",
+                  "maxlength": 200,
+                  "hint": "Use the shop’s full phone number, including the area code."
+                },
+                {
+                  "name": "email",
+                  "label": "Email address",
+                  "widget": "string",
+                  "pattern": [
+                    "^[^\\s@?&#]+@[^\\s@?&#]+\\.[^\\s@?&#]+$",
+                    "Enter a valid email address."
+                  ],
+                  "maxlength": 200,
+                  "type": "email"
+                },
+                {
+                  "name": "streetAddress",
+                  "label": "Street and suite",
+                  "widget": "string",
+                  "maxlength": 200
+                },
+                {
+                  "name": "city",
+                  "label": "City",
+                  "widget": "string",
+                  "maxlength": 200
+                },
+                {
+                  "name": "state",
+                  "label": "State",
+                  "widget": "string",
+                  "maxlength": 200
+                },
+                {
+                  "name": "postalCode",
+                  "label": "ZIP code",
+                  "widget": "string",
+                  "maxlength": 200
+                },
+                {
+                  "name": "hoursNote",
+                  "label": "Hours / visiting note",
+                  "widget": "text",
+                  "maxlength": 1000
+                },
+                {
+                  "name": "googleMapsUrl",
+                  "label": "Google Maps directions URL",
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
+                },
+                {
+                  "name": "facebookUrl",
+                  "label": "Facebook page URL",
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
+                },
+                {
+                  "name": "marketplaceUrl",
+                  "label": "Marketplace profile URL",
+                  "widget": "string",
+                  "maxlength": 4000,
+                  "type": "url"
+                },
+                {
+                  "name": "mapEmbedUrl",
+                  "label": "Google Maps embedded map URL",
+                  "widget": "string",
+                  "hint": "In Google Maps, choose Share → Embed a map. Copy only the https:// URL from src=\"...\".",
+                  "maxlength": 4000,
+                  "type": "url"
+                }
+              ]
+            },
+            {
+              "name": "home",
+              "label": "Home page",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Headline",
+                  "widget": "string",
+                  "maxlength": 160
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text",
+                  "maxlength": 3000
+                },
+                {
+                  "name": "image",
+                  "label": "Banner photo",
+                  "widget": "image",
+                  "required": true,
+                  "choose_url": false,
+                  "media_folder": "/project/public/uploads",
+                  "public_folder": "/uploads",
+                  "hint": "Choose a JPG, PNG, or WebP photo. Large photos are resized for faster loading.",
+                  "multiple": false,
+                  "accept": ".jpg,.jpeg,.png,.webp"
+                },
+                {
+                  "name": "imageAlt",
+                  "label": "Photo description",
+                  "widget": "string",
+                  "maxlength": 300
+                }
+              ]
+            },
+            {
+              "name": "about",
+              "label": "About section",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string",
+                  "maxlength": 160
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text",
+                  "maxlength": 3000
+                },
+                {
+                  "name": "body",
+                  "label": "Story",
+                  "widget": "text",
+                  "maxlength": 6000
+                }
+              ]
+            },
+            {
+              "name": "contact",
+              "label": "Contact page",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string",
+                  "maxlength": 160
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text",
+                  "maxlength": 3000
+                }
+              ]
+            },
+            {
+              "name": "inventory",
+              "label": "PC catalog introduction",
+              "widget": "object",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Heading",
+                  "widget": "string",
+                  "maxlength": 160
+                },
+                {
+                  "name": "description",
+                  "label": "Introduction",
+                  "widget": "text",
+                  "maxlength": 3000
+                },
+                {
+                  "name": "emptyMessage",
+                  "label": "Message when no PCs are listed",
+                  "widget": "text",
+                  "maxlength": 3000
+                }
+              ]
+            }
+          ],
+          "preview_path": "/"
+        },
+        {
+          "name": "services",
+          "label": "Repair and PC services",
+          "file": "project/src/content/services.json",
+          "fields": [
+            {
+              "name": "title",
+              "label": "Heading",
+              "widget": "string",
+              "maxlength": 160
+            },
+            {
+              "name": "description",
+              "label": "Introduction",
+              "widget": "text",
+              "maxlength": 3000
+            },
+            {
+              "name": "cards",
+              "label": "Service cards",
+              "widget": "list",
+              "min": 1,
+              "max": 8,
+              "summary": "{{fields.title}}",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Service name",
+                  "widget": "string",
+                  "maxlength": 160
+                },
+                {
+                  "name": "description",
+                  "label": "Description",
+                  "widget": "text",
+                  "maxlength": 3000
+                },
+                {
+                  "name": "points",
+                  "label": "Highlights",
+                  "widget": "list",
+                  "min": 1,
+                  "max": 8,
+                  "field": {
+                    "name": "point",
+                    "label": "Highlight",
+                    "widget": "string",
+                    "maxlength": 300
+                  }
+                },
+                {
+                  "name": "icon",
+                  "label": "Icon",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "Repair tools",
+                      "value": "repair"
+                    },
+                    {
+                      "label": "Computer",
+                      "value": "computer"
+                    }
+                  ]
+                },
+                {
+                  "name": "ctaLabel",
+                  "label": "Button label",
+                  "widget": "string",
+                  "maxlength": 100
+                },
+                {
+                  "name": "ctaPath",
+                  "label": "Button destination",
+                  "widget": "select",
+                  "options": [
+                    "/contact",
+                    "/products",
+                    "/services",
+                    "/about"
+                  ]
+                }
+              ]
+            }
+          ],
+          "preview_path": "/services"
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "label": "PC inventory",
+      "label_singular": "PC",
+      "folder": "project/src/content/products",
+      "format": "json",
+      "extension": "json",
+      "create": true,
+      "slug": "{{slug}}",
+      "summary": "{{title}} — {{status}}",
+      "thumbnail": "image",
+      "description": "Save to the preview first. Draft and sold systems are hidden. Marketplace links open the matching ad; Facebook changes do not automatically update this inventory. Do not add private customer information.",
+      "fields": [
+        {
+          "name": "title",
+          "label": "PC name",
+          "widget": "string",
+          "maxlength": 160
+        },
+        {
+          "name": "status",
+          "label": "Availability",
+          "widget": "select",
+          "default": "draft",
+          "options": [
+            {
+              "label": "Draft — hidden",
+              "value": "draft"
+            },
+            {
+              "label": "Available",
+              "value": "available"
+            },
+            {
+              "label": "Reserved",
+              "value": "reserved"
+            },
+            {
+              "label": "Sold — hidden",
+              "value": "sold"
+            }
+          ],
+          "hint": "Available and reserved PCs appear in the catalog. Draft and sold PCs stay hidden."
+        },
+        {
+          "name": "price",
+          "label": "Price in USD",
+          "widget": "number",
+          "value_type": "float",
+          "min": 0.01,
+          "max": 100000,
+          "required": false,
+          "hint": "Leave blank to display “Call for pricing”.",
+          "step": 0.01
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "widget": "text",
+          "maxlength": 6000
+        },
+        {
+          "name": "image",
+          "label": "PC photo",
+          "widget": "image",
+          "required": false,
+          "choose_url": false,
+          "media_folder": "/project/public/uploads",
+          "public_folder": "/uploads",
+          "hint": "Choose a JPG, PNG, or WebP photo. Large photos are resized for faster loading.",
+          "multiple": false,
+          "accept": ".jpg,.jpeg,.png,.webp"
+        },
+        {
+          "name": "imageAlt",
+          "label": "Photo description",
+          "widget": "string",
+          "required": false,
+          "hint": "Optional. If blank, the PC name describes the photo.",
+          "maxlength": 300
+        },
+        {
+          "name": "cpu",
+          "label": "Processor",
+          "widget": "string",
+          "required": false,
+          "maxlength": 300
+        },
+        {
+          "name": "gpu",
+          "label": "Graphics card",
+          "widget": "string",
+          "required": false,
+          "maxlength": 300
+        },
+        {
+          "name": "ram",
+          "label": "Memory",
+          "widget": "string",
+          "required": false,
+          "maxlength": 300
+        },
+        {
+          "name": "storage",
+          "label": "Storage",
+          "widget": "string",
+          "required": false,
+          "maxlength": 300
+        },
+        {
+          "name": "marketplaceUrl",
+          "label": "Facebook Marketplace listing URL",
+          "widget": "string",
+          "required": false,
+          "type": "url",
+          "maxlength": 4000,
+          "hint": "Paste this PC’s Facebook Marketplace item link, not your profile link. It adds a button to the matching ad."
+        },
+        {
+          "name": "marketplaceVerifiedOn",
+          "label": "Marketplace availability last checked",
+          "widget": "string",
+          "required": false,
+          "maxlength": 10,
+          "pattern": ["^\\d{4}-\\d{2}-\\d{2}$", "Use YYYY-MM-DD, for example 2026-11-15."],
+          "hint": "Enter the date you checked this ad’s price and availability (YYYY-MM-DD). When Facebook changes, update this PC’s price and availability here too; this is not an automatic sync."
+        }
+      ],
+      "preview_path": "/products#pc-{{slug}}",
+      "view_filters": [
+        {
+          "label": "Available",
+          "field": "status",
+          "pattern": "^available$"
+        },
+        {
+          "label": "Reserved",
+          "field": "status",
+          "pattern": "^reserved$"
+        },
+        {
+          "label": "Drafts",
+          "field": "status",
+          "pattern": "^draft$"
+        },
+        {
+          "label": "Sold",
+          "field": "status",
+          "pattern": "^sold$"
+        }
+      ],
+      "sortable_fields": [
+        "title",
+        "status",
+        "price",
+        "marketplaceVerifiedOn"
+      ],
+      "view_groups": [
+        {
+          "label": "Availability",
+          "field": "status"
+        }
+      ]
+    }
+  ],
+  "logo": {
+    "src": "/apple-touch-logo-full.png"
+  },
+  "media_libraries": {
+    "all": {
+      "slugify_filename": true,
+      "max_file_size": 10485760,
+      "transformations": {
+        "raster_image": {
+          "format": "webp",
+          "quality": 82,
+          "width": 1600,
+          "height": 1600
+        }
+      }
+    }
+  }
+}

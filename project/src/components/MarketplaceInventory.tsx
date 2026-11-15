@@ -1,15 +1,16 @@
+import { siteConfig } from '../config/site';
 import { ExternalLink, Gamepad2, Monitor, MousePointer2 } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 import PanelFrame from './ui/PanelFrame';
 import SectionHeader from './ui/SectionHeader';
 import { cardClass, iconBadgeClass } from './ui/siteStyles';
 
-const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
+const marketplaceUrl = siteConfig.marketplaceUrl;
 
 const categories = [
   {
     title: 'Gaming PCs',
-    description: 'See the latest available systems in one place instead of waiting on a manual inventory update.',
+    description: 'Compare listed systems and contact the shop about the games you play and your budget.',
     icon: Gamepad2,
   },
   {
@@ -28,12 +29,12 @@ const MarketplaceInventory = () => {
   return (
     <section className="relative py-14 sm:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <PanelFrame label="Live inventory link" innerClassName="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <PanelFrame label="Marketplace listings" innerClassName="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <SectionHeader
               eyebrow="Facebook Marketplace Inventory"
-              title="See the current PCs, monitors, and peripherals on the shop's Marketplace profile"
-              description="Facebook does not allow Marketplace profile pages to be embedded directly inside another website, so this section gives visitors a clean, high-visibility way to open the live listing feed instead."
+              title="Browse more PCs and setup essentials on Marketplace"
+              description="See the shop's current Marketplace listings, then get in touch to confirm availability, ask a question, or arrange an in-store look."
             />
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

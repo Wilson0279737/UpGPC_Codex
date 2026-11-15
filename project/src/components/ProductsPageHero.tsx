@@ -1,3 +1,5 @@
+import ResponsiveImage from './ui/ResponsiveImage';
+import { siteConfig } from '../config/site';
 import { Cpu, Monitor, Shield } from 'lucide-react';
 import ActionLink from './ui/ActionLink';
 
@@ -16,7 +18,7 @@ const highlights = [
   },
 ];
 
-const marketplaceUrl = 'https://www.facebook.com/marketplace/profile/100086538835294/';
+const marketplaceUrl = siteConfig.marketplaceUrl;
 
 const ProductsPageHero = () => {
   return (
@@ -24,7 +26,7 @@ const ProductsPageHero = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="reveal relative overflow-hidden rounded-[1.5rem] border border-purple-300/30 bg-white/10 p-4 shadow-xl sm:rounded-[1.75rem] sm:p-6 lg:p-8">
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[82%] overflow-hidden sm:w-[66%] lg:w-[48%]">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-collage.jpg"
               alt=""
               aria-hidden="true"
@@ -37,11 +39,11 @@ const ProductsPageHero = () => {
           </div>
 
           <div className="pointer-events-none absolute right-4 top-4 hidden rounded-full border border-cyan-300/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-100 shadow-[0_16px_30px_rgba(7,20,40,0.22)] md:block">
-            All available PCs and peripherals are posted on Marketplace
+            Try systems in our Swartz Creek showroom
           </div>
 
           <div className="pointer-events-none absolute right-3 top-20 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-20 md:h-48 md:w-32 lg:h-56 lg:w-36">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-glamor.jpg"
               alt=""
               aria-hidden="true"
@@ -53,7 +55,7 @@ const ProductsPageHero = () => {
           </div>
 
           <div className="pointer-events-none absolute bottom-4 right-[24%] hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.22)] lg:block lg:h-36 lg:w-28">
-            <img
+            <ResponsiveImage
               src="/optimized/hero-products-rgb.jpg"
               alt=""
               aria-hidden="true"
@@ -76,8 +78,8 @@ const ProductsPageHero = () => {
               Gaming PCs you can compare in person before you buy
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
-              We keep all of our available PCs and peripherals posted on our Marketplace profile, so you can browse what is
-              in stock, compare options, and head to the shop with a better idea of what fits your setup and budget.
+              Compare gaming PCs, talk through your budget, and test systems in our Swartz Creek showroom.
+              Browse our current listings below or check Marketplace for additional PCs and peripherals.
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -97,8 +99,11 @@ const ProductsPageHero = () => {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <ActionLink href={marketplaceUrl} external className="w-full sm:w-auto">
-                See All Available PCs and Peripherals
+              <ActionLink href="#inventory" className="w-full sm:w-auto">
+                Browse PC listings
+              </ActionLink>
+              <ActionLink href={marketplaceUrl} external variant="secondary" className="w-full sm:w-auto">
+                Marketplace listings
               </ActionLink>
             </div>
           </div>

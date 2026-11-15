@@ -1,3 +1,5 @@
+import ResponsiveImage from './ui/ResponsiveImage';
+import { siteConfig } from '../config/site';
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useId, useState } from 'react';
 import ActionLink from './ui/ActionLink';
@@ -7,11 +9,9 @@ type MapSectionProps = {
   priorityTop?: boolean;
 };
 
-const googleMapsUrl =
-  'https://www.google.com/maps/place/Upgrade+Gaming+PCs+%2B+Computer+Repair/@42.957475,-83.8324749,17z/data=!3m1!4b1!4m6!3m5!1s0x88246f304b3af7fb:0xae6166c538ca04ed!8m2!3d42.957475!4d-83.8324749!16s%2Fg%2F11lw8tygg_?entry=ttu';
+const googleMapsUrl = siteConfig.googleMapsUrl;
 
-const embeddedMapUrl =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2919.986974969934!2d-83.83504982347331!3d42.95747889714901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88246f304b3af7fb%3A0xae6166c538ca04ed!2sUpgrade%20Gaming%20PCs%20%2B%20Computer%20Repair!5e0!3m2!1sen!2sus!4v1751560682135!5m2!1sen!2sus';
+const embeddedMapUrl = siteConfig.mapEmbedUrl;
 
 const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(!collapsible);
@@ -25,7 +25,7 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           {priorityTop && (
             <>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[78%] overflow-hidden sm:w-[62%] lg:w-[46%]">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-dusk.jpg"
                   alt=""
                   aria-hidden="true"
@@ -38,7 +38,7 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
               </div>
 
               <div className="pointer-events-none absolute right-3 top-4 hidden overflow-hidden rounded-[1.15rem] border border-white/15 bg-purple-950/25 shadow-[0_18px_38px_rgba(12,8,39,0.24)] sm:block sm:h-36 sm:w-24 md:right-5 md:top-5 md:h-48 md:w-32 lg:h-56 lg:w-36">
-                <img
+                <ResponsiveImage
                   src="/optimized/hero-storefront-entry.jpg"
                   alt=""
                   aria-hidden="true"
@@ -69,7 +69,7 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
               <div className="mt-5 flex items-start gap-3 rounded-[1.2rem] border border-purple-300/25 bg-purple-900/25 px-4 py-4">
                 <MapPin className="mt-1 h-5 w-5 shrink-0 text-purple-300" />
                 <div>
-                  <p className="font-semibold text-white">8048 Miller Rd Ste B, Swartz Creek, MI 48473</p>
+                  <p className="font-semibold text-white">{siteConfig.address}</p>
                   <p className="mt-1 text-sm text-purple-100">Free parking available and easy highway access.</p>
                 </div>
               </div>
@@ -103,14 +103,14 @@ const MapSection = ({ collapsible = false, priorityTop = false }: MapSectionProp
           >
             <div className="map-expander-inner overflow-hidden rounded-[1.35rem] border border-purple-300/30 bg-purple-950/30 shadow-[0_24px_50px_rgba(12,8,39,0.28)]">
               <div className="relative h-0 w-full pb-[62%] sm:pb-[58%] lg:pb-[46%]">
-                <iframe
+                {isExpanded && <iframe
                   src={embeddedMapUrl}
                   className="pointer-events-none absolute inset-0 h-full w-full select-none border-0"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Upgrade Gaming PCs Location"
-                />
+                />}
                 <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-black/45 px-4 py-3">
                   <p className="text-xs leading-relaxed text-purple-100">
                     Page scrolling stays smooth here. Use &quot;Open in Google Maps&quot; for full navigation and map controls.
