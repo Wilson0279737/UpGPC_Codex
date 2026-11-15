@@ -11,12 +11,18 @@ async function openEditor(button, requestedDestination) {
   if (opening) return;
   opening = true;
   const status = document.getElementById('status');
+  const entry = button?.dataset.entry;
+  const destination = requestedDestination || (entry && /^[a-z0-9][a-z0-9-]*$/.test(entry)
+    ? `/collections/products/entries/${entry}` : destinations[button?.dataset.destination]);
   const buttons = document.querySelectorAll('#open-editor, [data-open-editor]');
   buttons.forEach(item => { item.disabled = true; });
   status.textContent = 'Loading your editor…';
   status.removeAttribute('data-error');
   status.setAttribute('aria-busy', 'true');
   try {
+    // Give direct-entry links a collection to return to, including after a reload.
+    const parent = destination?.match(/^\/collections\/([^/]+)\/entries\//)?.[1];
+    if (parent) window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/collections/${parent}`);
     const response = await fetch('/admin/config.json', { cache: 'no-store', signal: AbortSignal.timeout(10000) });
     if (!response.ok) throw new Error('Could not load editor settings.');
     const config = await response.json();
@@ -59,9 +65,6 @@ async function openEditor(button, requestedDestination) {
       window.cmsValidationRegistered = true;
     }
     await window.CMS.init({ config });
-    const entry = button?.dataset.entry;
-    const destination = requestedDestination || (entry && /^[a-z0-9][a-z0-9-]*$/.test(entry)
-      ? `/collections/products/entries/${entry}` : destinations[button?.dataset.destination]);
     if (destination) window.location.hash = destination;
     document.getElementById('welcome').hidden = true;
     document.body.classList.add('editing');
