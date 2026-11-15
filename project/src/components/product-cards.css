@@ -1,3 +1,4 @@
+.compare-dock{position:sticky;bottom:16px;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin:20px auto 0;max-width:480px;padding:10px 18px;border:1px solid #9ce6d66b;border-radius:18px;background:#122b30f5;box-shadow:0 10px 35px #0006;color:#dcfff5;font-size:13px}.compare-dock a{display:flex;align-items:center;min-height:44px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .shop-guide{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;padding:26px;border:1px solid #71e4cf40;border-radius:22px;background:radial-gradient(ellipse at top right,#22d3ee20,transparent 65%),#15172d}
 .shop-kicker{font-size:10px;letter-spacing:.15em;font-weight:700;color:#8debdc}
 .shop-guide h3{margin:8px 0;font-size:clamp(22px,3vw,30px);font-weight:700;color:white;letter-spacing:-.03em}
