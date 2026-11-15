@@ -28,6 +28,13 @@ function httpsUrl(value) {
   } catch { return false; }
 }
 
+export function validMarketplaceUrl(value) {
+  if (!httpsUrl(value)) return false;
+  const url = new URL(value);
+  return ['facebook.com', 'www.facebook.com', 'm.facebook.com', 'web.facebook.com'].includes(url.hostname)
+    && !url.port && /^\/marketplace\/item\/\d+\/?$/.test(url.pathname);
+}
+
 export function productProblems(product) {
   const errors = [];
   if (!record(product)) return ['This PC entry is invalid.'];
@@ -38,6 +45,15 @@ export function productProblems(product) {
   image(errors, product.image, 'PC photo');
   text(errors, product.imageAlt, 'Photo description', 300, false);
   for (const key of ['cpu', 'gpu', 'ram', 'storage']) text(errors, product[key], key, 300, false);
+  const hasMarketplaceUrl = product.marketplaceUrl != null && product.marketplaceUrl !== '';
+  if (hasMarketplaceUrl && !validMarketplaceUrl(product.marketplaceUrl)) errors.push('Marketplace link must be an HTTPS Facebook Marketplace item URL, not a profile or search page.');
+  if (product.marketplaceVerifiedOn != null && product.marketplaceVerifiedOn !== '') {
+    const date = product.marketplaceVerifiedOn;
+    if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)
+      || !Number.isFinite(Date.parse(`${date}T00:00:00Z`))
+      || new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10) !== date) errors.push('Marketplace check date must be a real date in YYYY-MM-DD format.');
+    if (!hasMarketplaceUrl) errors.push('Add this PC’s Marketplace link before recording its check date.');
+  }
   return errors;
 }
 

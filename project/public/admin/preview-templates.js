@@ -1,3 +1,5 @@
+import { validMarketplaceUrl } from './content-rules.js';
+
 export function registerPreviews(CMS, { demo = false } = {}) {
   const h = CMS.React.createElement;
   CMS.registerPreviewStyle('/admin/preview.css', { collection: 'products' });
@@ -25,6 +27,8 @@ export function registerPreviews(CMS, { demo = false } = {}) {
         h('h1', {}, title),
         h('p', { className: 'pc-description' }, pc.description || 'Add a description to help customers choose.'),
         h('dl', {}, specs.map(([label, value]) => h('div', { className: 'pc-spec', key: label }, h('dt', {}, label), h('dd', {}, value)))),
+        validMarketplaceUrl(pc.marketplaceUrl) ? h('a', { className: 'pc-marketplace', href: pc.marketplaceUrl, target: '_blank', rel: 'noopener noreferrer' }, 'View on Facebook Marketplace') : null,
+        pc.marketplaceVerifiedOn ? h('p', { className: 'preview-note' }, `Marketplace last checked: ${pc.marketplaceVerifiedOn}`) : null,
         h('p', { className: 'visibility-note' }, demo ? 'Practice only. This PC will not appear on your website.' : notes[status]),
       ),
       h('p', { className: 'preview-note' }, demo ? 'Try changing the price, specifications, photo, and availability. Practice changes never update the real website.' : 'Save, then review the website to confirm the final layout. Draft and sold PCs stay hidden.'),

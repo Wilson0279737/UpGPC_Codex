@@ -11,6 +11,8 @@ export type Product = {
   gpu?: string;
   ram?: string;
   storage?: string;
+  marketplaceUrl?: string;
+  marketplaceVerifiedOn?: string;
 };
 
 export const inventory = catalog as (Product & { id: string })[];

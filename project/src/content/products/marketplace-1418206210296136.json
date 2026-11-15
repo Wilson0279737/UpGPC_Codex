@@ -1,0 +1,14 @@
+{
+  "title": "Flame — RTX 4070 SUPER Gaming PC",
+  "status": "available",
+  "price": 2099,
+  "description": "Try this gaming PC in our Swartz Creek showroom. Tested, cleaned, and tuned by Upgrade Gaming PCs. Trade-ins and offers welcome; open the Marketplace listing for details.",
+  "image": "/uploads/marketplace-1418206210296136.jpg",
+  "imageAlt": "Flame gaming PC with RGB fans and its specification card in the Upgrade Gaming PCs showroom",
+  "cpu": "Intel Core i7-14700F",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "ram": "32 GB DDR5",
+  "storage": "1 TB NVMe SSD",
+  "marketplaceUrl": "https://www.facebook.com/marketplace/item/1418206210296136/",
+  "marketplaceVerifiedOn": "2026-11-15"
+}

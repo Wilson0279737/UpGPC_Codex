@@ -313,15 +313,15 @@
     },
     {
       "name": "products",
-      "label": "Gaming PC inventory",
-      "label_singular": "Gaming PC",
+      "label": "PC inventory",
+      "label_singular": "PC",
       "folder": "project/src/content/products",
       "format": "json",
       "extension": "json",
       "create": true,
       "slug": "{{slug}}",
       "summary": "{{title}} — {{status}}",
-      "description": "Save to the preview first. Draft and sold systems are hidden from the website. Do not add private customer information.",
+      "description": "Save to the preview first. Draft and sold systems are hidden. Marketplace links open the matching ad; Facebook changes do not automatically update this inventory. Do not add private customer information.",
       "fields": [
         {
           "name": "title",
@@ -418,6 +418,24 @@
           "widget": "string",
           "required": false,
           "maxlength": 300
+        },
+        {
+          "name": "marketplaceUrl",
+          "label": "Facebook Marketplace listing URL",
+          "widget": "string",
+          "required": false,
+          "type": "url",
+          "maxlength": 4000,
+          "hint": "Paste this PC’s Facebook Marketplace item link, not your profile link. It adds a button to the matching ad."
+        },
+        {
+          "name": "marketplaceVerifiedOn",
+          "label": "Marketplace availability last checked",
+          "widget": "string",
+          "required": false,
+          "maxlength": 10,
+          "pattern": ["^\\d{4}-\\d{2}-\\d{2}$", "Use YYYY-MM-DD, for example 2026-11-15."],
+          "hint": "Enter the date you checked this ad’s price and availability (YYYY-MM-DD). When Facebook changes, update this PC’s price and availability here too; this is not an automatic sync."
         }
       ],
       "preview_path": "/products#pc-{{slug}}",

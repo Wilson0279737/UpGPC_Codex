@@ -99,6 +99,35 @@ test('embedded maps accept Google embed links and reject ordinary or deceptive w
 });
 
 test('all optional product fields can be blank and valid prices include cents',()=>{
-  assert.deepEqual(productProblems({...pc,price:899.99,image:'',imageAlt:'',cpu:'',gpu:'',ram:'',storage:''}),[]);
+  assert.deepEqual(productProblems({...pc,price:899.99,image:'',imageAlt:'',cpu:'',gpu:'',ram:'',storage:'',marketplaceUrl:'',marketplaceVerifiedOn:''}),[]);
   assert.deepEqual(productProblems({...pc,price:''}),[]);
+});
+
+test('Marketplace buttons accept only secure Facebook item links',()=>{
+  for (const marketplaceUrl of [
+    'https://www.facebook.com/marketplace/item/1418206210296136/',
+    'https://facebook.com/marketplace/item/4712244895764549',
+    'https://m.facebook.com/marketplace/item/123/?ref=share',
+    'https://web.facebook.com/marketplace/item/123/'
+  ]) assert.deepEqual(productProblems({...pc,marketplaceUrl}),[]);
+  for (const marketplaceUrl of [
+    'javascript:alert(1)', 'http://facebook.com/marketplace/item/123/',
+    'https://www.facebook.com/marketplace/profile/123/',
+    'https://www.facebook.com/marketplace/search/?query=pc',
+    'https://facebook.com.example.com/marketplace/item/123/',
+    'https://user:password@facebook.com/marketplace/item/123/',
+    'https://facebook.com:444/marketplace/item/123/',
+    'https://facebook.com/marketplace/item/not-a-listing/',
+    false, {}, ' https://facebook.com/marketplace/item/123/'
+  ]) assert.ok(productProblems({...pc,marketplaceUrl}).some(e=>e.includes('Marketplace link')));
+});
+
+test('Marketplace check dates require an item link and a real calendar date',()=>{
+  const linked={...pc,marketplaceUrl:'https://www.facebook.com/marketplace/item/123/'};
+  assert.deepEqual(productProblems({...linked,marketplaceVerifiedOn:'2026-11-15'}),[]);
+  assert.deepEqual(productProblems({...linked,marketplaceVerifiedOn:'2024-02-29'}),[]);
+  for(const marketplaceVerifiedOn of ['2026-02-29','2026-04-31','2026-13-01','11/15/2026','2026-11-15T12:00:00Z',false,{},123]) {
+    assert.ok(productProblems({...linked,marketplaceVerifiedOn}).some(e=>e.includes('real date')));
+  }
+  assert.ok(productProblems({...pc,marketplaceVerifiedOn:'2026-11-15'}).some(e=>e.includes('Marketplace link')));
 });

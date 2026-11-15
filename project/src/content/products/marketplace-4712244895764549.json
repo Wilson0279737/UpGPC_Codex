@@ -1,0 +1,13 @@
+{
+  "title": "HP Windows 11 Workstation PC",
+  "status": "available",
+  "price": 99,
+  "description": "Everyday desktop with Windows 11 Home installed. Includes a monitor and speaker bar, as listed on Marketplace. Message us with any questions.",
+  "image": "/uploads/marketplace-4712244895764549.jpg",
+  "imageAlt": "HP desktop workstation and included monitor in the Upgrade Gaming PCs showroom",
+  "cpu": "Intel Core i5-6500",
+  "ram": "4 GB DDR4",
+  "storage": "128 GB SSD",
+  "marketplaceUrl": "https://www.facebook.com/marketplace/item/4712244895764549/",
+  "marketplaceVerifiedOn": "2026-11-15"
+}

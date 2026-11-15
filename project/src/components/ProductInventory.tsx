@@ -9,6 +9,7 @@ import { cardClass } from './ui/siteStyles';
 import SavePcButton from './SavePcButton';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+const listingDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
 export default function ProductInventory() {
   const [query, setQuery] = useState('');
@@ -46,7 +47,7 @@ export default function ProductInventory() {
             {products.map(product => (
               <article id={`pc-${product.id}`} key={product.id} className={`${cardClass} flex min-w-0 scroll-mt-28 flex-col`}>
                 {product.image ? (
-                  <img src={product.image} alt={product.imageAlt || product.title} width="720" height="540" loading="lazy" decoding="async" className="aspect-[4/3] w-full rounded-xl object-cover" />
+                  <img src={product.image} alt={product.imageAlt || product.title} width="720" height="540" loading="lazy" decoding="async" className="aspect-[4/3] w-full rounded-xl bg-purple-950/40 object-contain" />
                 ) : (
                   <div className="flex aspect-[4/3] items-center justify-center rounded-xl bg-purple-950/40" aria-hidden="true"><Monitor className="h-16 w-16 text-purple-300" /></div>
                 )}
@@ -61,10 +62,16 @@ export default function ProductInventory() {
                     <div key={label} className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2"><dt className="text-purple-200">{label}</dt><dd className="break-words font-medium text-white">{value}</dd></div>
                   ))}
                 </dl>
-                <a className="mt-auto inline-flex min-h-11 items-center justify-center rounded-xl bg-purple-600 px-4 py-3 text-center font-semibold text-white hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-200" href={`${siteConfig.emailHref}?subject=${encodeURIComponent(`Question about ${product.title}`)}`}>
-                  {product.status === 'reserved' ? 'Ask about similar PCs' : 'Ask about this PC'}
-                </a>
-                <SavePcButton productId={product.id} className="w-full" />
+                <div className="mt-auto grid gap-3">
+                  {product.marketplaceUrl && <>
+                    <ActionLink href={product.marketplaceUrl} external className="w-full">View on Facebook Marketplace</ActionLink>
+                    {product.marketplaceVerifiedOn && <p className="text-xs leading-relaxed text-purple-200">Marketplace availability checked <time dateTime={product.marketplaceVerifiedOn}>{listingDate.format(new Date(`${product.marketplaceVerifiedOn}T00:00:00Z`))}</time>.</p>}
+                  </>}
+                  <ActionLink href={`${siteConfig.emailHref}?subject=${encodeURIComponent(`Question about ${product.title}`)}`} variant={product.marketplaceUrl ? 'secondary' : 'primary'} className="w-full">
+                    {product.status === 'reserved' ? 'Ask about similar PCs' : 'Ask about this PC'}
+                  </ActionLink>
+                  <SavePcButton productId={product.id} className="w-full" />
+                </div>
               </article>
             ))}
           </div>

@@ -28,8 +28,8 @@
     "description": "Call, email, or stop by the showroom to ask about repairs, trade-ins, available systems, or anything else you want to talk through before you make a decision."
   },
   "inventory": {
-    "title": "Available gaming PCs",
-    "description": "Explore systems listed by the shop. Call to confirm availability or arrange an in-store test.",
+    "title": "Available PCs",
+    "description": "Explore gaming PCs and everyday desktops. View a PC on Marketplace or call to arrange an in-store test.",
     "emptyMessage": "Our inventory changes regularly. Contact the shop or browse our Marketplace profile for current systems."
   }
 }
