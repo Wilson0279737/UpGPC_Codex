@@ -1,3 +1,13 @@
+.shop-guide{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;padding:26px;border:1px solid #71e4cf40;border-radius:22px;background:radial-gradient(ellipse at top right,#22d3ee20,transparent 65%),#15172d}
+.shop-kicker{font-size:10px;letter-spacing:.15em;font-weight:700;color:#8debdc}
+.shop-guide h3{margin:8px 0;font-size:clamp(22px,3vw,30px);font-weight:700;color:white;letter-spacing:-.03em}
+.shop-guide p{color:#d4c9e6;font-size:14px;line-height:1.6}
+.shop-guide a{color:#abf3e5;font-size:13px;min-height:44px;display:flex;align-items:center}
+.active-filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.active-filters button{display:inline-flex;align-items:center;gap:10px;min-height:44px;max-width:100%;overflow-wrap:anywhere;text-align:left;padding:8px 13px;border:1px solid #c9afff50;border-radius:12px;background:#312245;color:#eee5ff;font-size:13px}
+.active-filters svg{flex-shrink:0}
+.shop-guide a:focus-visible,.active-filters button:focus-visible{outline:2px solid #b7f8ec;outline-offset:4px}
+@media(max-width:640px){.shop-guide{align-items:flex-start;flex-direction:column;gap:12px;padding:20px}}
 .inventory-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 24px;margin:30px 0 26px;padding:20px;border:1px solid #c4a5ff26;border-radius:22px;background:#100e25a6;box-shadow:0 12px 36px #08071a18}
 .inventory-search{display:flex;align-items:center;gap:12px;min-width:0;padding:0 14px;border:1px solid #c4a5ff35;border-radius:12px;background:#090b1a80;color:#b9a7da}
 .inventory-search:focus-within{border-color:#bd9afa;box-shadow:0 0 0 3px #b991ef18}
@@ -28,7 +38,7 @@
 .pc-image-stage>.pc-stock{position:absolute;left:13px;top:13px;pointer-events:none}
 .pc-stock--reserved{border-color:#ffc97754;background:#30251dea;color:#ffdc9a}
 .pc-save-control,.pc-image-stage>.pc-save-button{position:absolute;right:12px;top:11px;z-index:1}
-.pc-save-button{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border:1px solid #d7bffb4d;border-radius:50%;background:#11172de8;color:#e8dafa;backdrop-filter:blur(8px);transition:background .16s,color .16s}
+.pc-save-button{display:inline-flex;gap:7px;padding:0 12px;font-size:12px;font-weight:600;align-items:center;justify-content:center;min-width:44px;height:44px;flex-shrink:0;border:1px solid #d7bffb4d;border-radius:22px;background:#11172de8;color:#e8dafa;backdrop-filter:blur(8px);transition:background .16s,color .16s}
 .pc-save-button:hover{background:#42316b}
 .pc-save-button[aria-pressed=true]{color:#a7f3d0;border-color:#6ce7b073;background:#133d37}
 .pc-save-button:disabled{cursor:wait;opacity:.55}
