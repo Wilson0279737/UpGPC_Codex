@@ -26,8 +26,8 @@ export default function ProductDetailsDialog({ product, onClose }: { product: Li
     if (event.shiftKey && document.activeElement === closeRef.current) { event.preventDefault(); callRef.current?.focus(); }
     else if (!event.shiftKey && document.activeElement === callRef.current) { event.preventDefault(); closeRef.current?.focus(); }
   }}>
+    <button ref={closeRef} type="button" className="pc-dialog-close" aria-label="Close PC details" onClick={onClose}><X size={21} aria-hidden="true" /></button>
     <div className="pc-detail-layout">
-      <button ref={closeRef} type="button" className="pc-dialog-close" aria-label="Close PC details" onClick={onClose}><X size={21} aria-hidden="true" /></button>
       <div className="pc-detail-photo">{product.image ? <img src={product.image} alt={product.imageAlt || product.title} width="720" height="960" /> : <Monitor size={80} aria-hidden="true" />}<span>See it. Try it. Find your next PC.</span></div>
       <div className="pc-detail-copy">
         <span className={`pc-stock ${reserved ? 'pc-stock--reserved' : ''}`}><StatusIcon size={13} aria-hidden="true" />{reserved ? 'Reserved' : 'Available'}</span>
