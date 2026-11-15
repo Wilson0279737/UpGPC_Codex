@@ -3,6 +3,7 @@ project/dist/
 project/.netlify/
 
 project/public/admin/seed/
+project/public/admin/catalog.json
 project/*.tsbuildinfo
 project/src/content/catalog.generated.json
 project/.env

@@ -16,3 +16,10 @@ export type Product = {
 };
 
 export const inventory = catalog as (Product & { id: string })[];
+
+export type ListedProduct = Product & { id: string };
+const wholePrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const centsPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+export const formatPcPrice = (price?: number | null) => typeof price === 'number'
+  ? (Number.isInteger(price) ? wholePrice : centsPrice).format(price)
+  : 'Call for pricing';

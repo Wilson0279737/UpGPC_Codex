@@ -321,6 +321,7 @@
       "create": true,
       "slug": "{{slug}}",
       "summary": "{{title}} — {{status}}",
+      "thumbnail": "image",
       "description": "Save to the preview first. Draft and sold systems are hidden. Marketplace links open the matching ad; Facebook changes do not automatically update this inventory. Do not add private customer information.",
       "fields": [
         {
@@ -464,7 +465,14 @@
       "sortable_fields": [
         "title",
         "status",
-        "price"
+        "price",
+        "marketplaceVerifiedOn"
+      ],
+      "view_groups": [
+        {
+          "label": "Availability",
+          "field": "status"
+        }
       ]
     }
   ],

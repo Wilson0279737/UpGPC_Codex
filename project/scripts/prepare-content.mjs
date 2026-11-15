@@ -14,7 +14,10 @@ const products = await Promise.all(productFiles.map(async file => ({file, data: 
 const site = await read('src/content/site.json');
 const errors = validateContent(site, await read('src/content/services.json'), products, path.join(root,'public'));
 if (errors.length) { console.error('Please correct these CMS fields:\n' + errors.map(error => `- ${error}`).join('\n')); process.exit(1); }
-await writeFile(path.join(root, 'src/content/catalog.generated.json'), JSON.stringify(visibleProducts(products.map(({file,data})=>({...data,id:file.replace(/\.json$/,'')}))),null,2));
+const publicCatalog = visibleProducts(products.map(({file,data})=>({...data,id:file.replace(/\.json$/,'')})));
+await writeFile(path.join(root, 'src/content/catalog.generated.json'), JSON.stringify(publicCatalog,null,2));
+// The dashboard gets the same public entries as the website, never hidden inventory.
+await writeFile(path.join(root, 'public/admin/catalog.json'), JSON.stringify(publicCatalog,null,2));
 
 // Recreate only generated practice seed data inside this checkout.
 const seedRoot = path.join(root, 'public/admin/seed');

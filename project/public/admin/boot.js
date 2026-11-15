@@ -7,14 +7,14 @@ const destinations = {
 };
 let opening = false;
 
-async function openEditor(event) {
+async function openEditor(button, requestedDestination) {
   if (opening) return;
   opening = true;
-  const button = event.currentTarget;
   const status = document.getElementById('status');
   const buttons = document.querySelectorAll('#open-editor, [data-open-editor]');
   buttons.forEach(item => { item.disabled = true; });
   status.textContent = 'Loading your editor…';
+  status.removeAttribute('data-error');
   status.setAttribute('aria-busy', 'true');
   try {
     const response = await fetch('/admin/config.json', { cache: 'no-store', signal: AbortSignal.timeout(10000) });
@@ -59,7 +59,9 @@ async function openEditor(event) {
       window.cmsValidationRegistered = true;
     }
     await window.CMS.init({ config });
-    const destination = destinations[button.dataset.destination];
+    const entry = button?.dataset.entry;
+    const destination = requestedDestination || (entry && /^[a-z0-9][a-z0-9-]*$/.test(entry)
+      ? `/collections/products/entries/${entry}` : destinations[button?.dataset.destination]);
     if (destination) window.location.hash = destination;
     document.getElementById('welcome').hidden = true;
     document.body.classList.add('editing');
@@ -68,6 +70,8 @@ async function openEditor(event) {
     status.textContent = error.name === 'TimeoutError'
       ? 'The editor settings took too long to load. Check your connection, then try again.'
       : error.message || 'Could not start the editor. Please reload and try again.';
+    status.dataset.error = 'true';
+    status.focus({ preventScroll: true });
     buttons.forEach(item => { item.disabled = false; });
     opening = false;
   } finally {
@@ -75,4 +79,10 @@ async function openEditor(event) {
   }
 }
 
-document.querySelectorAll('#open-editor, [data-open-editor]').forEach(button => button.addEventListener('click', openEditor));
+// Delegation also covers the quick-edit buttons loaded with the catalog summary.
+document.addEventListener('click', event => {
+  const button = event.target.closest('#open-editor, [data-open-editor]');
+  if (button) void openEditor(button);
+});
+const initialRoute = window.location.hash.slice(1);
+if (/^\/collections\/[a-z0-9/-]+$/.test(initialRoute)) void openEditor(null, initialRoute);
