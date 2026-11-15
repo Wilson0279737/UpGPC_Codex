@@ -39,7 +39,7 @@ The GitHub workflow installs locked dependencies, builds the app, and runs conte
 
 The CMS uses Sveltia with the existing GitHub repository. It is for the owner and trusted repository writers, without a new customer login system or database. Website copy and contact details are in `project/src/content/site.json`; services are in `services.json`; each PC is a separate JSON file in `products/`. Uploaded photos are in `project/public/uploads/`.
 
-The editor commits only to `codex/cms-preview`. Keep its pull request open so saved edits rebuild the Netlify Deploy Preview. Production still requires an explicit release instruction. The CMS may label saving as publishing; here that only updates the configured preview branch. Do not retarget the CMS to `main` without a separate release decision.
+The editor commits only to `codex/cms-preview`. The live site's `/admin` routes redirect to the [persistent owner workspace](https://upgrade-gaming-pcs-staging.netlify.app/admin/) so its dashboard and review links reflect that editing branch. Its Netlify staging project continues building saved edits after a PR closes. Retain the branch after a release and open the next PR against `main` for subsequent changes. Production still requires an explicit release instruction. The CMS may label saving as publishing; here that only updates the configured preview branch. Do not retarget the CMS to `main` without a separate release decision.
 
 First sign-in uses a GitHub fine-grained access token restricted to this repository with Contents read/write. OAuth is not advertised because no OAuth app has been configured. No credentials belong in the repository, CMS fields, or `VITE_*` variables. Read the [owner editing guide](project/public/admin/help.html) and [CMS implementation and verification notes](CMS.md). Sveltia stores the token in browser local storage; sign out on shared computers and revoke expired or exposed tokens in GitHub.
 
@@ -51,7 +51,7 @@ The practice editor uses Sveltia's virtual test repository, with copies of publi
 
 The isolated Netlify project `upgrade-gaming-pcs-staging` now builds `codex/cms-preview` with Identity/Google enabled and `VITE_CUSTOMER_ACCOUNTS=true`. Use its [account preview](https://upgrade-gaming-pcs-staging.netlify.app/account) for real sign-in; the original PR Deploy Preview remains account-disabled. Google consent, profile loading, refresh persistence, and logout were verified November 15, 2026. The business website `website3-2` and production users were not changed.
 
-See [customer account setup and remaining checks](CUSTOMER_ACCOUNTS.md) and the owner guide. Customer profiles and saved lists belong to Identity, not to the public content repository. `npm run test:auth` checks session and profile-save behavior using isolated service doubles; real cross-browser saved-list checks remain pending a genuine staging listing.
+See [customer account setup and remaining checks](CUSTOMER_ACCOUNTS.md) and the owner guide. Customer profiles and saved lists belong to Identity, not to the public content repository. `npm run test:auth` checks session and profile-save behavior using isolated service doubles. Real save, reload, remove, and reload behavior was verified with the Flame listing on November 15; a separate-browser saved-list check remains pending.
 
 ## Original live baseline and backup
 

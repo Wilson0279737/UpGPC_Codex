@@ -36,6 +36,8 @@ The preview branch is `codex/cms-preview`. The persistent staging project at `ht
 
 The editor's save/publish action commits to the configured preview branch. It does not merge to `main` or publish production. The owner's explicit release instruction is still required for that separate action. After an approved merge, retain the staging branch, continue reviewing edits on the persistent staging site, and open the next release PR; a closed PR no longer provides updating PR previews. Direct owners to the persistent staging dashboard for new edits so its catalog snapshot and website links reflect the branch they are editing.
 
+The custom production domain's `/admin` routes use temporary redirects to that persistent staging workspace. These host-specific rules leave the public website, Netlify previews, staging routes, and customer account callbacks unchanged. Owner approval to publish the reviewed CMS/catalog update was received on November 15, 2026 ("yes publish"); Google customer accounts remain staging-only for this release. The release PR records the resulting production commit and live verification.
+
 ## Validation and limits
 
 `npm run build` checks content, generates practice fixtures and the public catalog, type-checks, and builds. `npm run test:content` checks visibility, filtering/sorting, preview targeting, price/status constraints, contact links, and photo references. `npm run test:auth` checks account/session behavior. Invalid content fails the preview build with field-specific messages, retaining the previous successful deployment.

@@ -1,1 +1,6 @@
+# Keep owner editing on the persistent review deployment, including after release.
+https://upgradegamingpcs.com/admin https://upgrade-gaming-pcs-staging.netlify.app/admin/ 302!
+https://upgradegamingpcs.com/admin/* https://upgrade-gaming-pcs-staging.netlify.app/admin/:splat 302!
+https://www.upgradegamingpcs.com/admin https://upgrade-gaming-pcs-staging.netlify.app/admin/ 302!
+https://www.upgradegamingpcs.com/admin/* https://upgrade-gaming-pcs-staging.netlify.app/admin/:splat 302!
 /* /index.html 200
