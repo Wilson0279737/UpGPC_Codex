@@ -78,7 +78,7 @@ const ProductsPageHero = () => {
               Your next setup. Your kind of fun.
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
-              Find a PC that fits your budget, compare the details, then try it in our Swartz Creek showroom. We’ll help with the tech talk.
+              Find a PC that fits your budget, explore the details, then try it in our Swartz Creek showroom. We’ll help with the tech talk.
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
