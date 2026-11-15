@@ -75,11 +75,10 @@ const ProductsPageHero = () => {
             </div>
 
             <h1 className="mt-4 text-[2rem] font-bold leading-tight text-white sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-              Gaming PCs you can compare in person before you buy
+              Your next setup. Your kind of fun.
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-purple-100 sm:mt-4 sm:text-lg">
-              Compare gaming PCs, talk through your budget, and test systems in our Swartz Creek showroom.
-              Browse our current listings below or check Marketplace for additional PCs and peripherals.
+              Find a PC that fits your budget, compare the details, then try it in our Swartz Creek showroom. We’ll help with the tech talk.
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
