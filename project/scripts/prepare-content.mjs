@@ -2,7 +2,7 @@ import { mkdir, readFile, readdir, writeFile, copyFile, rm } from 'node:fs/promi
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { validateContent } from './content-validation.mjs';
-import { visibleProducts } from '../src/lib/inventory.mjs';
+import { visibleProducts, soldProducts } from '../src/lib/inventory.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = async name => {
@@ -14,8 +14,10 @@ const products = await Promise.all(productFiles.map(async file => ({file, data: 
 const site = await read('src/content/site.json');
 const errors = validateContent(site, await read('src/content/services.json'), products, path.join(root,'public'));
 if (errors.length) { console.error('Please correct these CMS fields:\n' + errors.map(error => `- ${error}`).join('\n')); process.exit(1); }
-const publicCatalog = visibleProducts(products.map(({file,data})=>({...data,id:file.replace(/\.json$/,'')})));
+const allProducts = products.map(({file,data})=>({...data,id:file.replace(/\.json$/,'')}));
+const publicCatalog = visibleProducts(allProducts);
 await writeFile(path.join(root, 'src/content/catalog.generated.json'), JSON.stringify(publicCatalog,null,2));
+await writeFile(path.join(root, 'src/content/sold.generated.json'), JSON.stringify(soldProducts(allProducts),null,2));
 // The dashboard gets the same public entries as the website, never hidden inventory.
 await writeFile(path.join(root, 'public/admin/catalog.json'), JSON.stringify(publicCatalog,null,2));
 

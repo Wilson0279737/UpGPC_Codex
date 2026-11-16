@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { validateContent } from '../scripts/content-validation.mjs';
-import { visibleProducts, searchProducts } from '../src/lib/inventory.mjs';
+import { visibleProducts, searchProducts, soldProducts, searchSoldProducts } from '../src/lib/inventory.mjs';
 import { productProblems, siteProblems, servicesProblems } from '../public/admin/content-rules.js';
 
 const read = file => JSON.parse(readFileSync(new URL(file,import.meta.url),'utf8'));
@@ -21,6 +21,23 @@ test('public catalog hides drafts and sold systems and sorts available before re
   const products=[{title:'Reserved',status:'reserved'},{title:'Draft',status:'draft'},{title:'Sold',status:'sold'},{title:'Available',status:'available'},{title:'Unknown',status:'unexpected'}];
   assert.deepEqual(visibleProducts(products).map(p=>p.title),['Available','Reserved']);
   assert.equal(products.length,5);
+});
+test('the sold archive excludes current stock and private drafts',()=>{
+  const records=[{title:'Current',status:'available'},{title:'Reserved',status:'reserved'},{title:'Private draft',status:'draft'},{title:'Sold B',status:'sold'},{title:'Sold A',status:'sold'},{title:'Invalid',status:'unexpected'}];
+  assert.deepEqual(soldProducts(records).map(p=>p.title),['Sold A','Sold B']);
+  assert.deepEqual(visibleProducts(records).map(p=>p.title),['Current','Reserved']);
+  assert.equal(records.length,6);
+});
+test('sold search and type filters never offer current stock or unknown prices as bargains',()=>{
+  const records=[{title:'Desktop',status:'sold',gpu:'RTX 4070',price:700},{title:'Laptop',status:'sold',formFactor:'laptop',gpu:'RTX 4070',price:900},{title:'Unknown price',status:'sold',gpu:'RTX 4070'},{title:'Current',status:'available',gpu:'RTX 4070',price:100}];
+  assert.deepEqual(searchSoldProducts(records,{query:'4070',sort:'price-low'}).map(p=>p.title),['Desktop','Laptop','Unknown price']);
+  assert.deepEqual(searchSoldProducts(records,{formFactor:'laptop'}).map(p=>p.title),['Laptop']);
+  assert.deepEqual(searchSoldProducts(records,{formFactor:'desktop',sort:'price-high'}).map(p=>p.title),['Desktop','Unknown price']);
+  assert.deepEqual(searchSoldProducts(records,{query:'not found'}),[]);
+});
+test('system types are optional and reject unsupported values',()=>{
+  for(const formFactor of [undefined,'','desktop','laptop']) assert.deepEqual(productProblems({...pc,formFactor}),[]);
+  for(const formFactor of ['console',false,{},7]) assert.ok(productProblems({...pc,formFactor}).some(e=>e.includes('system type')));
 });
 test('invalid prices and statuses block the build',()=>{
   for(const price of [-1,0,'500',NaN,Infinity,100001]) assert.ok(validate({...pc,price}).some(e=>e.includes('price')));

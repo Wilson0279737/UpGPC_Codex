@@ -15,7 +15,7 @@ export function registerPreviews(CMS, { demo = false } = {}) {
     const pc = entry.get('data').toJS();
     const title = copy(pc.title, 'Your PC name');
     const status = ['available', 'reserved', 'sold'].includes(pc.status) ? pc.status : 'draft';
-    const notes = { available: 'Visible in the catalog after this preview rebuilds.', reserved: 'Visible with a reserved label. Shoppers can ask about similar PCs.', sold: 'Hidden from shoppers. The record stays in your inventory.', draft: 'Hidden from shoppers. Choose Available when this PC is ready.' };
+    const notes = { available: 'Visible in the catalog after this preview rebuilds.', reserved: 'Visible with a reserved label. Shoppers can ask about similar PCs.', sold: 'Visible in the Sold PCs archive. Excluded from available stock and saved-PC controls.', draft: 'Hidden from shoppers. Choose Available when this PC is ready.' };
     const photo = pc.image ? getAsset(pc.image) : undefined;
     const specs = [['Processor', pc.cpu], ['Graphics', pc.gpu], ['Memory', pc.ram], ['Storage', pc.storage]].filter(([, value]) => value);
     return h('div', { className: 'pc-preview' }, heading('PC listing'),
@@ -25,10 +25,10 @@ export function registerPreviews(CMS, { demo = false } = {}) {
           h('span', { className: `preview-stock ${status}` }, status.charAt(0).toUpperCase() + status.slice(1)),
         ),
         h('div', { className: 'pc-preview-body' },
-          h('div', { className: 'pc-preview-price-row' }, h('span', { className: 'preview-eyebrow' }, 'Upgrade Gaming PCs'), h('strong', {}, price(pc.price))),
+          h('div', { className: 'pc-preview-price-row' }, h('span', { className: 'preview-eyebrow' }, status === 'sold' ? 'Last advertised listing price' : 'Upgrade Gaming PCs'), h('strong', {}, status === 'sold' && typeof pc.price !== 'number' ? 'Price not recorded' : price(pc.price))),
           h('h1', {}, title), h('p', { className: 'pc-preview-description' }, copy(pc.description, 'Add a description to help customers choose.')),
           h('dl', { className: 'preview-specs' }, specs.map(([label, value]) => h('div', { key: label }, h('dt', {}, label), h('dd', {}, copy(value))))),
-          validMarketplaceUrl(pc.marketplaceUrl) ? h('a', { className: 'preview-action', href: pc.marketplaceUrl, target: '_blank', rel: 'noopener noreferrer' }, 'View on Marketplace ↗') : null,
+          validMarketplaceUrl(pc.marketplaceUrl) ? h('a', { className: 'preview-action', href: pc.marketplaceUrl, target: '_blank', rel: 'noopener noreferrer' }, status === 'sold' ? 'Original Marketplace listing ↗' : 'View on Marketplace ↗') : null,
           pc.marketplaceVerifiedOn ? h('p', { className: 'preview-note' }, `Marketplace last checked: ${copy(pc.marketplaceVerifiedOn)}`) : null,
           h('p', { className: `visibility-note ${status}` }, demo ? 'Practice only. This PC will not appear on your website.' : notes[status]),
         ),

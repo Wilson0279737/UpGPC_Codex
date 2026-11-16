@@ -322,7 +322,7 @@
       "slug": "{{slug}}",
       "summary": "{{title}} — {{status}}",
       "thumbnail": "image",
-      "description": "Save to the preview first. Draft and sold systems are hidden. Marketplace links open the matching ad; Facebook changes do not automatically update this inventory. Do not add private customer information.",
+      "description": "Available and reserved PCs appear in current stock. Sold PCs appear in the public Sold PCs archive. Drafts stay hidden. Facebook changes do not automatically update this inventory. Do not add private customer information.",
       "fields": [
         {
           "name": "title",
@@ -349,11 +349,28 @@
               "value": "reserved"
             },
             {
-              "label": "Sold — hidden",
+              "label": "Sold — public archive",
               "value": "sold"
             }
           ],
-          "hint": "Available and reserved PCs appear in the catalog. Draft and sold PCs stay hidden."
+          "hint": "Available and reserved PCs appear in current stock. Sold PCs appear in the Sold PCs archive. Drafts stay hidden."
+        },
+        {
+          "name": "formFactor",
+          "label": "System type",
+          "widget": "select",
+          "required": false,
+          "default": "desktop",
+          "options": [
+            {
+              "label": "Desktop PC",
+              "value": "desktop"
+            },
+            {
+              "label": "Gaming laptop",
+              "value": "laptop"
+            }
+          ]
         },
         {
           "name": "price",
@@ -435,7 +452,10 @@
           "widget": "string",
           "required": false,
           "maxlength": 10,
-          "pattern": ["^\\d{4}-\\d{2}-\\d{2}$", "Use YYYY-MM-DD, for example 2026-11-15."],
+          "pattern": [
+            "^\\d{4}-\\d{2}-\\d{2}$",
+            "Use YYYY-MM-DD, for example 2026-11-15."
+          ],
           "hint": "Enter the date you checked this ad’s price and availability (YYYY-MM-DD). When Facebook changes, update this PC’s price and availability here too; this is not an automatic sync."
         }
       ],

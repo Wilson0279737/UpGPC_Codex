@@ -105,6 +105,7 @@ const ProductsPageHero = () => {
                 Marketplace listings
               </ActionLink>
             </div>
+            <a href="#sold-pcs" className="mt-4 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-purple-100 underline decoration-purple-300/40 underline-offset-4 hover:text-white">Explore previously sold PCs</a>
           </div>
         </div>
       </div>
