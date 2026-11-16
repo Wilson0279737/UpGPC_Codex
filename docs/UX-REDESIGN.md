@@ -4,7 +4,7 @@ The November 16, 2026 redesign aims to make shopping for a PC, arranging a servi
 
 ## Design decisions
 
-- Use a bold graphite and lime visual direction, clear type, generous spacing, consistent controls, and real product photography. Use the accent to emphasize actions and state rather than decorate every section.
+- Use the actual logo's azure/cobalt-to-indigo gradient and white detail as the visual foundation: deep navy surfaces, bright blue actions, restrained cyan highlights, clear type, and real product photography. The owner preferred the new functionality but requested more visual depth and stronger brand alignment than the first graphite/lime proposal.
 - Make products the main shopping journey. Show price, availability, and consistent essential specifications where buyers assess options. Keep sold PCs in an intentional archive.
 - Give services and contact pages distinct jobs. Consolidate repeated pitches, inventory guides, showcase sections, and generic calls to action. Retain useful navigation and contextual help.
 - Preserve truthful product content, CMS editing, customer account boundaries, direct routes, and the existing Netlify release process. Do not invent performance claims, stock, photographs, reviews, guarantees, or service promises.
@@ -68,3 +68,15 @@ The independent review inspected `main` at `f67d40fe2e30c0f9191c3bb1f1e4d51bf9a7
 - The second Chrome review inspected commit `0c812a82891ade4ed506ebbdf3ba8651f2c9c810` in PR #6. It found that the sticky header was trapped by the layout wrapper's horizontal overflow rule. This was reproduced in the hosted preview and corrected by removing that ancestor overflow restriction. Rechecking after the fix exposed and corrected an intrinsic grid-width overflow in the mobile catalog controls.
 - Browser layout checks cover Home, Products, Services, About, Contact, and Account at 320 CSS px, including expanded sold inventory. The final controls and document fit the viewport. Storefront images were also changed to existing upright variants, and the repeated home photograph was replaced with a genuine shop-team photo.
 - Validation: production build/TypeScript, 34 content/account tests, local desktop/mobile interactions, and the real [Netlify Deploy Preview](https://deploy-preview-6--website3-2.netlify.app/). Review and validation details are maintained in [PR #6](https://github.com/Wilson0279737/UpGPC_Codex/pull/6). These checks establish the tested behavior, not a user-study satisfaction score or field performance result.
+
+## Logo-driven visual refinement
+
+The owner approved the improved functionality and navigation while asking for a more creative, visually striking presentation that matches the logo. The refinement keeps those browsing and account behaviors and changes the presentation across all customer-facing routes:
+
+- Azure, cobalt, indigo, navy, and white replace the lime/green brand palette. Green and amber remain only where they communicate meaningful product status.
+- Localized lighting, fine blueprint lines, and a static cooling-fan graphic echo the logo. These are decorative, ignore pointer input, and are hidden from assistive technology; they do not introduce fake technical readings or new navigation.
+- A self-hosted 22 KB variable Space Grotesk font gives headings a consistent technical character. Its Open Font License is included in `project/public/fonts/`; there are no runtime Google Fonts requests.
+- Product photographs sit on softly illuminated blue display surfaces. Services use numbered workbench bands, About uses layered photo frames, Contact uses a light information panel against navy, and account/save controls share the same palette.
+- Primary actions use white text on cobalt/indigo; cyan is reserved for emphasis and focus. Existing large controls, 16 px form text, modal focus behavior, and reduced-motion handling remain in place.
+
+Visual QA covers desktop composition and all routes at 320 CSS px, including the account and not-found screens. Decorative geometry is bounded so it does not require horizontal clipping around the sticky header. The existing feature-branch/PR/Netlify preview release process remains in use.
