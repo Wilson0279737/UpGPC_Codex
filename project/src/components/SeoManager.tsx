@@ -88,7 +88,7 @@ const SeoManager = () => {
 
     setMetaTag('meta[name="description"]', { name: 'description' }, meta.description);
     setMetaTag('meta[name="robots"]', { name: 'robots' }, indexable ? 'index,follow' : 'noindex,follow');
-    setMetaTag('meta[name="theme-color"]', { name: 'theme-color' }, '#160824');
+    setMetaTag('meta[name="theme-color"]', { name: 'theme-color' }, '#050c20');
     setMetaTag('meta[property="og:type"]', { property: 'og:type' }, 'website');
     setMetaTag('meta[property="og:site_name"]', { property: 'og:site_name' }, siteConfig.name);
     setMetaTag('meta[property="og:title"]', { property: 'og:title' }, pageTitle);

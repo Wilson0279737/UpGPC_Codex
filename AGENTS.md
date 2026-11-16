@@ -15,6 +15,13 @@
 4. Wait for an explicit production release instruction before merging into `main`, publishing a production deploy, or changing production settings. A request to build or preview a feature authorizes preview work.
 5. After an approved release, verify the live site and record the deployed commit.
 
+## Independent review workflow
+
+- The implementing agent owns the feature branch, code changes, validation, preview, and integration. The owner's other Chrome account provides an independent review when its use is authorized.
+- Hand the reviewer the exact commit, task, constraints, relevant source, and actual preview URL when available. Label source-only reviews explicitly.
+- Verify each finding before changing code; distinguish reproducible bugs from design proposals. Record accepted decisions and validation in the PR and project documentation.
+- See [the UX redesign record](docs/UX-REDESIGN.md) for the research, design direction, review findings, and task-based checks.
+
 ## Local validation
 
 Use Node.js 22. Run commands from `project/`:

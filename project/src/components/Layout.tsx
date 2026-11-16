@@ -1,12 +1,15 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { Outlet, useLocation, useNavigationType } from 'react-router-dom';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import SeoManager from './SeoManager';
 
 const Layout = () => {
   const location = useLocation();
-  const hasNavigated = useRef(false);
+  const navigationType = useNavigationType();
+  const previousPath = useRef(location.pathname);
+  const previousHash = useRef<string | null>(null);
+  const positions = useRef(new Map<string, { left: number; top: number }>());
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -16,17 +19,27 @@ const Layout = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const changedPage = previousPath.current !== location.pathname;
+    const changedAnchor = previousHash.current !== location.hash;
+    const saved = positions.current.get(location.key);
     const frame = requestAnimationFrame(() => {
       let target: HTMLElement | null = null;
-      try { target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null; } catch { /* Ignore malformed incoming anchors. */ }
-      if (target) target.scrollIntoView();
-      else window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      if (hasNavigated.current && !target) document.getElementById('main-content')?.focus({ preventScroll: true });
-      hasNavigated.current = true;
+      try { target = location.hash && !location.hash.startsWith('#pc-') ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null; } catch { /* Ignore malformed incoming anchors. */ }
+      if (navigationType === 'POP' && saved) window.scrollTo({ ...saved, behavior: 'auto' });
+      else if (target && (changedPage || changedAnchor)) target.scrollIntoView();
+      else if (changedPage) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      if (changedPage && !target) document.getElementById('main-content')?.focus({ preventScroll: true });
+      previousPath.current = location.pathname;
+      previousHash.current = location.hash;
     });
-    return () => cancelAnimationFrame(frame);
-  }, [location.pathname, location.hash]);
+    const remember = () => {
+      positions.current.set(location.key, { left: window.scrollX, top: window.scrollY });
+      if (positions.current.size > 100) positions.current.delete(positions.current.keys().next().value as string);
+    };
+    window.addEventListener('scroll', remember, { passive: true });
+    return () => { remember(); window.removeEventListener('scroll', remember); cancelAnimationFrame(frame); };
+  }, [location.key, location.pathname, location.hash, navigationType]);
 
   useEffect(() => {
     const revealedElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
@@ -48,7 +61,7 @@ const Layout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen">
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <SeoManager />
       <Header />
