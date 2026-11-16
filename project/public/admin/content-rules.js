@@ -41,6 +41,7 @@ export function productProblems(product) {
   text(errors, product.title, 'PC name', 160);
   text(errors, product.description, 'Description', 6000);
   if (!['draft', 'available', 'reserved', 'sold'].includes(product.status)) errors.push('Choose draft, available, reserved, or sold.');
+  if (product.formFactor != null && product.formFactor !== '' && !['desktop', 'laptop'].includes(product.formFactor)) errors.push('Choose desktop or laptop for the system type.');
   if (product.price != null && product.price !== '' && (typeof product.price !== 'number' || !Number.isFinite(product.price) || product.price < 0.01 || product.price > 100000)) errors.push('The price must be a number from $0.01 to $100,000, or blank.');
   image(errors, product.image, 'PC photo');
   text(errors, product.imageAlt, 'Photo description', 300, false);

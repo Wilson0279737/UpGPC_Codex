@@ -6,6 +6,7 @@ project/public/admin/seed/
 project/public/admin/catalog.json
 project/*.tsbuildinfo
 project/src/content/catalog.generated.json
+project/src/content/sold.generated.json
 project/.env
 project/.env.*
 !project/.env.example
