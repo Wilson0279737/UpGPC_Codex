@@ -38,7 +38,7 @@ export default function SoldProductInventory() {
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div className="sold-heading-row">
         <SectionHeader titleId="sold-pcs-title" eyebrow="A look at our past PCs" title="Sold PCs" description="Explore gaming systems from our Marketplace history. These PCs are already sold—use them as inspiration, then ask us about a similar setup." />
-        <span className="sold-total"><Archive size={17} aria-hidden="true" />{soldInventory.length} sold listings</span>
+        <span className="sold-total"><Archive size={17} aria-hidden="true" />{soldInventory.length} sold {soldInventory.length === 1 ? 'listing' : 'listings'}</span>
       </div>
       <div className="sold-notice"><span className="pc-stock pc-stock--sold"><Archive size={13} aria-hidden="true" />Sold archive</span><p>These systems are no longer available. Prices show the last advertised amount, which may differ from the final sale price.</p><a href="#inventory">Shop available PCs<ArrowRight size={15} aria-hidden="true" /></a></div>
       <div className="sold-toolbar">
@@ -46,7 +46,7 @@ export default function SoldProductInventory() {
         <label className="inventory-sort"><span>System</span><select value={formFactor} onChange={event => { setFormFactor(event.target.value); setPage(0); }}><option value="all">All systems</option><option value="desktop">Desktops</option><option value="laptop">Gaming laptops</option></select></label>
         <label className="inventory-sort"><span>Sort by</span><select value={sort} onChange={event => { setSort(event.target.value); setPage(0); }}><option value="title">Name: A to Z</option><option value="price-low">Last price: low to high</option><option value="price-high">Last price: high to low</option></select></label>
       </div>
-      <div className="sold-results-row"><p ref={resultsRef} tabIndex={-1} role="status">{products.length ? `Showing ${start + 1}–${Math.min(start + pageSize, products.length)} of ${products.length} sold listings` : 'No sold PCs match these filters.'}</p>{filtered && <button type="button" onClick={reset}>Reset sold filters</button>}</div>
+      <div className="sold-results-row"><p ref={resultsRef} tabIndex={-1} role="status">{products.length ? `Showing ${start + 1}–${Math.min(start + pageSize, products.length)} of ${products.length} sold ${products.length === 1 ? 'listing' : 'listings'}` : 'No sold PCs match these filters.'}</p>{filtered && <button type="button" onClick={reset}>Reset sold filters</button>}</div>
       {visible.length ? <div className="sold-grid">{visible.map(product => {
         const TypeIcon = product.formFactor === 'laptop' ? Laptop : Monitor;
         return <article id={`pc-${product.id}`} key={product.id} className="sold-card" aria-labelledby={`sold-title-${product.id}`}>
