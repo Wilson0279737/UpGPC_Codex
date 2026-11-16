@@ -59,7 +59,7 @@ export default function SoldProductInventory() {
     resultsRef.current?.scrollIntoView({ block: 'start' });
   };
 
-  return <section id="sold-pcs" className="sold-section relative scroll-mt-28 py-10 sm:py-14" aria-labelledby="sold-pcs-title">
+  return <section className="sold-section relative scroll-mt-28 py-10 sm:py-14" aria-labelledby="sold-pcs-title">
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div className="sold-heading-row">
         <SectionHeader titleId="sold-pcs-title" eyebrow="A look at our past PCs" title="Sold PCs" description="Explore gaming systems from our Marketplace history. These PCs are already sold—use them as inspiration, then ask us about a similar setup." />

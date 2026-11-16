@@ -1,72 +1,56 @@
 import { ArrowRight, Monitor, Wrench } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import services from '../content/services.json';
 import { siteConfig } from '../config/site';
+import ActionLink from '../components/ui/ActionLink';
+import { cardClass, iconBadgeClass, insetPanelClass } from '../components/ui/siteStyles';
 
 const ServicesPage = () => (
-  <div className="studio-page brand-services">
+  <div className="studio-page">
     <div className="studio-wrap">
-      <header className="brand-route-intro max-w-4xl pb-12 sm:pb-16">
+      <header className="max-w-4xl pb-10 sm:pb-12">
         <p className="studio-kicker">Repairs / upgrades / trade-ins</p>
         <h1 className="studio-page-title">{services.title}</h1>
         <p className="studio-lead max-w-2xl">{services.description}</p>
       </header>
 
-      <section aria-label="How we can help" className="space-y-5">
-        {services.cards.map((service, index) => {
+      <section aria-label="How we can help" className="grid gap-5 md:grid-cols-2 md:gap-8">
+        {services.cards.map((service) => {
           const Icon = service.icon === 'repair' ? Wrench : Monitor;
           return (
-            <article key={service.title} className="brand-service-band relative isolate grid gap-6 overflow-hidden rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-surface)] px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.8fr_1fr_0.75fr] lg:gap-10">
-              <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 -z-10 h-1 w-1/2 bg-gradient-to-l from-[#7bdcff] to-transparent" />
+            <article key={service.title} className={`${cardClass} flex flex-col`}>
               <div>
-                <div className="mb-5 flex items-center gap-4 text-[var(--studio-accent)]">
-                  <span className="font-mono text-4xl font-light tracking-tighter">0{index + 1}</span>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--studio-line)] bg-[var(--studio-bg)]"><Icon className="h-5 w-5" aria-hidden="true" /></span>
+                <div className={iconBadgeClass}>
+                  <Icon className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <h2 className="max-w-sm text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{service.title}</h2>
+                <h2 className="mt-4 text-xl font-semibold text-white sm:mt-5 sm:text-2xl">{service.title}</h2>
               </div>
-              <div>
-                <p className="max-w-lg leading-relaxed text-[var(--studio-muted)]">{service.description}</p>
-                <ul className="mt-6 space-y-3">
+              <div className="flex-1">
+                <p className="mt-3 text-sm leading-relaxed text-purple-100 sm:text-base">{service.description}</p>
+                <ul className="mt-4 space-y-3 sm:mt-5">
                   {service.points.map((point) => (
-                    <li key={point} className="flex items-start gap-3 text-sm leading-relaxed">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--studio-accent)]" aria-hidden="true" />
+                    <li key={point} className="flex items-start gap-3 text-sm leading-relaxed text-purple-100">
+                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-purple-300" aria-hidden="true" />
                       {point}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex items-end lg:justify-end">
-                <Link to={service.ctaPath} className="studio-button-secondary">
+              <div className="mt-5 sm:mt-6">
+                <ActionLink to={service.ctaPath} variant="secondary" className="w-full sm:w-auto">
                   {service.ctaLabel}<ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
+                </ActionLink>
               </div>
             </article>
           );
         })}
       </section>
 
-      <section aria-labelledby="service-next-steps" className="py-14 sm:py-20">
-        <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div>
-            <p className="studio-kicker">Start with a conversation</p>
-            <h2 id="service-next-steps" className="text-3xl font-semibold tracking-tight sm:text-4xl">A useful next step, without the guesswork.</h2>
-          </div>
-          <a href={siteConfig.phoneHref} className="studio-inline-link shrink-0">Call {siteConfig.phone}<ArrowRight className="h-4 w-4" aria-hidden="true" /></a>
+      <section aria-labelledby="service-next-steps" className={`mt-6 flex flex-col gap-5 sm:mt-8 lg:flex-row lg:items-center lg:justify-between ${insetPanelClass}`}>
+        <div>
+          <h2 id="service-next-steps" className="text-xl font-semibold text-white sm:text-2xl">Not sure where to start?</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-purple-100 sm:text-base">Tell us your PC model, what’s happening, or what you’d like to upgrade. Have your budget and the games you play in mind, and we can talk through the next step.</p>
         </div>
-        <ol className="brand-service-steps grid gap-4 sm:grid-cols-3">
-          {[
-            ['Tell us what’s happening', 'Have your PC model, the problem, or your upgrade goal ready. You don’t need to know the technical answer.'],
-            ['Talk through the options', 'Ask about a repair, replacement, trade-in, or a build that fits your budget and the way you use your PC.'],
-            ['Choose your next step', 'Get directions, arrange a visit, or take a closer look at the systems currently available.'],
-          ].map(([title, description], index) => (
-            <li key={title} className="rounded-2xl border border-[var(--studio-line)] bg-[var(--studio-surface)] p-6">
-              <span className="font-mono text-xs text-[var(--studio-accent)]">0{index + 1}</span>
-              <h3 className="mb-2 mt-4 text-lg font-semibold">{title}</h3>
-              <p className="text-sm leading-relaxed text-[var(--studio-muted)]">{description}</p>
-            </li>
-          ))}
-        </ol>
+        <ActionLink href={siteConfig.phoneHref} className="w-full shrink-0 sm:w-auto">Call {siteConfig.phone}<ArrowRight className="h-4 w-4" aria-hidden="true" /></ActionLink>
       </section>
     </div>
   </div>

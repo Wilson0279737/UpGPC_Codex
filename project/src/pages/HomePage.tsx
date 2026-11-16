@@ -1,24 +1,29 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, MapPin, Monitor, Wrench } from 'lucide-react';
+import { ArrowRight, Monitor, Wrench } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Hero from '../components/Hero';
+import ActionLink from '../components/ui/ActionLink';
+import { insetPanelClass, sectionEyebrowClass, sectionTitleClass } from '../components/ui/siteStyles';
 import { inventory, formatPcPrice } from '../config/inventory';
 import { siteConfig, siteContent } from '../config/site';
-import ResponsiveImage from '../components/ui/ResponsiveImage';
-import FanMotif from '../components/ui/FanMotif';
+
 export default function HomePage() {
-  const titleWords = siteContent.home.title.trim().split(/\s+/);
-  const highlightedWord = titleWords.pop();
   const featured = [...inventory].sort((a, b) => Number(a.status === 'reserved') - Number(b.status === 'reserved')).slice(0, 3);
   return <>
-    <section className="studio-hero studio-wrap" aria-labelledby="home-title">
-      <div className="studio-hero-copy"><p className="studio-kicker"><span className="studio-status-dot" />YOUR LOCAL PC SHOP · SWARTZ CREEK, MI</p><h1 id="home-title">{titleWords.join(' ')} <span>{highlightedWord}</span></h1><p className="studio-hero-description">{siteContent.home.description}</p><div className="studio-hero-actions"><Link className="studio-button" to="/products">Find your next PC<ArrowUpRight size={20} aria-hidden="true" /></Link><Link className="studio-inline-link" to="/services">Fix or upgrade yours<ArrowRight size={18} aria-hidden="true" /></Link></div><a className="studio-hero-location" href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer"><MapPin size={17} aria-hidden="true" /><span>{siteConfig.streetAddress}<small>{siteConfig.city}, Michigan · Get directions ↗</small></span></a></div>
-      <div className="studio-hero-visual"><FanMotif /><div className="brand-photo-index" aria-hidden="true"><span>01 / THE SHOWROOM</span><span>UPGRADE GAMING PCs</span></div><div className="studio-hero-image"><ResponsiveImage src={siteContent.home.image} alt={siteContent.home.imageAlt} sizes="(min-width:1024px) 50vw, 100vw" fetchPriority="high" loading="eager" /><div className="studio-image-caption"><span>REAL PCS. REAL PEOPLE.</span><span>Come in. Ask anything. Play a game.</span></div><a href="#on-the-floor" className="studio-hero-down" aria-label="Explore PCs in the shop"><ArrowDown size={20} /></a></div></div>
-    </section>
-    <div className="studio-proof-strip"><div className="studio-wrap"><span><Monitor size={18} aria-hidden="true" />Test PCs in the showroom</span><span><Wrench size={18} aria-hidden="true" />Local repairs & upgrades</span><span><MapPin size={18} aria-hidden="true" />A real shop. Right here.</span></div></div>
-    <section id="on-the-floor" className="studio-section studio-wrap" aria-labelledby="floor-title"><div className="studio-section-heading"><div><p className="studio-kicker">FIND YOUR FIT</p><h2 id="floor-title">On the floor.<br /><span>Ready to explore.</span></h2></div><Link className="studio-inline-link" to="/products">Explore all PCs<ArrowUpRight size={19} aria-hidden="true" /></Link></div>
-      {featured.length ? <div className="studio-featured-grid">{featured.map(pc => <Link key={pc.id} className="studio-featured-pc" to={'/products#pc-' + pc.id}><div className="studio-featured-photo">{pc.image ? <img src={pc.image} alt={pc.imageAlt || pc.title} width="720" height="960" loading="lazy" decoding="async" /> : <Monitor size={60} aria-hidden="true" />}<span className="studio-stock-label">{pc.status === 'reserved' ? 'Reserved' : 'Available'}</span><span className="studio-round-arrow"><ArrowUpRight size={23} aria-hidden="true" /></span></div><div className="studio-featured-copy"><div><p>{pc.gpu || 'Everyday computing'}</p><h3>{pc.title}</h3></div><strong>{formatPcPrice(pc.price)}</strong></div></Link>)}</div> : <div className="studio-card"><h3>Let’s find your next setup.</h3><p>{siteContent.inventory.emptyMessage}</p><a className="studio-inline-link" href={siteConfig.phoneHref}>Call about current PCs<ArrowUpRight size={18} /></a></div>}
+    <Hero />
+    <section id="on-the-floor" className="studio-wrap classic-stock" aria-labelledby="floor-title">
+      <div className="studio-section-heading">
+        <div><p className={sectionEyebrowClass}>In the showroom</p><h2 id="floor-title" className={`${sectionTitleClass} mt-4`}>Explore current PCs</h2></div>
+        <ActionLink to="/products" variant="secondary">Shop all PCs<ArrowRight size={18} aria-hidden="true" /></ActionLink>
+      </div>
+      {featured.length ? <div className="studio-featured-grid">{featured.map(pc => <Link key={pc.id} className="studio-featured-pc" to={'/products#pc-' + pc.id}>
+        <div className="studio-featured-photo">{pc.image ? <img src={pc.image} alt={pc.imageAlt || pc.title} width="720" height="960" loading="lazy" decoding="async" /> : <Monitor size={60} aria-hidden="true" />}<span className={`studio-stock-label ${pc.status === 'reserved' ? 'is-reserved' : ''}`}>{pc.status === 'reserved' ? 'Reserved' : 'Available'}</span></div>
+        <div className="studio-featured-copy"><p>{pc.gpu || 'Everyday computing'}</p><h3>{pc.title}</h3><div><strong>{formatPcPrice(pc.price)}</strong><span>View PC<ArrowRight size={16} aria-hidden="true" /></span></div></div>
+      </Link>)}</div> : <div className={insetPanelClass}><h3 className="text-xl font-semibold">Let’s find your next setup.</h3><p className="mt-3 text-purple-100">{siteContent.inventory.emptyMessage}</p><ActionLink href={siteConfig.phoneHref} className="mt-5">Call about current PCs</ActionLink></div>}
       <p className="studio-fineprint">Prices and availability can change. Contact the shop before making the trip.</p>
+      <div className={`${insetPanelClass} classic-service`}>
+        <div className="flex items-start gap-4"><Wrench className="mt-1 h-6 w-6 shrink-0 text-purple-300" aria-hidden="true" /><div><h2 className="text-xl font-semibold sm:text-2xl">Already have a PC?</h2><p className="mt-2 text-purple-100">Get help with repairs, upgrades, or trading in your current setup.</p></div></div>
+        <ActionLink to="/services" variant="secondary">Explore services<ArrowRight size={18} aria-hidden="true" /></ActionLink>
+      </div>
     </section>
-    <section className="studio-workshop studio-wrap" aria-labelledby="workshop-title"><div className="studio-workshop-image"><ResponsiveImage src="/optimized/about-hero-main.jpg" alt="The people behind Upgrade Gaming PCs with the shop sign" loading="lazy" sizes="(min-width:1024px) 45vw, 100vw" /></div><div className="studio-workshop-copy"><p className="studio-kicker">MORE LIFE IN YOUR MACHINE</p><h2 id="workshop-title">Keep the good.<br /><span>Upgrade the rest.</span></h2><p>Something running slow? Ready for better performance? Bring your questions, your current PC, or your next big idea. We’ll help you work out the next step.</p><Link className="studio-button studio-button-secondary" to="/services">Explore repairs & upgrades<ArrowUpRight size={19} aria-hidden="true" /></Link></div></section>
-    <section className="studio-visit studio-wrap"><div><p className="studio-kicker">TRY IT IN PERSON</p><h2>Your next setup<br />starts with a visit.</h2></div><div><p>{siteConfig.hoursNote}</p><Link className="studio-button" to="/contact">Plan your visit<ArrowUpRight size={20} aria-hidden="true" /></Link></div></section>
   </>;
 }

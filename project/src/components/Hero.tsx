@@ -37,11 +37,11 @@ const Hero = ({ compactTop = false, showAddressCard = true }: HeroProps) => {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <ActionLink to="/products" className="w-full sm:w-auto">
                   <ShoppingBag className="h-5 w-5" />
-                  <span>View Products</span>
+                  <span>Shop PCs</span>
                 </ActionLink>
                 <ActionLink to="/services" variant="secondary" className="w-full sm:w-auto">
                   <Wrench className="h-5 w-5" />
-                  <span>Repair Services</span>
+                  <span>Repairs & upgrades</span>
                 </ActionLink>
               </div>
             </div>

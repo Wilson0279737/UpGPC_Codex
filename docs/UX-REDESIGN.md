@@ -4,9 +4,11 @@ The November 16, 2026 redesign aims to make shopping for a PC, arranging a servi
 
 ## Design decisions
 
-- Use the actual logo's azure/cobalt-to-indigo gradient and white detail as the visual foundation: deep navy surfaces, bright blue actions, restrained cyan highlights, clear type, and real product photography. The owner preferred the new functionality but requested more visual depth and stronger brand alignment than the first graphite/lime proposal.
+- Restore the actual original presentation from `f67d40fe2e30c0f9191c3bb1f1e4d51bf9a71782`: purple gradients and grid background, a floating white rounded header, the photographic Home banner, and purple glass panels/cards. The owner preferred this established style while retaining the improved functionality and concise navigation. The graphite/lime redesign and subsequent logo-blue experiment are superseded.
 - Make products the main shopping journey. Show price, availability, and consistent essential specifications where buyers assess options. Keep sold PCs in an intentional archive.
-- Give services and contact pages distinct jobs. Consolidate repeated pitches, inventory guides, showcase sections, and generic calls to action. Retain useful navigation and contextual help.
+- Keep Home to the original Hero, a preview of actual stock, and one concise service card. Remove the repeated proof strip, workshop photograph/pitch, and extra visit pitch rather than restoring the old generic PC marketing and map sections.
+- Give services and contact pages distinct jobs. On Products, remove the bottom phone-help pitch that duplicates the inventory footnote. Label the collapsed archive **Previously sold PCs** so it is clearly distinct from current stock.
+- Keep four task-oriented navigation routes with the logo linking Home. Remove the duplicate phone action from the mobile drawer; retain the persistent call control and the secondary Owner workspace entry in the footer.
 - Preserve truthful product content, CMS editing, customer account boundaries, direct routes, and the existing Netlify release process. Do not invent performance claims, stock, photographs, reviews, guarantees, or service promises.
 
 ## Research translated into behavior
@@ -58,25 +60,28 @@ The independent review inspected `main` at `f67d40fe2e30c0f9191c3bb1f1e4d51bf9a7
 - **Use different devices and input:** Check desktop and narrow mobile layouts, direct-route refreshes, keyboard navigation, dialog/menu focus and Escape behavior, 200% zoom, reduced motion, and touch target spacing. Check for horizontal overflow and obscured content.
 - **Review the hosted result:** Run the required build and relevant tests, inspect the actual Netlify Deploy Preview, and record its URL, source commit, findings, fixes, and any remaining verification limits in the PR.
 
-## Implementation and review outcome
+## Initial functionality implementation and review outcome
+
+The checks below record the earlier implementation and review iterations. They are historical evidence for the functionality work, not a claim that the final restored presentation has completed hosted QA. Record verification of the restored presentation against its own commit and preview.
 
 - R1, R6, and R8 were accepted design changes: repeated product marketing was removed, navigation/contact actions now describe their real destination, and the footer provides a stable Owner workspace link. Current stock remains distinct from the sold archive.
 - R2 and R3 were verified against source and exercised in a browser: a filtered-out Flame deep link opens the correct details; listing filters and archive page survive navigation and Back; zero results have a working reset. Query updates preserve the current scroll position rather than repeatedly jumping to an anchor.
-- R4 now retains a validated product selection through the account route and tab-local OAuth handoff, with an explicit save confirmation. Two new intent tests pass. The configured Google OAuth round trip and remote saved-list persistence still require separate staging integration verification; the new Deploy Preview has accounts disabled.
+- R4 retains a validated product selection through the account route and tab-local OAuth handoff, with an explicit save confirmation. Two intent tests passed in that iteration. The configured Google OAuth round trip and remote saved-list persistence still require separate staging integration verification; the reviewed Deploy Preview had accounts disabled.
 - R5 uses the genuine existing photograph with an accessible full-size image link. A multi-image gallery was not added because the product content currently supplies one photograph per PC. Consistent card specifications support comparison without introducing another workspace for two current PCs.
 - R7 was addressed with 16 px form controls, visible focus, a stable header, and reduced-motion overrides. Browser checks exercised modal Tab/Shift+Tab wrapping, Escape, return-to-trigger focus, interior/backdrop clicks, and mobile menu Escape.
 - The second Chrome review inspected commit `0c812a82891ade4ed506ebbdf3ba8651f2c9c810` in PR #6. It found that the sticky header was trapped by the layout wrapper's horizontal overflow rule. This was reproduced in the hosted preview and corrected by removing that ancestor overflow restriction. Rechecking after the fix exposed and corrected an intrinsic grid-width overflow in the mobile catalog controls.
-- Browser layout checks cover Home, Products, Services, About, Contact, and Account at 320 CSS px, including expanded sold inventory. The final controls and document fit the viewport. Storefront images were also changed to existing upright variants, and the repeated home photograph was replaced with a genuine shop-team photo.
+- At that iteration, browser layout checks covered Home, Products, Services, About, Contact, and Account at 320 CSS px, including expanded sold inventory. The tested controls and document fit the viewport. Storefront images were also changed to existing upright variants, and the repeated home photograph was replaced with a genuine shop-team photo.
 - Validation: production build/TypeScript, 34 content/account tests, local desktop/mobile interactions, and the real [Netlify Deploy Preview](https://deploy-preview-6--website3-2.netlify.app/). Review and validation details are maintained in [PR #6](https://github.com/Wilson0279737/UpGPC_Codex/pull/6). These checks establish the tested behavior, not a user-study satisfaction score or field performance result.
 
-## Logo-driven visual refinement
+## Visual experiments and final direction
 
-The owner approved the improved functionality and navigation while asking for a more creative, visually striking presentation that matches the logo. The refinement keeps those browsing and account behaviors and changes the presentation across all customer-facing routes:
+Two visual experiments preceded the final direction:
 
-- Azure, cobalt, indigo, navy, and white replace the lime/green brand palette. Green and amber remain only where they communicate meaningful product status.
-- Localized lighting, fine blueprint lines, and a static cooling-fan graphic echo the logo. These are decorative, ignore pointer input, and are hidden from assistive technology; they do not introduce fake technical readings or new navigation.
-- A self-hosted 22 KB variable Space Grotesk font gives headings a consistent technical character. Its Open Font License is included in `project/public/fonts/`; there are no runtime Google Fonts requests.
-- Product photographs sit on softly illuminated blue display surfaces. Services use numbered workbench bands, About uses layered photo frames, Contact uses a light information panel against navy, and account/save controls share the same palette.
-- Primary actions use white text on cobalt/indigo; cyan is reserved for emphasis and focus. Existing large controls, 16 px form text, modal focus behavior, and reduced-motion handling remain in place.
+- The initial graphite/lime design simplified the page structure and introduced the browsing fixes, but the owner found the earlier site more visually striking.
+- A later logo-blue experiment added navy/cobalt/cyan surfaces, blueprint and cooling-fan decoration, and a Space Grotesk display font. The owner subsequently requested the actual old purple styling. This experiment is superseded; its colors, decorative system, and font are not the current design specification.
 
-Visual QA covers desktop composition and all routes at 320 CSS px, including the account and not-found screens. Decorative geometry is bounded so it does not require horizontal clipping around the sticky header. The existing feature-branch/PR/Netlify preview release process remains in use.
+The chosen direction restores the original purple gradient/grid, floating white rounded navigation, photographic banner, and purple glass/card styling across the website. It preserves the concise information architecture, accurate calls to action, inventory search/filter state, direct PC details links, image enlargement, account selection handoff, accessible controls, and reduced-motion work.
+
+Home now follows **Hero → actual stock preview → concise service card**. Products keeps current inventory and a clearly labeled, collapsed **Previously sold PCs** archive; the duplicate bottom phone-help panel is removed. The four task routes, logo-as-Home, single mobile call action, and distinct Owner workspace entry keep navigation concise.
+
+Final local and hosted validation for this restoration must be recorded separately in the PR or appended below. The feature-branch → PR → actual Netlify Deploy Preview → explicit owner-approved production release process remains in effect.
