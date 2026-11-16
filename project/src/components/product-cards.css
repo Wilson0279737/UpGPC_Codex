@@ -1,4 +1,6 @@
 /* Product browsing shares the restrained studio palette. */
+@media(max-width:1000px){.inventory-toolbar,.sold-toolbar{grid-template-columns:repeat(2,minmax(0,1fr))!important}.inventory-sort{min-width:0}.inventory-sort select{min-width:0;max-width:100%}}
+@media(max-width:479px){.inventory-toolbar,.sold-toolbar{grid-template-columns:minmax(0,1fr)!important}.inventory-sort select{width:100%}}
 .studio-inventory{padding:1rem 0 3rem}
 .inventory-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
 .inventory-heading h2{display:flex;align-items:center;gap:12px;font-size:24px;letter-spacing:-.035em;font-weight:650}

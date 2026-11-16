@@ -61,7 +61,7 @@ const Layout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen">
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <SeoManager />
       <Header />
