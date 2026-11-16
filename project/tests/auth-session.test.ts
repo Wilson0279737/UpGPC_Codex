@@ -5,6 +5,7 @@ import { createAuthSession, savedPcIds, safeReturnPath, type AuthService } from 
 import { CustomerProfileError, createProfileTransport } from '../src/auth/profile.ts';
 import { nextSavedPcIds } from '../src/auth/shortlist.ts';
 import { consumeAuthCallback } from '../src/auth/callback.ts';
+import { decodeSaveIntent, encodeSaveIntent, parseSavePcId, savePcAccountPath } from '../src/auth/saveIntent.ts';
 
 const settings: Settings = { autoconfirm: true, disableSignup: false, providers: { google: true, github: false, gitlab: false, bitbucket: false, facebook: false, email: false } };
 const userA: User = { id: 'customer-a', email: 'a@example.test', userMetadata: { full_name: 'Customer A', saved_pcs: ['existing-pc'] } };
@@ -162,6 +163,29 @@ test('safe IDs, return paths, and shortlist profile size are bounded', async () 
   await session.savePc('p'.repeat(160)); assert.ok(savedPcIds(session.getSnapshot().user).includes('p'.repeat(160)));
   for (let index = 0; index < 6; index++) await session.savePc(`pc-${index}-${'p'.repeat(180)}`);
   await assert.rejects(session.savePc(`pc-too-many-${'p'.repeat(180)}`), /shortlist is full/); session.stop();
+});
+
+test('signed-out save links preserve the exact PC and reject unsafe selections', () => {
+  assert.equal(savePcAccountPath('marketplace-123'), '/account?save=marketplace-123&next=%2Fproducts%23inventory');
+  for (const value of ['../pc', 'https://other.test/pc', 'pc?save=other', 'pc#other', '', 'a'.repeat(201)]) {
+    assert.equal(parseSavePcId(value), null);
+    assert.equal(savePcAccountPath(value), '/account');
+  }
+  assert.equal(parseSavePcId(null), null);
+});
+
+test('pending save selection survives an OAuth round trip only within its time limit', () => {
+  const started = 1_000_000;
+  const intent = encodeSaveIntent('marketplace-123', started);
+  assert.ok(intent);
+  assert.deepEqual(Object.keys(JSON.parse(intent)), ['productId', 'createdAt'], 'pending selection never stores credentials or a guest shortlist');
+  assert.equal(decodeSaveIntent(intent, started + 60_000), 'marketplace-123');
+  assert.equal(decodeSaveIntent(intent, started + 30 * 60_000 + 1), null);
+  assert.equal(decodeSaveIntent(intent, started - 1), null);
+  for (const value of ['not json', 'null', '[]', '{"productId":"../bad","createdAt":1000000}', '{"productId":"pc","createdAt":"1000000"}']) {
+    assert.equal(decodeSaveIntent(value, started), null);
+  }
+  assert.equal(encodeSaveIntent('../bad', started), null);
 });
 
 const rawProfile = (ids: string[] = ['cloud-pc']) => ({ id: userA.id, email: 'a@example.test', user_metadata: { full_name: 'Fresh profile', saved_pcs: ids } });

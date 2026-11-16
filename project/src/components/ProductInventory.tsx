@@ -1,48 +1,73 @@
 import { ArrowUpRight, Monitor, Search, SearchX, X } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { inventory, formatPcPrice, type ListedProduct } from '../config/inventory';
 import { searchProducts } from '../lib/inventory.mjs';
 import { siteConfig, siteContent } from '../config/site';
-import ActionLink from './ui/ActionLink';
-import SectionHeader from './ui/SectionHeader';
 import ProductCard from './ProductCard';
 import ProductDetailsDialog from './ProductDetailsDialog';
 
+const availabilityOptions = ['all', 'available', 'reserved'];
+const sortOptions = ['availability', 'price-low', 'price-high'];
+const budgetOptions = ['all', '500', '1000', '1500', '2500'];
+
 export default function ProductInventory() {
-  const [query, setQuery] = useState('');
-  const [availability, setAvailability] = useState('all');
-  const [sort, setSort] = useState('availability');
-  const [budget, setBudget] = useState('all');
-  const [selected, setSelected] = useState<ListedProduct | null>(null);
+  const [params] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const query = params.get('q') || '';
+  const availability = availabilityOptions.includes(params.get('stock') || '') ? params.get('stock')! : 'all';
+  const sort = sortOptions.includes(params.get('sort') || '') ? params.get('sort')! : 'availability';
+  const budget = budgetOptions.includes(params.get('budget') || '') ? params.get('budget')! : 'all';
+  const selectedId = params.get('pc') || (location.hash.startsWith('#pc-') ? location.hash.slice(4) : '');
+  const selected = inventory.find(pc => selectedId === pc.id);
+  const openDetails = (pc: ListedProduct) => {
+    const next = new URLSearchParams(params);
+    next.set('pc', pc.id);
+    void navigate({ search: next.toString(), hash: location.hash }, { state: { pcDialog: true }, preventScrollReset: true });
+  };
+  const closeDetails = () => {
+    if (location.state?.pcDialog) { void navigate(-1); return; }
+    const next = new URLSearchParams(params);
+    next.delete('pc');
+    void navigate({ search: next.toString(), hash: location.hash.startsWith('#pc-') ? '#inventory' : location.hash }, { replace: true, preventScrollReset: true });
+  };
   const products = searchProducts(inventory, { query, availability, sort }).filter(pc => budget === 'all' || (typeof pc.price === 'number' && pc.price <= Number(budget)));
-  const closeDetails = useCallback(() => setSelected(null), []);
-  const resetFilters = () => { setQuery(''); setAvailability('all'); setSort('availability'); setBudget('all'); };
   const filtered = Boolean(query || availability !== 'all' || sort !== 'availability' || budget !== 'all');
+  const updateFilter = (key: string, value: string, defaultValue = 'all') => {
+    const next = new URLSearchParams(params);
+    if (!value || value === defaultValue) next.delete(key); else next.set(key, value);
+    void navigate({ search: next.toString(), hash: location.hash }, { replace: true, preventScrollReset: true });
+  };
+  const resetFilters = () => {
+    const next = new URLSearchParams(params);
+    ['q', 'stock', 'sort', 'budget'].forEach(key => next.delete(key));
+    void navigate({ search: next.toString(), hash: location.hash }, { replace: true, preventScrollReset: true });
+  };
   const filters = [
-    { value: 'all', label: 'All PCs', count: inventory.length },
+    { value: 'all', label: 'All stock', count: inventory.length },
     { value: 'available', label: 'Available', count: inventory.filter(pc => pc.status === 'available').length },
     { value: 'reserved', label: 'Reserved', count: inventory.filter(pc => pc.status === 'reserved').length },
   ];
-  return <section id="inventory" className="relative scroll-mt-28 py-10 sm:py-14" aria-labelledby="inventory-title">
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <SectionHeader titleId="inventory-title" eyebrow="Find your next setup" title={siteContent.inventory.title} description={siteContent.inventory.description} />
+  return <section id="inventory" className="studio-inventory" aria-labelledby="inventory-title">
+    <div className="studio-container">
+      <div className="inventory-heading"><h2 id="inventory-title">{siteContent.inventory.title}<span>{inventory.length}</span></h2><p>{siteContent.inventory.description}</p></div>
       {inventory.length === 0 ? <div className="inventory-empty">
-        <span className="inventory-empty-icon"><Monitor size={30} aria-hidden="true" /></span><h3>Your next PC could be in the showroom.</h3><p>{siteContent.inventory.emptyMessage}</p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center"><ActionLink href={siteConfig.phoneHref}>Call about current PCs</ActionLink><ActionLink href={siteConfig.marketplaceUrl} external variant="secondary">Browse Marketplace<ArrowUpRight size={17} aria-hidden="true" /></ActionLink></div>
+        <Monitor size={32} aria-hidden="true" /><h3>Let’s find your next PC.</h3><p>{siteContent.inventory.emptyMessage}</p>
+        <a className="pc-action pc-action--primary" href={siteConfig.phoneHref}>Call about current PCs<ArrowUpRight size={18} aria-hidden="true" /></a>
       </div> : <>
-        <div className="shop-guide"><div><span className="shop-kicker">YOUR NEXT SETUP STARTS HERE</span><h3>Find your fit. Try it in person.</h3><p>Browse the PCs below or tell us your budget. We’ll help you choose.</p></div><a href={siteConfig.phoneHref}>Need a hand choosing? Call the shop ↗</a></div>
         <div className="inventory-toolbar">
-          <label className="inventory-search"><span className="sr-only">Find a PC</span><Search size={19} aria-hidden="true" /><input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search a name, processor, or graphics card" />{query && <button type="button" aria-label="Clear search" onClick={() => setQuery('')}><X size={17} aria-hidden="true" /></button>}</label>
-          <label className="inventory-sort"><span>Sort by</span><select value={sort} onChange={event => setSort(event.target.value)}><option value="availability">Availability</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
-          <label className="inventory-sort"><span>Budget</span><select value={budget} onChange={event => setBudget(event.target.value)}><option value="all">Any budget</option><option value="500">Up to $500</option><option value="1000">Up to $1,000</option><option value="1500">Up to $1,500</option><option value="2500">Up to $2,500</option></select></label>
-          <div className="inventory-filters" role="group" aria-label="Filter PCs by availability">{filters.map(filter => <button key={filter.value} type="button" aria-pressed={availability === filter.value} onClick={() => setAvailability(filter.value)}>{filter.label}<span>{filter.count}</span></button>)}</div>
-          <div className="inventory-result"><p role="status">{products.length} {products.length === 1 ? 'PC' : 'PCs'} {filtered ? 'matched' : 'to explore'}</p>{filtered && <button type="button" onClick={resetFilters}>Reset filters</button>}</div>
+          <label className="inventory-search"><span className="sr-only">Search current PCs</span><Search size={19} aria-hidden="true" /><input type="search" value={query} onChange={event => updateFilter('q', event.target.value, '')} placeholder="Search PCs or specifications" />{query && <button type="button" aria-label="Clear PC search" onClick={() => updateFilter('q', '', '')}><X size={17} aria-hidden="true" /></button>}</label>
+          <label className="inventory-sort"><span>Budget</span><select value={budget} onChange={event => updateFilter('budget', event.target.value)}><option value="all">Any budget</option><option value="500">Up to $500</option><option value="1000">Up to $1,000</option><option value="1500">Up to $1,500</option><option value="2500">Up to $2,500</option></select></label>
+          <label className="inventory-sort"><span>Sort</span><select value={sort} onChange={event => updateFilter('sort', event.target.value, 'availability')}><option value="availability">Availability</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
+          <div className="inventory-filters" role="group" aria-label="Filter PCs by availability">{filters.map(filter => <button key={filter.value} type="button" aria-pressed={availability === filter.value} onClick={() => updateFilter('stock', filter.value)}>{filter.label}<span>{filter.count}</span></button>)}</div>
+          <div className="inventory-result"><p role="status" aria-live="polite">{products.length} {products.length === 1 ? 'PC' : 'PCs'} {filtered ? 'matched' : 'to explore'}</p>{filtered && <button type="button" onClick={resetFilters}>Reset filters</button>}</div>
         </div>
-        {(query || availability !== 'all' || budget !== 'all') && <div className="active-filters" aria-label="Applied filters">{query && <button onClick={() => setQuery('')}>Search: {query}<X size={14} aria-label="Remove search" /></button>}{availability !== 'all' && <button onClick={() => setAvailability('all')}>Status: {availability}<X size={14} aria-label="Remove availability filter" /></button>}{budget !== 'all' && <button onClick={() => setBudget('all')}>Up to {formatPcPrice(Number(budget))}<X size={14} aria-label="Remove budget filter" /></button>}</div>}
-        {products.length === 0 ? <div className="inventory-empty"><span className="inventory-empty-icon"><SearchX size={30} aria-hidden="true" /></span><h3>No PCs match just yet.</h3><p>Try another search or clear your filters. We’re happy to help you find a system.</p><button type="button" className="pc-action pc-action--primary" onClick={resetFilters}>Clear filters</button></div>
-          : <div className={`pc-grid ${products.length > 2 ? 'pc-grid--many' : ''}`}>{products.map(product => <ProductCard key={product.id} product={product} onDetails={setSelected} />)}</div>}
+        {(query || availability !== 'all' || budget !== 'all') && <div className="active-filters" aria-label="Applied filters">{query && <button type="button" onClick={() => updateFilter('q', '', '')} aria-label={'Remove search: ' + query}>“{query}”<X size={14} aria-hidden="true" /></button>}{availability !== 'all' && <button type="button" onClick={() => updateFilter('stock', 'all')} aria-label="Remove availability filter">{availability}<X size={14} aria-hidden="true" /></button>}{budget !== 'all' && <button type="button" onClick={() => updateFilter('budget', 'all')} aria-label="Remove budget filter">Up to {formatPcPrice(Number(budget))}<X size={14} aria-hidden="true" /></button>}</div>}
+        {products.length === 0 ? <div className="inventory-empty"><SearchX size={32} aria-hidden="true" /><h3>No PCs match these filters.</h3><p>Try a different specification or budget, or call us for help finding a system.</p><button type="button" className="pc-action pc-action--primary" onClick={resetFilters}>Show all current PCs</button></div>
+          : <div className={'pc-grid ' + (products.length > 2 ? 'pc-grid--many' : '')}>{products.map(product => <ProductCard key={product.id} product={product} onDetails={openDetails} />)}</div>}
+        <p className="inventory-footnote">Need something different? <a href={siteConfig.phoneHref}>Talk through your budget with the shop<ArrowUpRight size={14} aria-hidden="true" /></a></p>
       </>}
     </div>
-    {selected && <ProductDetailsDialog product={selected} onClose={closeDetails} />}
+    {selected && <ProductDetailsDialog key={selected.id} product={selected} onClose={closeDetails} />}
   </section>;
 }
