@@ -31,7 +31,7 @@ const routeMeta: Record<
   '/products': {
     title: 'Buy a Gaming Computer in Swartz Creek',
     description:
-      'Buy a gaming computer locally at Upgrade Gaming PCs. Browse available gaming PCs and peripherals, compare options in person, and shop with a 90 day free warranty.',
+      'Buy a gaming computer locally at Upgrade Gaming PCs. Browse available gaming PCs and everyday desktops, compare options in person, and shop with a 90 day free warranty.',
     image: '/optimized/hero-products-collage.jpg',
     imageAlt: 'Gaming PCs and computer equipment at Upgrade Gaming PCs',
   },

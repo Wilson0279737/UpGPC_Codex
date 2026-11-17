@@ -35,8 +35,7 @@ const AboutPage = () => (
       <section className="grid gap-8 border-t border-white/15 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16" aria-labelledby="people-title">
         <div>
           <p className="studio-kicker">People behind the PCs</p>
-          <h2 id="people-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">A real place to try things out.</h2>
-          <p className="mt-5 leading-relaxed text-purple-100">See the systems in person, ask questions, and talk through what matters to you before making a decision.</p>
+          <h2 id="people-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">The people behind the shop</h2>
           <p className="mt-4 text-sm leading-relaxed text-purple-100">{siteConfig.hoursNote}</p>
           <Link to="/contact" className="studio-inline-link mt-6">Plan your visit<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
         </div>

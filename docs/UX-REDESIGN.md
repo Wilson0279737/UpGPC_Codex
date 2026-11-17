@@ -87,3 +87,19 @@ Home now follows **Hero → actual stock preview → concise service card**. Pro
 Final local and hosted validation for this restoration must be recorded separately in the PR or appended below. The feature-branch → PR → actual Netlify Deploy Preview → explicit owner-approved production release process remains in effect.
 
 During restoration QA, the sold-archive shortcut was reproduced missing its first jump because its target only mounted after opening. The `sold-pcs` anchor now belongs to the always-present disclosure; the first click opens and lands below the fixed navigation. A source review also identified same-page header links preserving the previous scroll position. This was reproduced on Home and fixed so ordinary logo/active-route clicks return to the top while modifier-click behavior remains available. Build and all 34 content/account tests pass locally; final hosted results are recorded in PR #6.
+
+## November 17 live follow-up
+
+The follow-up reviewed the live site and source baseline `a2432f53d969c8c21024a5819f08e4bc2439540a`, keeping the restored original styling and the existing inventory, authentication, CMS, and Owner workspace behavior.
+
+Three navigation issues were reproduced on the live baseline:
+
+- Clicking the footer Home logo while already on Home left the viewport around `scrollY=1010`. A shared same-page navigation helper now returns to the top and focuses the main content, covering footer and header links consistently.
+- Keyboard navigation from Account's **Keep browsing PCs** to `/products#inventory` scrolled to the inventory but left focus on `BODY`. Fragment navigation now focuses its destination, so the next Tab reaches the inventory search rather than restarting at the page header.
+- Explicitly closing the sold archive and then changing the current-stock Budget reopened it because unrelated query updates retriggered the archive effect. Archive opening now follows relevant archive-intent keys and respects an explicit collapse during unrelated inventory changes.
+
+Four bounded copy cuts remove repeated material: About's second see/ask/test pitch, the Contact photo panel's duplicate visit pitch, Account's third signed-out shortlist marketing card, and the sold dialog's duplicate bottom sold note. Genuine product descriptions, availability and historical-price context, useful contact/navigation access, and the CMS/owner guidance remain. The Products metadata no longer promises browsing peripherals when the route only browses PCs.
+
+Local verification passed: footer Home returned to `scrollY=0` with main-content focus; the inventory fragment received focus and Tab reached search; changing Budget left an explicitly closed archive closed. The production build/TypeScript check and all 34 content/account tests passed.
+
+The follow-up PR records the actual preview URL, reviewed commit, final hosted checks, and independent review. The local results above do not establish a production publication; the explicit production-release step remains separate.

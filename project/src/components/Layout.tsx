@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import SeoManager from './SeoManager';
+import { focusContent } from '../lib/navigation';
 
 const Layout = () => {
   const location = useLocation();
@@ -29,7 +30,8 @@ const Layout = () => {
       if (navigationType === 'POP' && saved) window.scrollTo({ ...saved, behavior: 'auto' });
       else if (target && (changedPage || changedAnchor)) target.scrollIntoView();
       else if (changedPage) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      if (changedPage && !target) document.getElementById('main-content')?.focus({ preventScroll: true });
+      if (changedPage) focusContent(target || document.getElementById('main-content'));
+      else if (target && changedAnchor && navigationType !== 'POP') focusContent(target);
       previousPath.current = location.pathname;
       previousHash.current = location.hash;
     });
