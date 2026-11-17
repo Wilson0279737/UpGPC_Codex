@@ -1,4 +1,5 @@
 import type { MouseEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /** Put keyboard navigation at the destination without changing its scroll position. */
 export function focusContent(target: HTMLElement | null) {
@@ -10,9 +11,20 @@ export function focusContent(target: HTMLElement | null) {
   target.focus({ preventScroll: true });
 }
 
-/** A link to the page already open should work from either navigation bar. */
-export function returnToPageStart(event: MouseEvent<HTMLAnchorElement>, currentPath: string, destination: string) {
-  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || currentPath !== destination) return;
-  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  focusContent(document.getElementById('main-content'));
+/** Keep same-page navigation consistent without overwriting the departing scroll entry. */
+export function usePageNavigation() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  return (event: MouseEvent<HTMLAnchorElement>, destination: string) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || location.pathname !== destination) return;
+    event.preventDefault();
+    if (location.search || location.hash) {
+      // Layout scrolls after navigation commits and saves the departing position.
+      void navigate(destination, { state: { returnToStart: true } });
+    } else {
+      // Nothing changes in the URL, so avoid adding a duplicate history entry.
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      focusContent(document.getElementById('main-content'));
+    }
+  };
 }

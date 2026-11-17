@@ -4,18 +4,19 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { siteConfig } from '../config/site';
 import ResponsiveImage from './ui/ResponsiveImage';
-import { returnToPageStart } from '../lib/navigation';
+import { usePageNavigation } from '../lib/navigation';
 const routes = [{ to: '/products', label: 'Shop PCs' }, { to: '/services', label: 'Repairs & upgrades' }, { to: '/about', label: 'Our shop' }, { to: '/contact', label: 'Visit & contact' }];
 export default function Header() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
+  const navigateToPage = usePageNavigation();
   const { user, googleEnabled } = useAuth();
   const items = user || googleEnabled ? [...routes, { to: '/account', label: user ? 'Saved PCs' : 'Sign in' }] : routes;
   const handleNavigation = (event: MouseEvent<HTMLAnchorElement>, path: string) => {
     setOpen(false);
-    returnToPageStart(event, location.pathname, path);
+    navigateToPage(event, path);
   };
   useEffect(() => { setOpen(false); }, [location.pathname, location.search, location.hash]);
   useEffect(() => {

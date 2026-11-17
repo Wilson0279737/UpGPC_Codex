@@ -102,4 +102,6 @@ Four bounded copy cuts remove repeated material: About's second see/ask/test pit
 
 Local verification passed: footer Home returned to `scrollY=0` with main-content focus; the inventory fragment received focus and Tab reached search; changing Budget left an explicitly closed archive closed. The production build/TypeScript check and all 34 content/account tests passed.
 
+Independent review of the follow-up also identified a history regression in an immediate same-page scroll reset. It was reproduced in the hosted preview: a sold page-2 footer position at `scrollY=3117` returned to zero after **Shop PCs → Back**. Same-page navigation with query/hash state now resets scroll after the new route commits, preserving the departing entry. A repeated bare-page link scrolls without creating another history entry. Local retesting restored page 2 at `scrollY=3117`, Forward returned to zero, keyboard repeats added no extra entry, and modal Escape still returned focus to its trigger.
+
 The follow-up PR records the actual preview URL, reviewed commit, final hosted checks, and independent review. The local results above do not establish a production publication; the explicit production-release step remains separate.
