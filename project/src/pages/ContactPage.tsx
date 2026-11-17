@@ -39,8 +39,6 @@ const ContactPage = () => {
           <section aria-label="Find the showroom" className="self-start overflow-hidden rounded-3xl border border-purple-300/30 bg-purple-900/20 shadow-xl">
             <ResponsiveImage src="/optimized/hero-storefront-entry.jpg" alt="The entrance to Upgrade Gaming PCs on Miller Road" sizes="(min-width: 1024px) 48vw, 100vw" className="aspect-[4/3] w-full object-cover" loading="eager" />
             <div className="p-5 sm:p-6">
-              <p className="text-lg font-semibold">Come see what you’re choosing.</p>
-              <p className="mb-5 mt-2 text-sm leading-relaxed text-purple-100">Try gaming PCs in the showroom and talk through your options face to face.</p>
               <button type="button" className="studio-button-secondary w-full justify-between" aria-expanded={mapOpen} aria-controls={mapId} onClick={() => setMapOpen((open) => !open)}>
                 {mapOpen ? 'Hide location map' : 'Show location map'}<ChevronDown className={`h-4 w-4 ${mapOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
               </button>

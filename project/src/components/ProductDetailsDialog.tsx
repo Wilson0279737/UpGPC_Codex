@@ -62,7 +62,7 @@ export default function ProductDetailsDialog({ product, onClose }: { product: Li
           <a className={'pc-action ' + (product.marketplaceUrl && !sold && !reserved ? 'pc-action--outline' : 'pc-action--primary')} href={questionUrl}><Mail size={17} aria-hidden="true" />{sold || reserved ? 'Ask about similar PCs' : 'Ask about this PC'}</a>
           <a className="pc-call" href={siteConfig.phoneHref}><Phone size={15} aria-hidden="true" />{siteConfig.phone}</a>
         </div>
-        <p className="pc-detail-note">{sold ? 'This PC is sold. Its listing is shown for reference; contact the shop for a similar system.' : reserved ? 'This PC is reserved. Ask us about other options, or call to check whether its status has changed.' : 'Call to confirm availability or arrange an in-store test. Saving a PC does not reserve it.'}</p>
+        {!sold && <p className="pc-detail-note">{reserved ? 'This PC is reserved. Ask us about other options, or call to check whether its status has changed.' : 'Call to confirm availability or arrange an in-store test. Saving a PC does not reserve it.'}</p>}
       </div>
     </div>
   </dialog>;

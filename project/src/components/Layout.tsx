@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import SeoManager from './SeoManager';
+import { focusContent } from '../lib/navigation';
 
 const Layout = () => {
   const location = useLocation();
@@ -23,13 +24,17 @@ const Layout = () => {
     const changedPage = previousPath.current !== location.pathname;
     const changedAnchor = previousHash.current !== location.hash;
     const saved = positions.current.get(location.key);
+    const returnToStart = navigationType !== 'POP' && location.state?.returnToStart === true;
     const frame = requestAnimationFrame(() => {
       let target: HTMLElement | null = null;
       try { target = location.hash && !location.hash.startsWith('#pc-') ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null; } catch { /* Ignore malformed incoming anchors. */ }
       if (navigationType === 'POP' && saved) window.scrollTo({ ...saved, behavior: 'auto' });
+      else if (returnToStart) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       else if (target && (changedPage || changedAnchor)) target.scrollIntoView();
       else if (changedPage) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      if (changedPage && !target) document.getElementById('main-content')?.focus({ preventScroll: true });
+      if (returnToStart) focusContent(document.getElementById('main-content'));
+      else if (changedPage) focusContent(target || document.getElementById('main-content'));
+      else if (target && changedAnchor && navigationType !== 'POP') focusContent(target);
       previousPath.current = location.pathname;
       previousHash.current = location.hash;
     });
@@ -39,7 +44,7 @@ const Layout = () => {
     };
     window.addEventListener('scroll', remember, { passive: true });
     return () => { remember(); window.removeEventListener('scroll', remember); cancelAnimationFrame(frame); };
-  }, [location.key, location.pathname, location.hash, navigationType]);
+  }, [location.key, location.pathname, location.hash, location.state, navigationType]);
 
   useEffect(() => {
     const revealedElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));

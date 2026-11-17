@@ -1,5 +1,5 @@
 import { ArrowDown } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { soldInventory } from '../config/inventory';
 import ProductInventory from '../components/ProductInventory';
@@ -10,10 +10,22 @@ export default function ProductsPage() {
   const location = useLocation();
   const [params] = useSearchParams();
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const selectedId = params.get('pc') || (location.hash.startsWith('#pc-') ? location.hash.slice(4) : '');
+  const selectedSoldId = soldInventory.some(pc => selectedId === pc.id) ? selectedId : '';
+  const soldParameters = ['sold-q', 'sold-type', 'sold-sort', 'sold-page'].map(key => params.get(key));
+  const soldFiltersKey = JSON.stringify(soldParameters);
+  const hasSoldFilters = soldParameters.some(value => value !== null);
+  const previousArchiveIntent = useRef<{ hash: string; selectedSoldId: string; soldFiltersKey: string } | null>(null);
   useEffect(() => {
-    const selectedId = params.get('pc') || (location.hash.startsWith('#pc-') ? location.hash.slice(4) : '');
-    if (location.hash === '#sold-pcs' || soldInventory.some(pc => selectedId === pc.id) || ['sold-q', 'sold-type', 'sold-sort', 'sold-page'].some(key => params.has(key))) setArchiveOpen(true);
-  }, [location.hash, params]);
+    const previous = previousArchiveIntent.current;
+    previousArchiveIntent.current = { hash: location.hash, selectedSoldId, soldFiltersKey };
+    const newArchiveAnchor = location.hash === '#sold-pcs' && previous?.hash !== location.hash;
+    const newSoldSelection = Boolean(selectedSoldId) && previous?.selectedSoldId !== selectedSoldId;
+    const changedSoldFilters = hasSoldFilters && (!previous || previous.soldFiltersKey !== soldFiltersKey);
+    // Restore archive links and history without reopening a user-collapsed archive
+    // when only current-stock search, budget, or sorting changes.
+    if (newArchiveAnchor || newSoldSelection || changedSoldFilters) setArchiveOpen(true);
+  }, [location.hash, selectedSoldId, soldFiltersKey, hasSoldFilters]);
   return <>
     <section className="studio-page-intro studio-container">
       <span className="studio-eyebrow">The showroom, online</span>
