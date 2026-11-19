@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { directShopEnabled } from '../config/directShop';
 import { siteConfig } from '../config/site';
 
 const businessDescription =
@@ -32,6 +33,12 @@ const routeMeta: Record<
     title: 'Buy a Gaming Computer in Swartz Creek',
     description:
       'Buy a gaming computer locally at Upgrade Gaming PCs. Browse available gaming PCs and everyday desktops, compare options in person, and shop with a 90 day free warranty.',
+    image: '/optimized/hero-products-collage.jpg',
+    imageAlt: 'Gaming PCs and computer equipment at Upgrade Gaming PCs',
+  },
+  '/shop': {
+    title: 'Shop PCs and Parts Online',
+    description: 'Browse available computers and parts for online purchase from Upgrade Gaming PCs in Swartz Creek.',
     image: '/optimized/hero-products-collage.jpg',
     imageAlt: 'Gaming PCs and computer equipment at Upgrade Gaming PCs',
   },
@@ -77,7 +84,7 @@ const SeoManager = () => {
   useEffect(() => {
     const pathname = location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
     const meta = routeMeta[pathname] ?? { title: 'Page Not Found', description: 'Find your way back to Upgrade Gaming PCs.' };
-    const indexable = Boolean(routeMeta[pathname]) && pathname !== '/account';
+    const indexable = Boolean(routeMeta[pathname]) && pathname !== '/account' && (pathname !== '/shop' || directShopEnabled);
     const pageTitle = `${meta.title} | ${siteConfig.name}`;
     const pageUrl = new URL(pathname, siteConfig.siteUrl).toString();
     const imageUrl = toAbsoluteUrl(meta.image ?? siteConfig.defaultSocialImagePath);

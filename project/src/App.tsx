@@ -9,6 +9,7 @@ import ServicesPage from './pages/ServicesPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const AccountPage = lazy(() => import('./pages/AccountPage'));
+const DirectShopPage = lazy(() => import('./pages/DirectShopPage'));
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/shop" element={<Suspense fallback={<p role="status" className="studio-page studio-container">Opening the online shop…</p>}><DirectShopPage /></Suspense>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/account" element={<Suspense fallback={<p role="status" className="mx-auto max-w-6xl px-6 py-32">Opening your account…</p>}><AccountPage /></Suspense>} />
