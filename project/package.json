@@ -11,7 +11,8 @@
     "typecheck": "tsc -b",
     "test:content": "node --test tests/content.test.mjs",
     "test:auth": "node --experimental-strip-types --test tests/auth-session.test.ts",
-    "test": "node --experimental-strip-types --test tests/content.test.mjs tests/auth-session.test.ts"
+    "test:shop": "node --test tests/shop-functions.test.mjs",
+    "test": "node --experimental-strip-types --test tests/content.test.mjs tests/auth-session.test.ts tests/shop-functions.test.mjs"
   },
   "dependencies": {
     "@netlify/identity": "^2.0.1",

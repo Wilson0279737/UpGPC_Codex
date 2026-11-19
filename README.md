@@ -55,6 +55,10 @@ Production preflight on November 16 confirmed that `website3-2` already has Iden
 
 See [customer account setup and remaining checks](CUSTOMER_ACCOUNTS.md) and the owner guide. Customer profiles and saved lists belong to Identity, not to the public content repository. `npm run test:auth` checks session and profile-save behavior using isolated service doubles. The November 15 checks at `55a7349` remain historical evidence. Separate-browser persistence, provider cancellation, recovery, expired access, and removal after a saved PC leaves the public catalog remain unverified integration scenarios.
 
+## Direct shop
+
+`/shop` displays a Shopify collection and opens Shopify Checkout for the selected product. See [direct shop setup and release checks](docs/DIRECT-SHOP.md) for eBay catalog sync, Shopify, and Netlify configuration.
+
 ## Original live baseline and backup
 
 The site was backed up to Google Drive on November 2, 2026, before this workflow setup. The private dated backup is held separately from this repository and contains deployed files, editable source, restore instructions, and archive checksums.

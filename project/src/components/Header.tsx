@@ -2,10 +2,17 @@ import { Menu, Phone, X, ArrowUpRight } from 'lucide-react';
 import { type MouseEvent, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
+import { directShopEnabled } from '../config/directShop';
 import { siteConfig } from '../config/site';
 import ResponsiveImage from './ui/ResponsiveImage';
 import { usePageNavigation } from '../lib/navigation';
-const routes = [{ to: '/products', label: 'Shop PCs' }, { to: '/services', label: 'Repairs & upgrades' }, { to: '/about', label: 'Our shop' }, { to: '/contact', label: 'Visit & contact' }];
+const routes = [
+  { to: '/products', label: directShopEnabled ? 'Showroom PCs' : 'Shop PCs' },
+  ...(directShopEnabled ? [{ to: '/shop', label: 'Shop online' }] : []),
+  { to: '/services', label: 'Repairs & upgrades' },
+  { to: '/about', label: 'Our shop' },
+  { to: '/contact', label: 'Visit & contact' },
+];
 export default function Header() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
