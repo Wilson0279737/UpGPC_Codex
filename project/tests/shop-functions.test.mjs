@@ -170,6 +170,17 @@ test('checkout rejects a requested quantity that exceeds tracked inventory', asy
   assert.deepEqual(operations, ['ShopCheckoutEligibility']);
 });
 
+test('checkout does not hand off a cart when inventory changed and Shopify adjusted the cart', async (t) => {
+  setShop(t);
+  fakeShop(t, {
+    ShopCheckoutEligibility: () => eligibleVariant({ quantityAvailable: 2 }),
+    ShopCheckout: () => cart({ quantity: 1 }),
+  });
+  const response = await shopCheckout(checkoutRequest({ variantId, quantity: 2 }));
+  assert.equal(response.status, 409);
+  assert.deepEqual(await response.json(), { error: 'That quantity is no longer available.' });
+});
+
 test('checkout suppresses provider details for cart warnings and an unexpected checkout host', async (t) => {
   setShop(t);
   t.mock.method(console, 'error', () => {});
@@ -195,8 +206,10 @@ test('checkout suppresses provider details for cart warnings and an unexpected c
 
 test('unconfigured storefront returns maintenance status from both endpoints', async (t) => {
   setShop(t, { SHOPIFY_STOREFRONT_PRIVATE_TOKEN: '' });
+  const operations = fakeShop(t, {});
   const catalog = await shopCatalog(catalogRequest());
   const checkout = await shopCheckout(checkoutRequest());
   assert.equal(catalog.status, 503);
   assert.equal(checkout.status, 503);
+  assert.deepEqual(operations, []);
 });
